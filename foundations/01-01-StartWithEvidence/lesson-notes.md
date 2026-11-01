@@ -2,8 +2,8 @@
 - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [Outcome](#outcome)
 - [Demonstration](#demonstration)
-- [Follow the evidence](#follow-the-evidence)
 - [The recurring workflow](#the-recurring-workflow)
+- [Follow the evidence](#follow-the-evidence)
 - [Course destinations](#course-destinations)
 - [Demonstration version](#demonstration-version)
 - [Checkpoint](#checkpoint)
@@ -11,7 +11,11 @@
 ## Outcome
 - Distinguish `a claim`, `an observation`, and `a justified conclusion`
 - Connect a running behavior to `code`, `a check`, and `a specific revision`.
-# Demonstration
+## The recurring workflow
+- `Understand → plan → build → verify → integrate`.
+- Return to the step that needs better information when a check fails.
+- A useful loop needs a signal and a stopping condition.
+## Demonstration
 - The demonstrated starting system is
   - API
   - PostgreSQL database
@@ -27,10 +31,6 @@
 | `CI succeeds` at a commit | Those checks passed for that revision in CI | Later untested changes also pass |
 | Fresh Cloud Agent startup succeeds | That environment started the API and database on that run | Future changes cannot break startup |
 
-## The recurring workflow
-- `Understand → plan → build → verify → integrate`.
-- Return to the step that needs better information when a check fails.
-- A useful loop needs a signal and a stopping condition.
 ## Course destinations
 - **Operations Hub** is a business application with request, approval policy, tenant boundaries, background work and audit history.
 - **Evidence Desk** is a service that retrieves authorized sources and provides evidence-backed answers, with evaluations.
