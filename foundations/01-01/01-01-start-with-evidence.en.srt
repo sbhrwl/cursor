@@ -1,0 +1,831 @@
+1
+00:00:00,750 --> 00:00:02,910
+A confident answer is cheap.
+
+2
+00:00:03,550 --> 00:00:04,570
+A working change?
+
+3
+00:00:04,990 --> 00:00:05,810
+That needs evidence.
+
+4
+00:00:06,690 --> 00:00:08,630
+In this course, we're going to connect the
+
+5
+00:00:08,630 --> 00:00:11,730
+code, the test, the pull request, and the
+
+6
+00:00:11,730 --> 00:00:13,330
+machine that actually runs it.
+
+7
+00:00:13,890 --> 00:00:15,930
+And when one of those pieces disagrees with
+
+8
+00:00:15,930 --> 00:00:18,650
+the agent, well, that's where
+the engineering starts.
+
+9
+00:00:21,150 --> 00:00:22,870
+Welcome to Superposition.
+
+10
+00:00:23,670 --> 00:00:26,410
+We're building an engineering
+workflow in Cursor, from
+
+11
+00:00:26,410 --> 00:00:28,690
+the first small change, all the way to
+
+12
+00:00:28,690 --> 00:00:31,130
+a system with multiple services and agents.
+
+13
+00:00:31,850 --> 00:00:34,110
+You'll learn the features,
+sure, but the more
+
+14
+00:00:34,110 --> 00:00:36,850
+useful skill is knowing what to ask, what
+
+15
+00:00:36,850 --> 00:00:39,210
+to inspect, and when you
+have enough evidence
+
+16
+00:00:39,210 --> 00:00:39,970
+to move on.
+
+17
+00:00:42,450 --> 00:00:44,590
+By the end of this lesson, you'll be
+
+18
+00:00:44,590 --> 00:00:47,790
+able to separate three things, a claim, an
+
+19
+00:00:47,790 --> 00:00:49,510
+observation, and a conclusion.
+
+20
+00:00:50,290 --> 00:00:51,470
+That sounds a little academic.
+
+21
+00:00:51,970 --> 00:00:52,410
+It's not.
+
+22
+00:00:52,850 --> 00:00:55,410
+It's the difference between
+an agent saying, done,
+
+23
+00:00:55,790 --> 00:00:58,590
+and you knowing which
+requirement was actually met.
+
+24
+00:00:59,230 --> 00:01:00,730
+Let's start with something we can inspect.
+
+25
+00:01:03,350 --> 00:01:06,390
+This is Operations Hub,
+our starting service.
+
+26
+00:01:07,070 --> 00:01:10,390
+Right now, it's deliberately
+small, an API, a
+
+27
+00:01:10,390 --> 00:01:13,510
+database, and synthetic requests
+from two organizations.
+
+28
+00:01:14,330 --> 00:01:16,630
+You're looking at real data returned by the
+
+29
+00:01:16,630 --> 00:01:17,290
+running service.
+
+30
+00:01:17,850 --> 00:01:19,890
+This is the foundation we will grow during
+
+31
+00:01:19,890 --> 00:01:22,770
+the course, not a finished
+application hiding behind
+
+32
+00:01:22,770 --> 00:01:23,450
+a demo screen.
+
+33
+00:01:25,917 --> 00:01:29,017
+Notice the title, the
+status, and the organization
+
+34
+00:01:29,017 --> 00:01:30,877
+identifier on each request.
+
+35
+00:01:31,517 --> 00:01:33,997
+A laptop approval belongs
+to one organization.
+
+36
+00:01:34,557 --> 00:01:36,497
+A training request belongs to another.
+
+37
+00:01:37,377 --> 00:01:40,677
+Later, that organization boundary
+becomes a serious design
+
+38
+00:01:40,677 --> 00:01:41,197
+constraint.
+
+39
+00:01:41,817 --> 00:01:43,977
+A user from one company must not be
+
+40
+00:01:43,977 --> 00:01:45,897
+able to read another company's requests.
+
+41
+00:01:48,483 --> 00:01:50,743
+And here's our first useful distinction.
+
+42
+00:01:51,383 --> 00:01:54,303
+Seeing two different organization
+identifiers does not prove
+
+43
+00:01:54,303 --> 00:01:57,283
+that access is isolated,
+it only proves those
+
+44
+00:01:57,283 --> 00:01:59,063
+values came back in this response.
+
+45
+00:01:59,703 --> 00:02:03,563
+To establish isolation we'll need
+identities, server-side permission
+
+46
+00:02:03,563 --> 00:02:06,623
+checks, and tests that
+attempt access across the
+
+47
+00:02:06,623 --> 00:02:06,943
+boundary.
+
+48
+00:02:07,483 --> 00:02:09,883
+The conclusion has to
+stay inside the evidence.
+
+49
+00:02:12,250 --> 00:02:14,150
+Now look at the health endpoint.
+
+50
+00:02:14,850 --> 00:02:17,350
+The service reports that
+its database is connected.
+
+51
+00:02:18,070 --> 00:02:20,710
+In this baseline, the
+handler actually sends a
+
+52
+00:02:20,710 --> 00:02:24,190
+small query to PostgreSQL
+before returning success.
+
+53
+00:02:24,930 --> 00:02:27,690
+That's more informative than
+a hardcoded green light,
+
+54
+00:02:28,090 --> 00:02:29,930
+but it still doesn't tell us whether a
+
+55
+00:02:29,930 --> 00:02:32,010
+manager can approve a request correctly.
+
+56
+00:02:34,583 --> 00:02:37,103
+Let's connect that response to the code.
+
+57
+00:02:37,763 --> 00:02:40,603
+Here's the route, here's
+the database query, and
+
+58
+00:02:40,603 --> 00:02:42,183
+here's the response it constructs.
+
+59
+00:02:42,943 --> 00:02:45,343
+You don't need to memorize every symbol yet.
+
+60
+00:02:46,083 --> 00:02:47,223
+Follow the cause and effect.
+
+61
+00:02:47,743 --> 00:02:49,983
+An incoming request selects a handler.
+
+62
+00:02:50,503 --> 00:02:53,003
+The handler talks to a dependency, and the
+
+63
+00:02:53,003 --> 00:02:54,023
+caller gets a result.
+
+64
+00:02:56,583 --> 00:02:59,323
+Cursor gives an agent tools to search, edit,
+
+65
+00:02:59,823 --> 00:03:01,463
+and run commands around a model.
+
+66
+00:03:01,903 --> 00:03:04,043
+That makes it powerful enough to do useful
+
+67
+00:03:04,043 --> 00:03:06,623
+work, and powerful enough
+to make a plausible
+
+68
+00:03:06,623 --> 00:03:07,163
+mistake.
+
+69
+00:03:07,743 --> 00:03:09,223
+Our job is to give it a clear
+
+70
+00:03:09,223 --> 00:03:12,403
+objective, relevant
+context, and a way to check
+
+71
+00:03:12,403 --> 00:03:12,963
+the result.
+
+72
+00:03:13,503 --> 00:03:14,923
+Then we inspect what happened.
+
+73
+00:03:17,250 --> 00:03:20,330
+Here's a database integration
+test from our baseline.
+
+74
+00:03:21,070 --> 00:03:23,830
+It writes a synthetic record
+inside a transaction,
+
+75
+00:03:24,110 --> 00:03:26,890
+rolls the transaction
+back, and checks that the
+
+76
+00:03:26,890 --> 00:03:27,790
+record is absent.
+
+77
+00:03:28,470 --> 00:03:29,090
+Watch the result.
+
+78
+00:03:29,670 --> 00:03:31,990
+When that passes, we have evidence for the
+
+79
+00:03:31,990 --> 00:03:33,490
+behavior this test exercises.
+
+80
+00:03:34,230 --> 00:03:36,530
+We do not suddenly have evidence for every
+
+81
+00:03:36,530 --> 00:03:37,750
+feature we plan to build.
+
+82
+00:03:40,217 --> 00:03:43,437
+The same repository also has a real GitHub
+
+83
+00:03:43,437 --> 00:03:44,237
+actions run.
+
+84
+00:03:44,897 --> 00:03:48,357
+The workflow installs the locked
+dependencies, initializes a
+
+85
+00:03:48,357 --> 00:03:51,337
+fresh database, checks the
+TypeScript, and runs the
+
+86
+00:03:51,337 --> 00:03:52,177
+integration test.
+
+87
+00:03:52,957 --> 00:03:54,937
+Running away from this desktop matters.
+
+88
+00:03:55,577 --> 00:03:57,317
+It gives us a chance to catch assumptions
+
+89
+00:03:57,317 --> 00:03:59,157
+that only happen to be true on the
+
+90
+00:03:59,157 --> 00:04:00,457
+machine where we wrote the code.
+
+91
+00:04:02,950 --> 00:04:05,510
+There's a detail here that's easy to skip.
+
+92
+00:04:06,150 --> 00:04:09,450
+The commit.a passing check
+belongs to a particular
+
+93
+00:04:09,450 --> 00:04:10,510
+version of the code.
+
+94
+00:04:11,130 --> 00:04:13,050
+If I change the code after that run,
+
+95
+00:04:13,550 --> 00:04:16,150
+the old green badge doesn't verify the new
+
+96
+00:04:16,150 --> 00:04:16,490
+change.
+
+97
+00:04:17,130 --> 00:04:19,370
+So we'll keep connecting our evidence to the
+
+98
+00:04:19,370 --> 00:04:20,710
+version it actually tested.
+
+99
+00:04:21,650 --> 00:04:22,230
+Tiny habit,
+
+100
+00:04:22,950 --> 00:04:24,190
+huge reduction in confusion.
+
+101
+00:04:26,817 --> 00:04:30,197
+This pull request added our
+Cloud startup configuration.
+
+102
+00:04:30,837 --> 00:04:32,937
+Look at the files changed
+rather than trusting
+
+103
+00:04:32,937 --> 00:04:33,437
+the title.
+
+104
+00:04:34,177 --> 00:04:36,957
+The configuration points to
+an installation script and
+
+105
+00:04:36,957 --> 00:04:37,817
+a startup script.
+
+106
+00:04:38,497 --> 00:04:40,677
+The startup script brings
+up the database and
+
+107
+00:04:40,677 --> 00:04:41,177
+the API.
+
+108
+00:04:42,017 --> 00:04:44,817
+We can inspect those
+responsibilities before we accept
+
+109
+00:04:44,817 --> 00:04:46,157
+the change into the main branch.
+
+110
+00:04:48,683 --> 00:04:50,923
+During setup, we found a real problem in
+
+111
+00:04:50,923 --> 00:04:51,903
+the final health check.
+
+112
+00:04:52,583 --> 00:04:55,503
+If the API failed to become healthy, the
+
+113
+00:04:55,503 --> 00:04:57,863
+script printed a warning and continued to a
+
+114
+00:04:57,863 --> 00:04:58,483
+ready message.
+
+115
+00:04:59,203 --> 00:05:00,883
+That's a success-shaped failure.
+
+116
+00:05:01,543 --> 00:05:03,943
+The correction makes that
+path return an error.
+
+117
+00:05:04,583 --> 00:05:06,223
+We'll keep coming back to this idea.
+
+118
+00:05:07,083 --> 00:05:08,943
+Failure needs to stay visible to the system
+
+119
+00:05:08,943 --> 00:05:09,923
+coordinating the work.
+
+120
+00:05:12,217 --> 00:05:13,717
+And here's the follow through.
+
+121
+00:05:14,177 --> 00:05:16,637
+A normal cloud agent run on the merged
+
+122
+00:05:16,637 --> 00:05:17,077
+version.
+
+123
+00:05:17,677 --> 00:05:19,897
+Its job was only to inspect startup.
+
+124
+00:05:20,377 --> 00:05:23,657
+No manual installation, no
+manual service launch, and
+
+125
+00:05:23,657 --> 00:05:24,577
+no code edits.
+
+126
+00:05:25,297 --> 00:05:27,937
+The API responded, the
+demo data was available,
+
+127
+00:05:28,337 --> 00:05:30,437
+and PostgreSQL was accepting connections.
+
+128
+00:05:31,097 --> 00:05:32,957
+The startup status was successful too.
+
+129
+00:05:35,350 --> 00:05:38,130
+That tells us this starting
+environment worked on
+
+130
+00:05:38,130 --> 00:05:38,570
+this run.
+
+131
+00:05:39,170 --> 00:05:41,310
+It doesn't promise that
+every future change will
+
+132
+00:05:41,310 --> 00:05:41,570
+work.
+
+133
+00:05:42,110 --> 00:05:45,650
+A Cloud machine needs dependencies,
+configuration, and running
+
+134
+00:05:45,650 --> 00:05:47,570
+services, just like your laptop does.
+
+135
+00:05:48,370 --> 00:05:51,090
+Later, we'll deliberately
+break startup and learn to
+
+136
+00:05:51,090 --> 00:05:51,810
+diagnose it.
+
+137
+00:05:52,230 --> 00:05:54,590
+For now, notice that we're
+checking the machine
+
+138
+00:05:54,590 --> 00:05:55,670
+as well as the code.
+
+139
+00:05:58,017 --> 00:06:00,637
+We'll grow three connected projects.
+
+140
+00:06:01,377 --> 00:06:04,317
+Operations Hub becomes a business
+application for requests
+
+141
+00:06:04,317 --> 00:06:04,997
+and approvals.
+
+142
+00:06:05,797 --> 00:06:08,477
+Evidence Desk becomes a
+service that answers questions
+
+143
+00:06:08,477 --> 00:06:10,097
+using authorized sources.
+
+144
+00:06:11,057 --> 00:06:13,857
+Engineering Control Plane becomes
+a system for coordinating
+
+145
+00:06:13,857 --> 00:06:14,897
+engineering work.
+
+146
+00:06:15,517 --> 00:06:16,397
+Those are the destinations.
+
+147
+00:06:17,177 --> 00:06:19,357
+We'll build and verify
+the capabilities step by
+
+148
+00:06:19,357 --> 00:06:22,557
+step rather than pretending the
+starting repositories already
+
+149
+00:06:22,557 --> 00:06:23,237
+contain them.
+
+150
+00:06:25,483 --> 00:06:29,703
+The complexity will come from
+the behavior—permissions, state
+
+151
+00:06:29,703 --> 00:06:33,823
+transitions, background work,
+failures, and changes that cross
+
+152
+00:06:33,823 --> 00:06:34,863
+a service boundary.
+
+153
+00:06:35,523 --> 00:06:38,423
+Adding more agents won't
+automatically make those problems
+
+154
+00:06:38,423 --> 00:06:38,943
+easier.
+
+155
+00:06:39,643 --> 00:06:42,123
+Sometimes the best design is one agent with
+
+156
+00:06:42,123 --> 00:06:43,163
+a focused task.
+
+157
+00:06:43,763 --> 00:06:45,343
+Sometimes parallel work helps.
+
+158
+00:06:45,783 --> 00:06:48,443
+We'll make that decision from
+dependencies and measured
+
+159
+00:06:48,443 --> 00:06:48,843
+results.
+
+160
+00:06:51,250 --> 00:06:54,290
+Our recurring workflow is
+simple enough to remember.
+
+161
+00:06:55,390 --> 00:06:57,490
+Understand the request, make a plan that can
+
+162
+00:06:57,490 --> 00:07:01,210
+be checked, build a
+bounded change, verify the
+
+163
+00:07:01,210 --> 00:07:04,290
+behavior and inspect the
+diff, then integrate it.
+
+164
+00:07:04,810 --> 00:07:06,990
+If a check fails, return to the step
+
+165
+00:07:06,990 --> 00:07:08,210
+that needs better information.
+
+166
+00:07:08,990 --> 00:07:11,150
+A loop without a useful check is just
+
+167
+00:07:11,150 --> 00:07:12,690
+repetition with a bigger bill.
+
+168
+00:07:15,183 --> 00:07:17,843
+Your first checkpoint is a judgment call.
+
+169
+00:07:18,463 --> 00:07:21,243
+An agent says, the approval
+feature is complete.
+
+170
+00:07:21,723 --> 00:07:23,923
+The server starts and the page looks right.
+
+171
+00:07:24,683 --> 00:07:27,383
+Pause here, write down
+two things that evidence
+
+172
+00:07:27,383 --> 00:07:30,243
+supports and two things
+it does not establish.
+
+173
+00:07:30,843 --> 00:07:33,403
+Then choose one additional
+check that would reduce
+
+174
+00:07:33,403 --> 00:07:34,943
+the most important uncertainty.
+
+175
+00:07:42,350 --> 00:07:44,830
+It supports that the server started in that
+
+176
+00:07:44,830 --> 00:07:47,370
+environment and that the
+observed page rendered.
+
+177
+00:07:47,990 --> 00:07:50,550
+It doesn't establish that
+approval permissions are enforced
+
+178
+00:07:50,550 --> 00:07:53,290
+or that an approved request
+is saved correctly.
+
+179
+00:07:53,930 --> 00:07:56,150
+A useful next check could
+attempt an approval
+
+180
+00:07:56,150 --> 00:07:58,930
+as a user who lacks permission, then inspect
+
+181
+00:07:58,930 --> 00:08:01,030
+both the response and the stored state.
+
+182
+00:08:01,590 --> 00:08:03,310
+The best check depends on the requirement.
+
+183
+00:08:05,883 --> 00:08:07,783
+That's the working
+agreement for this course.
+
+184
+00:08:08,523 --> 00:08:10,883
+We can use AI to move quickly while
+
+185
+00:08:10,883 --> 00:08:12,723
+staying precise about what we know.
+
+186
+00:08:13,243 --> 00:08:15,863
+Follow the request into
+the system, connect checks
+
+187
+00:08:15,863 --> 00:08:18,463
+to a specific version,
+and keep the conclusion
+
+188
+00:08:18,463 --> 00:08:19,763
+no bigger than the evidence.
+
+189
+00:08:20,643 --> 00:08:24,463
+Next, we'll unpack the
+model, context, tools, and
+
+190
+00:08:24,463 --> 00:08:26,783
+runtime so you know which part to fix
+
+191
+00:08:26,783 --> 00:08:28,043
+when an agent gets stuck.

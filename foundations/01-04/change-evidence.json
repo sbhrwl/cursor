@@ -1,0 +1,80 @@
+{
+  "observed_at": "2026-09-06",
+  "recording": "capture/verify-runtime.mp4",
+  "typecheck": "passed",
+  "tests": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "skipped": 0
+  },
+  "before_restart": {
+    "POST /health": 200
+  },
+  "restart": {
+    "helper": "/workspace/cursor-course/bin/restart-operations",
+    "result": "Operations Hub restarted; GET /health is healthy."
+  },
+  "after_restart": {
+    "POST /health": {
+      "status": 405,
+      "allow": "GET, HEAD",
+      "body": {
+        "error": "method_not_allowed"
+      }
+    },
+    "HEAD /health": {
+      "status": 200,
+      "note": "curl -I displays response headers; no-body behavior also asserted by HTTP tests."
+    },
+    "GET /health": {
+      "status": 200,
+      "database": "connected",
+      "stage": "environment-baseline"
+    },
+    "GET /demo/requests": {
+      "rows": 2,
+      "synthetic_tenants": [
+        "demo-acme",
+        "demo-northwind"
+      ]
+    }
+  },
+  "visual_review": "Inspected seven source frames at each recorded beat plus20seconds. All expected commands and outcomes visible. No human full-speed playback claimed.",
+  "base_revision": "b3b306ab7bd13091db4780ca5e853f7727be67af",
+  "change_revision": "57cee18a2e474d32164df0fb24316a833ba3fbb4",
+  "merge_revision": "b6747c5f38b8c1c540e808b173fef6814ecf3280",
+  "pull_request": {
+    "headRefOid": "57cee18a2e474d32164df0fb24316a833ba3fbb4",
+    "mergeCommit": {
+      "oid": "b6747c5f38b8c1c540e808b173fef6814ecf3280"
+    },
+    "mergedAt": "2026-09-06T20:39:27Z",
+    "number": 2,
+    "state": "MERGED",
+    "url": "https://github.com/OrMizrahi12/superposition-cursor-operations-hub/pull/2"
+  },
+  "pull_request_ci": {
+    "conclusion": "success",
+    "event": "pull_request",
+    "headSha": "57cee18a2e474d32164df0fb24316a833ba3fbb4",
+    "url": "https://github.com/OrMizrahi12/superposition-cursor-operations-hub/actions/runs/34058442360"
+  },
+  "main_ci": [
+    {
+      "conclusion": "success",
+      "databaseId": 34058672987,
+      "event": "push",
+      "headSha": "b6747c5f38b8c1c540e808b173fef6814ecf3280",
+      "status": "completed",
+      "url": "https://github.com/OrMizrahi12/superposition-cursor-operations-hub/actions/runs/34058672987"
+    }
+  ],
+  "local_main_clean": true,
+  "merge_tree_matches_reviewed_change": true,
+  "remaining_limits": [
+    "Controlled HTTP tests do not establish every database or deployment failure mode.",
+    "Runtime capture is for the isolated course service, not a production deployment.",
+    "The approval feature remains future course work."
+  ]
+}

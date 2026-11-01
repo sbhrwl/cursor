@@ -1,0 +1,74 @@
+[
+  {
+    "start": 0.0,
+    "title": "Can you find the next useful check?"
+  },
+  {
+    "start": 26.733333333333334,
+    "title": "Build an evidence trail"
+  },
+  {
+    "start": 52.333333333333336,
+    "title": "Identify the repository state"
+  },
+  {
+    "start": 76.26666666666667,
+    "title": "Find the behavior in Cursor"
+  },
+  {
+    "start": 100.03333333333333,
+    "title": "Connect code to a test"
+  },
+  {
+    "start": 123.4,
+    "title": "Run one focused check"
+  },
+  {
+    "start": 146.3,
+    "title": "Inspect the running service"
+  },
+  {
+    "start": 173.76666666666668,
+    "title": "Write the smallest useful report"
+  },
+  {
+    "start": 204.56666666666666,
+    "title": "Case one: a confident completion message"
+  },
+  {
+    "start": 233.76666666666668,
+    "title": "Case one: inspect the supporting evidence"
+  },
+  {
+    "start": 256.56666666666666,
+    "title": "Case two: red before the assertion"
+  },
+  {
+    "start": 285.3,
+    "title": "Case three: a changed checkout and an old process"
+  },
+  {
+    "start": 311.4,
+    "title": "Case four: CI for a different revision"
+  },
+  {
+    "start": 337.3333333333333,
+    "title": "Turn gaps into a practice plan"
+  },
+  {
+    "start": 362.23333333333335,
+    "title": "Practice AI collaboration and integration"
+  },
+  {
+    "start": 393.3,
+    "title": "Complete the hands-on transfer"
+  },
+  {
+    "start": 415.8666666666667,
+    "title": "Judge the artifact, not the confidence"
+  },
+  {
+    "start": 442.8333333333333,
+    "title": "Bring one concrete goal to the next module"
+  }
+]

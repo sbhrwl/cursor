@@ -1,0 +1,1258 @@
+1
+00:00:00,750 --> 00:00:04,470
+Seven green tests, a
+running service that still
+
+2
+00:00:04,470 --> 00:00:05,990
+gives us the old answer.
+
+3
+00:00:06,590 --> 00:00:08,690
+Both can be true, and we're about to
+
+4
+00:00:08,690 --> 00:00:10,010
+see exactly why.
+
+5
+00:00:10,730 --> 00:00:12,790
+Today, we'll take a small change through the
+
+6
+00:00:12,790 --> 00:00:15,870
+whole engineering loop using
+cursor, from the first
+
+7
+00:00:15,870 --> 00:00:18,370
+observation to a reviewed
+revision in GitHub.
+
+8
+00:00:19,130 --> 00:00:20,310
+The endpoint is small.
+
+9
+00:00:21,010 --> 00:00:23,110
+The habits are the ones we'll need when
+
+10
+00:00:23,110 --> 00:00:24,630
+the projects get much bigger.
+
+11
+00:00:27,083 --> 00:00:30,383
+In this lesson, we'll take one small API
+
+12
+00:00:30,383 --> 00:00:33,223
+requirement through a
+complete engineering loop.
+
+13
+00:00:34,523 --> 00:00:37,743
+Understand, plan, build, verify, integrate.
+
+14
+00:00:38,483 --> 00:00:39,643
+Those names aren't magic.
+
+15
+00:00:40,223 --> 00:00:42,363
+The useful part is what each stage leaves
+
+16
+00:00:42,363 --> 00:00:42,883
+behind.
+
+17
+00:00:43,383 --> 00:00:47,443
+An observation, a decision,
+a change, evidence, and
+
+18
+00:00:47,443 --> 00:00:49,123
+a revision we can identify later.
+
+19
+00:00:49,823 --> 00:00:51,983
+A bounded task lets us see the whole
+
+20
+00:00:51,983 --> 00:00:52,943
+process clearly.
+
+21
+00:00:55,483 --> 00:00:57,343
+Think of the loop as a set of
+
+22
+00:00:57,343 --> 00:00:58,403
+useful questions.
+
+23
+00:00:59,023 --> 00:00:59,963
+What happens today?
+
+24
+00:01:00,563 --> 00:01:01,823
+What should happen instead?
+
+25
+00:01:02,583 --> 00:01:04,883
+What's the smallest change
+that gets us there?
+
+26
+00:01:05,463 --> 00:01:07,183
+How could we catch ourselves being wrong?
+
+27
+00:01:07,823 --> 00:01:10,143
+And which exact revision are we accepting?
+
+28
+00:01:10,823 --> 00:01:12,823
+A surprising answer sends us back to the
+
+29
+00:01:12,823 --> 00:01:13,583
+relevant question.
+
+30
+00:01:14,163 --> 00:01:15,983
+It doesn't mean the workflow failed.
+
+31
+00:01:16,603 --> 00:01:18,263
+That's the workflow doing its job.
+
+32
+00:01:20,783 --> 00:01:23,583
+Here's our actual operations hub service.
+
+33
+00:01:24,303 --> 00:01:26,583
+First, a normal request
+to the health endpoint.
+
+34
+00:01:27,203 --> 00:01:29,403
+The command shows the
+response headers as well
+
+35
+00:01:29,403 --> 00:01:29,963
+as the body.
+
+36
+00:01:30,583 --> 00:01:34,023
+We get status 200, a connected database, and
+
+37
+00:01:34,023 --> 00:01:36,163
+the existing environment baseline metadata.
+
+38
+00:01:36,923 --> 00:01:39,583
+This establishes that the
+current process can answer
+
+39
+00:01:39,583 --> 00:01:40,103
+the request.
+
+40
+00:01:40,643 --> 00:01:42,863
+It doesn't establish every
+behavior that a health
+
+41
+00:01:42,863 --> 00:01:43,883
+endpoint might need.
+
+42
+00:01:46,150 --> 00:01:48,410
+Now, we send a POST request to the
+
+43
+00:01:48,410 --> 00:01:49,130
+same endpoint.
+
+44
+00:01:49,750 --> 00:01:51,230
+Look at that, 200 again.
+
+45
+00:01:51,930 --> 00:01:54,970
+The current handler checks
+the URL, but doesn't
+
+46
+00:01:54,970 --> 00:01:56,430
+distinguish the request method.
+
+47
+00:01:57,090 --> 00:02:00,230
+We're going to introduce an
+explicit contract, health
+
+48
+00:02:00,230 --> 00:02:03,710
+supports get and head, and
+rejects other recognized
+
+49
+00:02:03,710 --> 00:02:04,250
+methods.
+
+50
+00:02:04,870 --> 00:02:06,530
+We're choosing new interface behavior.
+
+51
+00:02:06,530 --> 00:02:10,870
+The original response alone
+doesn't establish a security
+
+52
+00:02:10,870 --> 00:02:11,270
+bug.
+
+53
+00:02:13,683 --> 00:02:16,543
+The brief makes the
+important details visible.
+
+54
+00:02:17,223 --> 00:02:18,943
+A healthy GET stays successful.
+
+55
+00:02:19,743 --> 00:02:21,983
+HEAD checks HEALTH too,
+but sends no response
+
+56
+00:02:21,983 --> 00:02:22,383
+body.
+
+57
+00:02:23,083 --> 00:02:26,523
+A failed database probe still
+produces service unavailable.
+
+58
+00:02:27,403 --> 00:02:30,783
+An unsupported method produces
+method not allowed, with
+
+59
+00:02:30,783 --> 00:02:32,803
+an allow header listing GET and HEAD.
+
+60
+00:02:33,703 --> 00:02:36,383
+Reject that method before
+querying the database.
+
+61
+00:02:36,943 --> 00:02:39,123
+The rejection should work
+even when the database
+
+62
+00:02:39,123 --> 00:02:39,663
+is down.
+
+63
+00:02:42,083 --> 00:02:43,903
+Notice the scope boundary.
+
+64
+00:02:44,583 --> 00:02:47,303
+We're preserving the demo
+listing and the unknown
+
+65
+00:02:47,303 --> 00:02:48,143
+path response.
+
+66
+00:02:48,763 --> 00:02:50,783
+We're not adding the
+approval feature from the
+
+67
+00:02:50,783 --> 00:02:54,183
+previous lesson, introducing
+authentication or moving to a
+
+68
+00:02:54,183 --> 00:02:54,683
+new framework.
+
+69
+00:02:55,483 --> 00:02:58,263
+A small task can quietly become a renovation
+
+70
+00:02:58,263 --> 00:03:00,523
+project if nobody draws that line.
+
+71
+00:03:01,003 --> 00:03:03,123
+Our plan needs enough structure to test this
+
+72
+00:03:03,123 --> 00:03:06,143
+behavior, and a reason
+for any extra structure
+
+73
+00:03:06,143 --> 00:03:06,743
+it introduces.
+
+74
+00:03:09,217 --> 00:03:12,057
+I ask cursor to inspect the repository and
+
+75
+00:03:12,057 --> 00:03:13,837
+the contract before changing anything.
+
+76
+00:03:14,517 --> 00:03:16,697
+The request asks for a short plan and
+
+77
+00:03:16,697 --> 00:03:18,177
+an explanation of the test seam.
+
+78
+00:03:18,857 --> 00:03:20,677
+That's simply the place where a test can
+
+79
+00:03:20,677 --> 00:03:23,697
+substitute a controlled
+dependency, such as a database
+
+80
+00:03:23,697 --> 00:03:24,437
+query function.
+
+81
+00:03:25,177 --> 00:03:27,937
+We want to observe the real HTTP response
+
+82
+00:03:27,937 --> 00:03:31,057
+while choosing whether that
+dependency succeeds or fails.
+
+83
+00:03:33,617 --> 00:03:36,677
+Our first planning request
+hits a connection error
+
+84
+00:03:36,677 --> 00:03:37,757
+from the model provider.
+
+85
+00:03:38,317 --> 00:03:40,037
+No implementation has happened here.
+
+86
+00:03:40,677 --> 00:03:43,217
+Changing application code
+would be a strange response
+
+87
+00:03:43,217 --> 00:03:44,017
+to that evidence.
+
+88
+00:03:44,657 --> 00:03:47,197
+I keep the requirement intact and retry the
+
+89
+00:03:47,197 --> 00:03:47,537
+request.
+
+90
+00:03:48,257 --> 00:03:50,717
+This is why the earlier
+distinction between model,
+
+91
+00:03:51,057 --> 00:03:53,377
+context, tools, and runtime matters.
+
+92
+00:03:54,017 --> 00:03:56,717
+First locate the failure,
+then choose an action
+
+93
+00:03:56,717 --> 00:03:58,217
+that could actually address it.
+
+94
+00:04:00,583 --> 00:04:04,383
+The retry produces a
+concrete plan, extract a
+
+95
+00:04:04,383 --> 00:04:06,943
+request handler, supply a health probe and a
+
+96
+00:04:06,943 --> 00:04:09,743
+demo listing function, and
+test through an actual
+
+97
+00:04:09,743 --> 00:04:11,143
+HTTP server.
+
+98
+00:04:12,103 --> 00:04:16,243
+Production keeps using PostgreSQL.tests,
+can use controlled substitutes.
+
+99
+00:04:16,983 --> 00:04:19,243
+I also catch a small sequencing problem in
+
+100
+00:04:19,243 --> 00:04:20,003
+the written response.
+
+101
+00:04:20,463 --> 00:04:23,183
+The original behavior must
+be captured before the
+
+102
+00:04:23,183 --> 00:04:23,443
+edit.
+
+103
+00:04:24,163 --> 00:04:25,363
+We already did that.
+
+104
+00:04:26,003 --> 00:04:26,683
+Read the plan.
+
+105
+00:04:26,683 --> 00:04:28,583
+Don't just admire its formatting.
+
+106
+00:04:31,150 --> 00:04:33,590
+The server in these tests listens on port
+
+107
+00:04:33,590 --> 00:04:34,110
+0.
+
+108
+00:04:34,510 --> 00:04:37,010
+That asks the operating
+system for an available
+
+109
+00:04:37,010 --> 00:04:39,310
+port, which the test then reads back.
+
+110
+00:04:39,890 --> 00:04:42,630
+It doesn't compete with
+our development service on
+
+111
+00:04:42,630 --> 00:04:43,750
+port 3100.
+
+112
+00:04:44,390 --> 00:04:45,810
+This is a useful boundary.
+
+113
+00:04:46,650 --> 00:04:50,690
+Real request and response handling
+controlled database behavior.
+
+114
+00:04:51,230 --> 00:04:54,150
+The separate database test
+remains responsible for the
+
+115
+00:04:54,150 --> 00:04:56,610
+real database interaction
+it actually checks.
+
+116
+00:04:59,017 --> 00:05:01,457
+Now I hand cursor the implementation task on
+
+117
+00:05:01,457 --> 00:05:02,777
+a dedicated lesson branch.
+
+118
+00:05:03,317 --> 00:05:06,057
+The original baseline is
+already recorded, and the
+
+119
+00:05:06,057 --> 00:05:07,917
+behavior contract stays the same.
+
+120
+00:05:08,457 --> 00:05:10,437
+The agent can edit and run the relevant
+
+121
+00:05:10,437 --> 00:05:10,797
+checks.
+
+122
+00:05:11,377 --> 00:05:13,877
+We leave committing and
+restarting the service for
+
+123
+00:05:13,877 --> 00:05:14,657
+the review stage.
+
+124
+00:05:15,077 --> 00:05:17,377
+That gives us a clean opportunity to compare
+
+125
+00:05:17,377 --> 00:05:19,297
+what changed with what we asked for.
+
+126
+00:05:21,517 --> 00:05:24,137
+Here's the important production change.
+
+127
+00:05:24,877 --> 00:05:29,177
+The health branch rejects
+unsupported methods and returns
+
+128
+00:05:29,177 --> 00:05:29,957
+immediately.
+
+129
+00:05:30,657 --> 00:05:33,417
+Only get and head reach the health probe.
+
+130
+00:05:34,277 --> 00:05:35,957
+The early return matters.
+
+131
+00:05:36,657 --> 00:05:40,057
+Setting a status code
+without stopping this path
+
+132
+00:05:40,057 --> 00:05:42,897
+would still allow later work to run.
+
+133
+00:05:43,577 --> 00:05:47,037
+The success and failure
+branches also handle head
+
+134
+00:05:47,037 --> 00:05:48,617
+without a response body.
+
+135
+00:05:48,617 --> 00:05:53,317
+We can inspect those
+decisions directly in the
+
+136
+00:05:53,317 --> 00:05:53,537
+diff.
+
+137
+00:05:56,083 --> 00:05:59,003
+The rejection test sends
+several methods through the
+
+138
+00:05:59,003 --> 00:06:00,263
+HTTP server.
+
+139
+00:06:00,683 --> 00:06:02,963
+It checks the response
+status, the allow header,
+
+140
+00:06:03,263 --> 00:06:03,983
+and the error body.
+
+141
+00:06:04,643 --> 00:06:06,343
+Then it checks that the probe call count
+
+142
+00:06:06,343 --> 00:06:07,163
+stayed at zero.
+
+143
+00:06:07,743 --> 00:06:10,123
+That's an observable acceptance
+condition from our brief.
+
+144
+00:06:10,823 --> 00:06:12,823
+A test that merely checked whether a helper
+
+145
+00:06:12,823 --> 00:06:14,923
+existed would miss the reason we made this
+
+146
+00:06:14,923 --> 00:06:15,943
+change in the first place.
+
+147
+00:06:18,417 --> 00:06:22,837
+Cursor's first implementation
+reports six passing tests and
+
+148
+00:06:22,837 --> 00:06:23,997
+a successful type check.
+
+149
+00:06:24,477 --> 00:06:25,157
+That's encouraging.
+
+150
+00:06:25,877 --> 00:06:27,917
+It also states something very useful.
+
+151
+00:06:28,457 --> 00:06:30,717
+The service on our development port is still
+
+152
+00:06:30,717 --> 00:06:33,517
+running the old code, so we have evidence
+
+153
+00:06:33,517 --> 00:06:35,917
+for the changed test target and we still
+
+154
+00:06:35,917 --> 00:06:37,697
+owe ourselves a runtime recheck.
+
+155
+00:06:38,097 --> 00:06:41,677
+A careful completion report
+makes that distinction explicit.
+
+156
+00:06:44,117 --> 00:06:47,017
+During review, I ask for
+three focused improvements.
+
+157
+00:06:47,717 --> 00:06:50,317
+Give test requests a timeout, so a future
+
+158
+00:06:50,317 --> 00:06:52,097
+missing response fails clearly.
+
+159
+00:06:52,817 --> 00:06:55,637
+Add options to the
+rejected method cases, and
+
+160
+00:06:55,637 --> 00:06:57,877
+check that a failed demo
+listing still returns
+
+161
+00:06:57,877 --> 00:07:00,417
+service unavailable after
+the handler extraction.
+
+162
+00:07:01,177 --> 00:07:03,437
+These checks strengthen our
+evidence around the changed
+
+163
+00:07:03,437 --> 00:07:03,857
+code.
+
+164
+00:07:03,857 --> 00:07:06,157
+The production scope stays the same.
+
+165
+00:07:08,450 --> 00:07:11,050
+After the review changes,
+I run type checking
+
+166
+00:07:11,050 --> 00:07:13,270
+and the complete test command in the cursor
+
+167
+00:07:13,270 --> 00:07:13,790
+terminal.
+
+168
+00:07:14,790 --> 00:07:17,370
+Seven tests pass with zero failures.
+
+169
+00:07:18,170 --> 00:07:20,930
+The list includes the existing
+database rollback test,
+
+170
+00:07:21,330 --> 00:07:24,570
+the health response cases,
+rejected methods, and the
+
+171
+00:07:24,570 --> 00:07:25,770
+preserved demo behavior.
+
+172
+00:07:26,650 --> 00:07:28,450
+These are the results of this command on
+
+173
+00:07:28,450 --> 00:07:29,290
+this working tree.
+
+174
+00:07:29,590 --> 00:07:31,270
+We still need to connect that evidence to
+
+175
+00:07:31,270 --> 00:07:32,130
+the running process.
+
+176
+00:07:34,550 --> 00:07:37,710
+Here's the trap in plain sight tests pass
+
+177
+00:07:37,710 --> 00:07:40,250
+but this post request to
+the development service
+
+178
+00:07:40,250 --> 00:07:44,170
+still returns 200 The
+source file changed the
+
+179
+00:07:44,170 --> 00:07:47,690
+long-running process didn't
+reload it before rewriting a
+
+180
+00:07:47,690 --> 00:07:50,890
+working handler Check which
+process answered your request
+
+181
+00:07:50,890 --> 00:07:53,710
+code on disk and code already loaded into
+
+182
+00:07:53,710 --> 00:07:55,590
+memory can tell two different stories
+
+183
+00:07:58,083 --> 00:08:00,443
+I restart Operations Hub
+with the course environment
+
+184
+00:08:00,443 --> 00:08:00,883
+helper.
+
+185
+00:08:01,503 --> 00:08:03,583
+This is our setup script, not a built-in
+
+186
+00:08:03,583 --> 00:08:04,203
+cursor feature.
+
+187
+00:08:04,843 --> 00:08:07,763
+It stops the previous
+service process, starts the
+
+188
+00:08:07,763 --> 00:08:11,023
+application again with its
+existing private environment, and
+
+189
+00:08:11,023 --> 00:08:12,323
+waits for a healthy response.
+
+190
+00:08:13,143 --> 00:08:14,843
+Now the next request can tell us what
+
+191
+00:08:14,843 --> 00:08:17,663
+the changed application does
+in this actual runtime.
+
+192
+00:08:20,017 --> 00:08:23,037
+Now, the same post returns 405,
+
+193
+00:08:23,897 --> 00:08:24,917
+method not allowed.
+
+194
+00:08:25,477 --> 00:08:28,197
+The allow header lists get and head, and
+
+195
+00:08:28,197 --> 00:08:30,457
+the body contains the bounded error from our
+
+196
+00:08:30,457 --> 00:08:30,917
+contract.
+
+197
+00:08:31,557 --> 00:08:33,957
+This is the before and after observation we
+
+198
+00:08:33,957 --> 00:08:34,437
+were missing.
+
+199
+00:08:34,997 --> 00:08:37,857
+The test verifies that
+rejection skips the probe.
+
+200
+00:08:38,397 --> 00:08:40,837
+The running service verifies
+this response from the
+
+201
+00:08:40,837 --> 00:08:42,077
+process we just started.
+
+202
+00:08:44,417 --> 00:08:46,177
+We also check the supported behavior.
+
+203
+00:08:46,817 --> 00:08:49,817
+The head request succeeds,
+the normal get still
+
+204
+00:08:49,817 --> 00:08:52,757
+returns the health metadata,
+and the synthetic demo
+
+205
+00:08:52,757 --> 00:08:54,017
+listing remains available.
+
+206
+00:08:54,497 --> 00:08:57,777
+The HTTP tests separately
+check the empty head
+
+207
+00:08:57,777 --> 00:08:59,837
+body and the failing probe cases.
+
+208
+00:09:00,397 --> 00:09:03,057
+Together, these checks cover
+different parts of the
+
+209
+00:09:03,057 --> 00:09:03,497
+contract.
+
+210
+00:09:03,757 --> 00:09:06,137
+A single successful request
+would leave several of
+
+211
+00:09:06,137 --> 00:09:07,317
+those questions unanswered.
+
+212
+00:09:09,783 --> 00:09:11,903
+Let's make those boundaries explicit.
+
+213
+00:09:13,163 --> 00:09:16,123
+Controlled HTTP tests tell
+us about response behavior
+
+214
+00:09:16,123 --> 00:09:17,403
+and dependency calls.
+
+215
+00:09:17,923 --> 00:09:20,103
+The database test tells us about its real
+
+216
+00:09:20,103 --> 00:09:20,743
+transaction.
+
+217
+00:09:21,443 --> 00:09:23,743
+A runtime request tells us about the process
+
+218
+00:09:23,743 --> 00:09:24,683
+that answered it.
+
+219
+00:09:24,943 --> 00:09:27,543
+And a continuous integration
+result belongs to the
+
+220
+00:09:27,543 --> 00:09:29,303
+code revision and jobs that ran.
+
+221
+00:09:29,903 --> 00:09:32,563
+Combining those observations
+is stronger than treating one
+
+222
+00:09:32,563 --> 00:09:34,663
+green indicator as a universal guarantee.
+
+223
+00:09:37,150 --> 00:09:39,930
+Once the change is reviewed, I stage the
+
+224
+00:09:39,930 --> 00:09:42,990
+three relevant files and
+inspect the staged summary.
+
+225
+00:09:43,510 --> 00:09:45,730
+Then I commit them with a message describing
+
+226
+00:09:45,730 --> 00:09:46,330
+the behavior.
+
+227
+00:09:46,970 --> 00:09:50,130
+The resulting commit identifies
+a concrete revision we
+
+228
+00:09:50,130 --> 00:09:52,370
+can compare, test, and return to.
+
+229
+00:09:52,950 --> 00:09:55,050
+This is where a collection
+of working directory
+
+230
+00:09:55,050 --> 00:09:57,830
+edits becomes a durable
+unit in the project's
+
+231
+00:09:57,830 --> 00:09:58,150
+history.
+
+232
+00:10:00,517 --> 00:10:02,777
+I push the lesson branch and open a
+
+233
+00:10:02,777 --> 00:10:05,457
+pull request in our
+private course repository.
+
+234
+00:10:06,377 --> 00:10:09,897
+Its description connects the
+original behavior, the resulting
+
+235
+00:10:09,897 --> 00:10:12,437
+behavior, and the validation we performed.
+
+236
+00:10:13,197 --> 00:10:15,617
+The pull request also
+names the head revision.
+
+237
+00:10:16,337 --> 00:10:18,577
+We'll use that identifier to check the next
+
+238
+00:10:18,577 --> 00:10:21,037
+piece of evidence, so
+we're talking about the
+
+239
+00:10:21,037 --> 00:10:22,757
+same code throughout the workflow.
+
+240
+00:10:25,417 --> 00:10:27,457
+The pull request checks are green.
+
+241
+00:10:27,997 --> 00:10:30,957
+I inspect the corresponding
+workflow run and compare
+
+242
+00:10:30,957 --> 00:10:32,457
+its head revision with our commit.
+
+243
+00:10:33,017 --> 00:10:33,457
+They match.
+
+244
+00:10:34,317 --> 00:10:38,177
+The run installed dependencies,
+initialized its database, checked
+
+245
+00:10:38,177 --> 00:10:40,537
+types, and passed all seven tests.
+
+246
+00:10:41,217 --> 00:10:43,537
+That gives us another
+environment's result for the
+
+247
+00:10:43,537 --> 00:10:44,237
+proposed change.
+
+248
+00:10:44,657 --> 00:10:47,157
+It still describes the
+checks that ran rather
+
+249
+00:10:47,157 --> 00:10:49,177
+than every possible production condition.
+
+250
+00:10:51,517 --> 00:10:53,817
+With the diff and matching
+checks reviewed, I
+
+251
+00:10:53,817 --> 00:10:56,277
+merge the pull request and update our local
+
+252
+00:10:56,277 --> 00:10:56,937
+main branch.
+
+253
+00:10:57,537 --> 00:10:59,997
+The lesson branch keeps
+the original change commit
+
+254
+00:10:59,997 --> 00:11:02,117
+and main now includes the merge.
+
+255
+00:11:02,657 --> 00:11:05,877
+Our course materials preserve
+the revision identifiers, the
+
+256
+00:11:05,877 --> 00:11:07,677
+patch, and a source snapshot.
+
+257
+00:11:08,437 --> 00:11:10,837
+The next lesson starts
+from an identifiable state
+
+258
+00:11:10,837 --> 00:11:13,597
+with the decisions and
+evidence available to inspect.
+
+259
+00:11:16,083 --> 00:11:16,983
+Your turn.
+
+260
+00:11:17,543 --> 00:11:20,283
+Open the companion exercise
+and choose the next
+
+261
+00:11:20,283 --> 00:11:22,403
+useful action in each situation.
+
+262
+00:11:23,323 --> 00:11:26,123
+Tests pass, but the live
+process behaves differently.
+
+263
+00:11:26,823 --> 00:11:29,583
+A green workflow run belongs
+to another revision.
+
+264
+00:11:30,143 --> 00:11:32,843
+Or a check reveals a response change outside
+
+265
+00:11:32,843 --> 00:11:33,823
+the agreed scope.
+
+266
+00:11:34,503 --> 00:11:35,563
+Don't just choose a button.
+
+267
+00:11:36,303 --> 00:11:38,703
+Explain what your next
+action would establish.
+
+268
+00:11:39,303 --> 00:11:41,703
+Pause here and work through all three cases.
+
+269
+00:11:50,250 --> 00:11:52,770
+For the first case, identify
+the running process,
+
+270
+00:11:53,030 --> 00:11:55,610
+load the intended code,
+and repeat the request.
+
+271
+00:11:56,210 --> 00:11:58,630
+For the second, connect
+the workflow result to
+
+272
+00:11:58,630 --> 00:12:00,370
+the revision you are proposing.
+
+273
+00:12:00,850 --> 00:12:01,510
+For the third,
+
+274
+00:12:02,590 --> 00:12:04,750
+investigate the unexpected
+change and return to the
+
+275
+00:12:04,750 --> 00:12:05,410
+scope and diff.
+
+276
+00:12:05,990 --> 00:12:08,970
+Each answer moves the
+work forward by resolving
+
+277
+00:12:08,970 --> 00:12:10,370
+a specific uncertainty.
+
+278
+00:12:10,990 --> 00:12:13,170
+That's more useful than asking the agent to
+
+279
+00:12:13,170 --> 00:12:13,750
+try harder.
+
+280
+00:12:16,183 --> 00:12:19,703
+We've now connected an
+observation, a contract, a
+
+281
+00:12:19,703 --> 00:12:21,903
+plan, a bounded implementation,
+
+282
+00:12:22,643 --> 00:12:25,623
+several kinds of evidence,
+and a preserved change.
+
+283
+00:12:26,263 --> 00:12:29,063
+Keep those connections
+visible as your tasks grow.
+
+284
+00:12:29,683 --> 00:12:31,283
+In the next lesson, we'll look at the
+
+285
+00:12:31,283 --> 00:12:34,443
+habits that separate fast code
+generation from engineering
+
+286
+00:12:34,443 --> 00:12:35,263
+you can trust.
+
+287
+00:12:35,803 --> 00:12:38,563
+Before moving on, write
+your own short completion
+
+288
+00:12:38,563 --> 00:12:40,323
+report for the change we just made.

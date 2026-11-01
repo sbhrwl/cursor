@@ -1,0 +1,683 @@
+1
+00:00:00,750 --> 00:00:04,690
+A clean working tree, a passing test, a
+
+2
+00:00:04,690 --> 00:00:05,670
+healthy service,
+
+3
+00:00:06,470 --> 00:00:09,910
+three reassuring signals, and three different
+questions.
+
+4
+00:00:10,690 --> 00:00:13,070
+Before we move into the bigger projects, let's
+
+5
+00:00:13,070 --> 00:00:14,310
+see whether you can connect them.
+
+6
+00:00:14,830 --> 00:00:17,950
+We'll trace one real behavior through Cursor,
+then
+
+7
+00:00:17,950 --> 00:00:19,650
+work through four short cases.
+
+8
+00:00:20,350 --> 00:00:22,350
+The result is a practice plan you can
+
+9
+00:00:22,350 --> 00:00:25,050
+explain, instead of a score you can brag
+about.
+
+10
+00:00:27,483 --> 00:00:30,183
+Open the assessment beside the course
+workspace.
+
+11
+00:00:30,963 --> 00:00:33,703
+Your job is to locate the implementation, find
+
+12
+00:00:33,703 --> 00:00:36,423
+a test that challenges it, inspect the running
+
+13
+00:00:36,423 --> 00:00:38,203
+service, and record the revision.
+
+14
+00:00:38,983 --> 00:00:41,663
+Then decide what each observation leaves
+unanswered.
+
+15
+00:00:42,403 --> 00:00:44,403
+If something feels unfamiliar, good.
+
+16
+00:00:44,843 --> 00:00:46,643
+You've found a concrete place to practice.
+
+17
+00:00:47,343 --> 00:00:49,783
+Nobody gets better at debugging by pretending
+the
+
+18
+00:00:49,783 --> 00:00:50,723
+terminal was obvious.
+
+19
+00:00:53,083 --> 00:00:55,383
+First, establish where we are.
+
+20
+00:00:56,203 --> 00:00:59,103
+Git status shows main and no listed file
+changes.
+
+21
+00:00:59,783 --> 00:01:02,163
+Then we ask Git for the current commit
+identifier.
+
+22
+00:01:02,883 --> 00:01:04,483
+These commands describe the checkout.
+
+23
+00:01:05,063 --> 00:01:07,503
+They don't prove the service has reloaded that
+checkout.
+
+24
+00:01:07,883 --> 00:01:09,943
+And a clean working tree doesn't prove the
+
+25
+00:01:09,943 --> 00:01:10,783
+application works.
+
+26
+00:01:10,783 --> 00:01:13,443
+Keep the revision in your notes so later
+
+27
+00:01:13,443 --> 00:01:14,703
+evidence has an anchor.
+
+28
+00:01:17,017 --> 00:01:20,257
+Now, locate the behavior without asking an
+agent
+
+29
+00:01:20,257 --> 00:01:21,157
+to rewrite it.
+
+30
+00:01:21,677 --> 00:01:24,177
+I use Quick Open in this Linux workspace to
+
+31
+00:01:24,177 --> 00:01:25,197
+open the handler file.
+
+32
+00:01:25,977 --> 00:01:28,737
+Inside the exact health branch, the cache
+directive
+
+33
+00:01:28,737 --> 00:01:31,797
+is assigned before the method check and before
+the probe.
+
+34
+00:01:32,497 --> 00:01:35,057
+Follow the early return and the exception
+path.
+
+35
+00:01:35,057 --> 00:01:38,357
+Explain why both keep the header before you
+move on.
+
+36
+00:01:40,783 --> 00:01:43,763
+Next, open the health test file and find
+
+37
+00:01:43,763 --> 00:01:45,043
+the healthy get case.
+
+38
+00:01:45,763 --> 00:01:48,003
+Read the assertion for the response header,
+but
+
+39
+00:01:48,003 --> 00:01:50,623
+also inspect how the request reaches the
+handler.
+
+40
+00:01:51,303 --> 00:01:54,283
+This test starts its own server with
+controlled dependencies.
+
+41
+00:01:54,883 --> 00:01:55,903
+That's useful isolation.
+
+42
+00:01:56,643 --> 00:01:58,483
+It also means the test isn't a request
+
+43
+00:01:58,483 --> 00:02:01,723
+to the long-running operations hub service on
+our usual port.
+
+44
+00:02:04,150 --> 00:02:05,710
+Run that one named test.
+
+45
+00:02:05,710 --> 00:02:09,910
+On this checkout, it reports one pass and zero
+failures.
+
+46
+00:02:10,630 --> 00:02:12,650
+The result tells us that this checked path
+
+47
+00:02:12,650 --> 00:02:15,030
+satisfied these assertions in the test setup.
+
+48
+00:02:15,510 --> 00:02:17,250
+It doesn't stand in for the other health
+
+49
+00:02:17,250 --> 00:02:18,750
+paths or the complete suite.
+
+50
+00:02:19,250 --> 00:02:21,510
+Running one specific case helps you
+investigate.
+
+51
+00:02:21,890 --> 00:02:24,670
+Bring back the broader checks before you
+integrate a change.
+
+52
+00:02:27,050 --> 00:02:29,930
+Now make a separate request to the actual
+service.
+
+53
+00:02:30,610 --> 00:02:33,070
+We see a successful response and the no
+
+54
+00:02:33,070 --> 00:02:33,890
+store directive.
+
+55
+00:02:34,510 --> 00:02:36,830
+This is another piece of evidence from a
+
+56
+00:02:36,830 --> 00:02:38,270
+different execution path.
+
+57
+00:02:38,810 --> 00:02:42,010
+The response does not identify a git commit by
+itself.
+
+58
+00:02:42,570 --> 00:02:45,190
+In the previous lesson, we restarted the
+service
+
+59
+00:02:45,190 --> 00:02:46,230
+after the change.
+
+60
+00:02:46,730 --> 00:02:49,770
+For your own run, record that startup context
+
+61
+00:02:49,770 --> 00:02:51,990
+instead of guessing from a green response.
+
+62
+00:02:54,517 --> 00:02:57,837
+Put the observations together in a short
+report.
+
+63
+00:02:58,537 --> 00:03:03,317
+Checkout revision, handler location, test
+command and result,
+
+64
+00:03:03,957 --> 00:03:07,477
+live request and result, then the remaining
+limits.
+
+65
+00:03:08,377 --> 00:03:10,557
+Notice how little prose this takes.
+
+66
+00:03:11,257 --> 00:03:13,777
+A teammate should be able to repeat your
+
+67
+00:03:13,777 --> 00:03:17,697
+check without reverse engineering your
+conversation with Cursor.
+
+68
+00:03:18,557 --> 00:03:21,877
+The report is a handoff artifact, not a
+
+69
+00:03:21,877 --> 00:03:22,657
+victory speech.
+
+70
+00:03:25,317 --> 00:03:29,117
+First case an agent says done tests pass
+
+71
+00:03:29,117 --> 00:03:32,157
+but its answer contains no command output or
+
+72
+00:03:32,157 --> 00:03:34,237
+revision What should happen next?
+
+73
+00:03:34,637 --> 00:03:37,017
+Choose the action that improves the evidence
+for
+
+74
+00:03:37,017 --> 00:03:39,597
+the claimed result pause and give a reason
+
+75
+00:03:39,597 --> 00:03:43,097
+before clicking We're assessing your next
+engineering move
+
+76
+00:03:43,097 --> 00:03:45,197
+not whether you can spot the answer with
+
+77
+00:03:45,197 --> 00:03:46,017
+the longest label
+
+78
+00:03:54,517 --> 00:03:57,457
+inspect the relevant diff, and obtain the
+actual
+
+79
+00:03:57,457 --> 00:03:59,257
+check results for the current change.
+
+80
+00:04:00,097 --> 00:04:02,377
+A confident summary can point you toward
+evidence,
+
+81
+00:04:02,757 --> 00:04:04,017
+but it can't replace it.
+
+82
+00:04:04,797 --> 00:04:07,217
+Starting another agent to repeat the same
+reassurance
+
+83
+00:04:07,217 --> 00:04:08,337
+doesn't close the gap.
+
+84
+00:04:08,977 --> 00:04:11,417
+If this case was difficult, practice a bounded
+
+85
+00:04:11,417 --> 00:04:13,877
+task with an explicit stopping point and a
+
+86
+00:04:13,877 --> 00:04:15,077
+small completion report.
+
+87
+00:04:17,317 --> 00:04:18,297
+Second case,
+
+88
+00:04:18,977 --> 00:04:22,397
+a request fails with connection refused before
+the
+
+89
+00:04:22,397 --> 00:04:24,137
+test receives any response.
+
+90
+00:04:24,797 --> 00:04:27,577
+Does that establish that the new response
+header is wrong?
+
+91
+00:04:28,177 --> 00:04:28,377
+No.
+
+92
+00:04:29,317 --> 00:04:32,137
+Inspect the server lifecycle and test setup
+first.
+
+93
+00:04:32,717 --> 00:04:35,257
+Once a request can reach the intended handler,
+
+94
+00:04:35,617 --> 00:04:37,677
+the header assertion becomes meaningful.
+
+95
+00:04:38,317 --> 00:04:39,637
+The failure is real.
+
+96
+00:04:39,637 --> 00:04:43,537
+The conclusion still has to match where
+execution stopped.
+
+97
+00:04:46,050 --> 00:04:49,230
+Third case, you edit the handler, save the
+
+98
+00:04:49,230 --> 00:04:52,130
+file, and a request still shows the old
+behavior.
+
+99
+00:04:52,750 --> 00:04:55,210
+The process was started earlier without a
+watcher.
+
+100
+00:04:55,850 --> 00:04:58,910
+Before asking Cursor for a second
+implementation, check
+
+101
+00:04:58,910 --> 00:05:01,630
+which process is serving the request and
+restart
+
+102
+00:05:01,630 --> 00:05:03,650
+it through the project's documented command.
+
+103
+00:05:04,410 --> 00:05:05,970
+Then repeat the request.
+
+104
+00:05:05,970 --> 00:05:09,750
+a source file and a running process aren't the
+same thing.
+
+105
+00:05:12,150 --> 00:05:12,870
+Fourth case.
+
+106
+00:05:13,830 --> 00:05:16,690
+A pull request has a successful check for
+
+107
+00:05:16,690 --> 00:05:17,670
+an earlier commit.
+
+108
+00:05:18,430 --> 00:05:20,390
+Another change was pushed afterward.
+
+109
+00:05:21,230 --> 00:05:24,250
+Is that earlier result evidence for the new
+revision?
+
+110
+00:05:24,870 --> 00:05:26,730
+It tells you about the earlier revision.
+
+111
+00:05:27,710 --> 00:05:30,910
+Inspect the check's commit identifier and
+obtain the
+
+112
+00:05:30,910 --> 00:05:32,610
+relevant checks for the current head.
+
+113
+00:05:32,990 --> 00:05:34,450
+The branch name can stay the same while
+
+114
+00:05:34,450 --> 00:05:35,650
+the code underneath it changes.
+
+115
+00:05:38,083 --> 00:05:41,083
+The assessment records your first choices and
+lets
+
+116
+00:05:41,083 --> 00:05:42,863
+you revisit every explanation.
+
+117
+00:05:43,683 --> 00:05:45,643
+Use the pattern to choose a practice focus.
+
+118
+00:05:46,463 --> 00:05:49,483
+If navigating files or starting services was
+difficult,
+
+119
+00:05:49,943 --> 00:05:52,083
+begin with the workspace and editor modules.
+
+120
+00:05:52,883 --> 00:05:54,883
+If you confused a setup failure with a
+
+121
+00:05:54,883 --> 00:05:58,303
+behavior failure, revisit the small change
+exercise and
+
+122
+00:05:58,303 --> 00:06:00,403
+spend extra time on checks and debugging.
+
+123
+00:06:02,983 --> 00:06:06,623
+If an agent's summary felt sufficient, focus
+on
+
+124
+00:06:06,623 --> 00:06:10,703
+modes, context, and explicit acceptance
+criteria.
+
+125
+00:06:11,303 --> 00:06:14,203
+If the revision mismatch was easy to miss,
+
+126
+00:06:14,643 --> 00:06:17,743
+practice Git first, then the pull request and
+
+127
+00:06:17,743 --> 00:06:18,683
+CI module.
+
+128
+00:06:19,263 --> 00:06:22,263
+These are priorities within the course, not
+permission
+
+129
+00:06:22,263 --> 00:06:23,763
+to skip prerequisites.
+
+130
+00:06:24,463 --> 00:06:27,623
+Everybody still builds the shared workspace
+and follows
+
+131
+00:06:27,623 --> 00:06:31,583
+the project dependencies before tackling the
+advanced workflows.
+
+132
+00:06:34,050 --> 00:06:37,170
+Now, do the hands-on part without copying my
+narration.
+
+133
+00:06:37,990 --> 00:06:40,030
+Trace head or a rejected method through the
+
+134
+00:06:40,030 --> 00:06:43,370
+handler, find its assertions, and run the
+relevant check.
+
+135
+00:06:44,010 --> 00:06:46,170
+Record a live response and explain how its
+
+136
+00:06:46,170 --> 00:06:48,170
+evidence differs from the controlled test.
+
+137
+00:06:48,710 --> 00:06:49,870
+You can consult the notes.
+
+138
+00:06:50,470 --> 00:06:52,490
+The useful test is whether you can produce
+
+139
+00:06:52,490 --> 00:06:54,030
+and explain the trail yourself.
+
+140
+00:06:56,617 --> 00:06:59,697
+Use three levels for each part of your report.
+
+141
+00:07:00,377 --> 00:07:01,537
+Demonstrated independently,
+
+142
+00:07:02,217 --> 00:07:05,077
+completed with a reference, or needs another
+attempt.
+
+143
+00:07:05,877 --> 00:07:09,677
+Attach the command, location, or result that
+supports your choice.
+
+144
+00:07:10,557 --> 00:07:13,537
+Don't average away a missing prerequisite with
+points
+
+145
+00:07:13,537 --> 00:07:14,757
+from an easier question.
+
+146
+00:07:15,457 --> 00:07:18,457
+Choose one gap, practice it, and revisit the
+
+147
+00:07:18,457 --> 00:07:21,017
+same task until you can explain your
+decisions.
+
+148
+00:07:23,583 --> 00:07:26,743
+You've finished the foundations when you can
+connect
+
+149
+00:07:26,743 --> 00:07:30,783
+a requirement to code, checks, runtime
+evidence, and
+
+150
+00:07:30,783 --> 00:07:33,723
+a recorded revision while keeping the limits
+visible.
+
+151
+00:07:34,383 --> 00:07:37,423
+Save your report and one specific practice
+goal.
+
+152
+00:07:38,223 --> 00:07:41,323
+Next, we'll build the reproducible workspace
+that the
+
+153
+00:07:41,323 --> 00:07:42,783
+larger projects depend on.
+
+154
+00:07:43,123 --> 00:07:44,723
+Which step took the most effort to verify?
+
+155
+00:07:45,203 --> 00:07:47,483
+That's your starting point and now you have a
+way to work on it.

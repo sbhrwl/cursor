@@ -1,0 +1,744 @@
+1
+00:00:00,750 --> 00:00:04,070
+One line of production code, eight new
+assertions.
+
+2
+00:00:04,830 --> 00:00:07,170
+And before we add that line, four test
+
+3
+00:00:07,170 --> 00:00:10,010
+groups fail for a reason we can actually
+explain.
+
+4
+00:00:10,670 --> 00:00:12,370
+That's a useful small change.
+
+5
+00:00:13,090 --> 00:00:15,350
+In this lesson, we'll use cursor to turn
+
+6
+00:00:15,350 --> 00:00:18,450
+a requirement into evidence, then trace the
+paths
+
+7
+00:00:18,450 --> 00:00:20,090
+a happy path check would miss.
+
+8
+00:00:20,790 --> 00:00:22,830
+The size of the diff is small.
+
+9
+00:00:23,450 --> 00:00:25,430
+The thinking is the part we're practicing.
+
+10
+00:00:28,050 --> 00:00:30,310
+Your turn to make the loop useful.
+
+11
+00:00:31,070 --> 00:00:33,390
+We're adding one requirement to Operations
+Hub.
+
+12
+00:00:34,010 --> 00:00:36,730
+Every response from the exact health route
+should
+
+13
+00:00:36,730 --> 00:00:41,330
+send Cache-Control, no-store, success,
+failure, even
+
+14
+00:00:41,330 --> 00:00:42,310
+a rejected method.
+
+15
+00:00:42,950 --> 00:00:45,750
+We'll define the behavior, watch a meaningful
+test
+
+16
+00:00:45,750 --> 00:00:49,290
+fail, make the smallest useful change, and
+check
+
+17
+00:00:49,290 --> 00:00:50,810
+what the actual service sends.
+
+18
+00:00:51,590 --> 00:00:53,590
+One header gives us plenty to think about.
+
+19
+00:00:56,050 --> 00:00:58,010
+Quick distinction before we touch code.
+
+20
+00:00:58,650 --> 00:01:01,130
+No-store tells a compliant cache not to
+
+21
+00:01:01,130 --> 00:01:04,510
+retain this exchange or reuse the response for
+another request.
+
+22
+00:01:05,030 --> 00:01:06,190
+That's the standard's meaning.
+
+23
+00:01:06,810 --> 00:01:08,690
+We haven't caught a browser serving an old
+
+24
+00:01:08,690 --> 00:01:11,790
+health response here, and this header isn't a
+privacy guarantee.
+
+25
+00:01:12,690 --> 00:01:14,690
+Our job in this lesson is narrower.
+
+26
+00:01:15,410 --> 00:01:18,030
+Make the origin, send the directive
+consistently.
+
+27
+00:01:20,783 --> 00:01:23,203
+We start from the main revision we integrated
+
+28
+00:01:23,203 --> 00:01:24,203
+in the previous lesson.
+
+29
+00:01:24,623 --> 00:01:27,183
+The working tree is clean, the health request
+
+30
+00:01:27,183 --> 00:01:30,483
+still succeeds, and the response includes the
+existing
+
+31
+00:01:30,483 --> 00:01:31,523
+JSON content type.
+
+32
+00:01:31,783 --> 00:01:33,383
+But there is no cache-control header.
+
+33
+00:01:33,823 --> 00:01:35,163
+That's the starting observation.
+
+34
+00:01:35,603 --> 00:01:38,143
+A successful status and a missing new
+requirement
+
+35
+00:01:38,143 --> 00:01:40,063
+can coexist quite happily.
+
+36
+00:01:40,743 --> 00:01:42,463
+Tests need to know what we're asking for.
+
+37
+00:01:44,717 --> 00:01:48,157
+The word every is doing real work in this
+requirement.
+
+38
+00:01:48,997 --> 00:01:50,777
+A healthy GET is one path.
+
+39
+00:01:51,557 --> 00:01:52,977
+HEAD has no response body.
+
+40
+00:01:53,677 --> 00:01:55,797
+A failed probe takes the exception path.
+
+41
+00:01:56,537 --> 00:01:59,897
+An unsupported method returns early before the
+database probe.
+
+42
+00:02:00,597 --> 00:02:02,697
+If we only check the happy path, we
+
+43
+00:02:02,697 --> 00:02:04,577
+can get a green test and still miss
+
+44
+00:02:04,577 --> 00:02:05,537
+most of the contract.
+
+45
+00:02:08,017 --> 00:02:09,117
+Here's the discipline.
+
+46
+00:02:09,877 --> 00:02:12,697
+Change the expectations before changing the
+handler.
+
+47
+00:02:13,577 --> 00:02:16,797
+Ask cursor to add the HTTP assertions, run
+
+48
+00:02:16,797 --> 00:02:18,877
+that test file, and stop at the result.
+
+49
+00:02:19,617 --> 00:02:22,577
+A useful red test says the new behavior is
+missing.
+
+50
+00:02:23,297 --> 00:02:26,497
+A syntax error or an unreachable server says
+something else.
+
+51
+00:02:27,217 --> 00:02:30,097
+Read the reason for the failure before
+celebrating the color.
+
+52
+00:02:32,517 --> 00:02:35,757
+The request gives cursor a deliberate stopping
+point.
+
+53
+00:02:36,237 --> 00:02:39,217
+Read the contract, create the lesson branch,
+add
+
+54
+00:02:39,217 --> 00:02:41,677
+the assertions, and run the health test file.
+
+55
+00:02:42,257 --> 00:02:43,797
+Keep production code unchanged.
+
+56
+00:02:44,637 --> 00:02:47,517
+This is useful orchestration at a very small
+scale.
+
+57
+00:02:48,017 --> 00:02:50,537
+The agent can inspect and execute while we
+
+58
+00:02:50,537 --> 00:02:52,837
+keep the decision to implement separate from
+the
+
+59
+00:02:52,837 --> 00:02:53,817
+first evidence review.
+
+60
+00:02:56,217 --> 00:02:59,177
+Cursor adds the header assertions to the
+existing
+
+61
+00:02:59,177 --> 00:03:00,577
+HTTP tests.
+
+62
+00:03:01,137 --> 00:03:04,417
+The health test file reports four failures and
+two passes.
+
+63
+00:03:05,117 --> 00:03:06,917
+Now I run the healthy GET case on
+
+64
+00:03:06,917 --> 00:03:09,437
+its own, so the important detail fits on
+screen.
+
+65
+00:03:10,057 --> 00:03:12,797
+The response arrives, but the cache-control
+field
+
+66
+00:03:12,797 --> 00:03:13,617
+is undefined.
+
+67
+00:03:14,277 --> 00:03:16,217
+The assertion expected no-store.
+
+68
+00:03:16,817 --> 00:03:19,357
+This is a real failure against the new
+requirement.
+
+69
+00:03:21,917 --> 00:03:23,177
+One subtlety.
+
+70
+00:03:23,777 --> 00:03:27,157
+A failing assertion stops the rest of that
+test.
+
+71
+00:03:27,817 --> 00:03:30,897
+It doesn't prove that every later assertion
+ran.
+
+72
+00:03:31,717 --> 00:03:34,857
+In the grouped method test, the first failure
+
+73
+00:03:34,857 --> 00:03:38,637
+prevents later methods from being checked on
+that run.
+
+74
+00:03:39,257 --> 00:03:43,657
+We inspect where it stopped, then rerun after
+the change.
+
+75
+00:03:44,177 --> 00:03:47,377
+A completion summary can be helpful, but the
+
+76
+00:03:47,377 --> 00:03:50,917
+test code and the actual output decide what
+was checked.
+
+77
+00:03:53,517 --> 00:03:56,397
+Compare that with a refused connection or a
+
+78
+00:03:56,397 --> 00:03:57,197
+broken import.
+
+79
+00:03:57,817 --> 00:03:59,917
+Those failures would tell us to inspect the
+
+80
+00:03:59,917 --> 00:04:02,337
+test setup before judging the product
+behavior.
+
+81
+00:04:03,057 --> 00:04:05,877
+Here, the request reaches the handler and
+fails
+
+82
+00:04:05,877 --> 00:04:06,937
+on the missing header.
+
+83
+00:04:07,537 --> 00:04:09,417
+That's why this red result is useful.
+
+84
+00:04:09,997 --> 00:04:13,097
+We can connect one explicit expectation to one
+
+85
+00:04:13,097 --> 00:04:16,217
+observable response without asking a model
+whether the
+
+86
+00:04:16,217 --> 00:04:17,037
+code looks right.
+
+87
+00:04:19,517 --> 00:04:22,917
+Now we can authorize the implementation, keep
+the
+
+88
+00:04:22,917 --> 00:04:26,237
+assertions, satisfy the health contract, and
+run type
+
+89
+00:04:26,237 --> 00:04:27,997
+checking plus the full test suite.
+
+90
+00:04:28,657 --> 00:04:30,737
+We also ask for a short explanation of
+
+91
+00:04:30,737 --> 00:04:31,537
+the header's placement.
+
+92
+00:04:32,197 --> 00:04:35,517
+The interesting decision is which control flow
+paths it covers.
+
+93
+00:04:36,177 --> 00:04:38,697
+There's no prize for making a one-header
+requirement
+
+94
+00:04:38,697 --> 00:04:40,237
+look like a framework migration.
+
+95
+00:04:42,817 --> 00:04:45,977
+The production change is one line inside the
+
+96
+00:04:45,977 --> 00:04:47,517
+exact health route branch.
+
+97
+00:04:48,077 --> 00:04:50,297
+It sets the header before checking the method
+
+98
+00:04:50,297 --> 00:04:51,997
+and before awaiting the probe.
+
+99
+00:04:52,577 --> 00:04:54,817
+A rejected method therefore keeps it on the
+
+100
+00:04:54,817 --> 00:04:55,577
+early return.
+
+101
+00:04:56,197 --> 00:04:58,737
+If the probe throws, the catch block changes
+
+102
+00:04:58,737 --> 00:05:01,617
+the status and body while the header remains
+set.
+
+103
+00:05:02,257 --> 00:05:03,917
+Other routes never enter this branch.
+
+104
+00:05:06,417 --> 00:05:10,177
+Type-checking passes, and the complete suite
+reports seven
+
+105
+00:05:10,177 --> 00:05:11,077
+passing tests.
+
+106
+00:05:11,617 --> 00:05:14,817
+That count includes the separate database
+transaction test.
+
+107
+00:05:15,497 --> 00:05:17,857
+The health tests now reach the assertions that
+
+108
+00:05:17,857 --> 00:05:19,757
+the earlier failures had interrupted.
+
+109
+00:05:20,437 --> 00:05:22,357
+We keep checking the old behavior, too.
+
+110
+00:05:23,117 --> 00:05:25,957
+Status codes, empty HEAD bodies, the Allow
+header,
+
+111
+00:05:26,377 --> 00:05:28,957
+probe calls, and the routes outside this
+change.
+
+112
+00:05:31,483 --> 00:05:35,323
+Next, restart the actual Operations Hub
+service with
+
+113
+00:05:35,323 --> 00:05:36,103
+the Course Helper.
+
+114
+00:05:36,663 --> 00:05:38,823
+This makes the runtime check about the changed
+
+115
+00:05:38,823 --> 00:05:42,123
+handler instead of a process that loaded
+yesterday's code.
+
+116
+00:05:42,863 --> 00:05:45,023
+Then inspect the response headers again.
+
+117
+00:05:45,663 --> 00:05:47,663
+The same habit matters whether the change is
+
+118
+00:05:47,663 --> 00:05:49,403
+one line or a major feature.
+
+119
+00:05:50,043 --> 00:05:52,963
+Know which process and revision your evidence
+describes.
+
+120
+00:05:55,583 --> 00:05:59,683
+The restarted service now sends no-store on a
+healthy GET,
+
+121
+00:06:00,223 --> 00:06:04,223
+Alongside the existing metadata. HEAD keeps
+the same directive,
+
+122
+00:06:04,723 --> 00:06:08,783
+and no response body. POST is still rejected,
+and its response
+
+123
+00:06:08,783 --> 00:06:11,483
+includes both no-store and the allowed
+methods.
+
+124
+00:06:12,123 --> 00:06:14,703
+The demo listing stays available without the
+new header.
+
+125
+00:06:15,223 --> 00:06:17,743
+We can point to the specific responses instead
+
+126
+00:06:17,743 --> 00:06:20,443
+of treating a green test summary as the whole
+story.
+
+127
+00:06:22,717 --> 00:06:25,877
+The controlled probe tests cover the failure
+path
+
+128
+00:06:25,877 --> 00:06:27,957
+without taking down our real database.
+
+129
+00:06:28,797 --> 00:06:31,177
+The live requests check the running service.
+
+130
+00:06:31,917 --> 00:06:34,937
+Neither observation tests every cache in a
+deployment.
+
+131
+00:06:35,677 --> 00:06:37,097
+Our conclusion is precise.
+
+132
+00:06:37,777 --> 00:06:40,617
+The checked health responses send the required
+directive,
+
+133
+00:06:41,017 --> 00:06:43,837
+and the bounded tests preserve the surrounding
+behavior.
+
+134
+00:06:44,517 --> 00:06:47,317
+That is a useful result we can review and
+reproduce.
+
+135
+00:06:49,917 --> 00:06:52,417
+We keep the reviewed change as a commit,
+
+136
+00:06:52,917 --> 00:06:55,297
+push the lesson branch, and open the private
+
+137
+00:06:55,297 --> 00:06:56,357
+course pull request.
+
+138
+00:06:57,037 --> 00:07:00,577
+The successful CI run identifies the same
+change revision.
+
+139
+00:07:01,477 --> 00:07:04,037
+After merging, we bring main up to date.
+
+140
+00:07:04,677 --> 00:07:07,017
+The small feature now has a traceable result.
+
+141
+00:07:07,637 --> 00:07:10,417
+Starting state, failing expectations,
+implementation,
+
+142
+00:07:11,137 --> 00:07:12,937
+checks, and the accepted revision.
+
+143
+00:07:13,617 --> 00:07:17,017
+The exercise files preserve that trail for
+your own practice.
+
+144
+00:07:19,517 --> 00:07:23,077
+Try this before revealing the answer suppose
+the
+
+145
+00:07:23,077 --> 00:07:25,657
+header is set after awaiting the health probe
+
+146
+00:07:25,657 --> 00:07:29,737
+a healthy GET test passes. Which two response
+
+147
+00:07:29,737 --> 00:07:32,217
+paths should you challenge next and why?
+
+148
+00:07:33,077 --> 00:07:35,577
+Trace the early return and the exception path
+
+149
+00:07:35,577 --> 00:07:38,277
+in your head. Pause here and explain the
+
+150
+00:07:38,277 --> 00:07:41,057
+expected behavior before you choose the next
+check
+
+151
+00:07:49,450 --> 00:07:51,930
+Check rejected methods and probe failures.
+
+152
+00:07:52,590 --> 00:07:56,310
+A rejected method returns before that proposed
+header assignment.
+
+153
+00:07:56,890 --> 00:07:59,850
+A failing probe jumps over it into the catch
+block.
+
+154
+00:08:00,270 --> 00:08:03,190
+Both can miss the directive even when healthy
+GET passes.
+
+155
+00:08:04,010 --> 00:08:06,350
+Our implementation sets the header at the
+start
+
+156
+00:08:06,350 --> 00:08:09,310
+of the health branch, so those paths inherit
+it.
+
+157
+00:08:09,630 --> 00:08:12,230
+The assertions check the response, not just
+whether
+
+158
+00:08:12,230 --> 00:08:13,350
+a certain line exists.
+
+159
+00:08:15,783 --> 00:08:19,803
+Take the starting snapshot and try the
+exercise yourself.
+
+160
+00:08:20,683 --> 00:08:24,103
+Write the expectation, read the failure, trace
+the
+
+161
+00:08:24,103 --> 00:08:26,683
+paths, and keep the change bounded.
+
+162
+00:08:27,423 --> 00:08:30,063
+Then explain what your checks establish and
+what
+
+163
+00:08:30,063 --> 00:08:30,983
+they leave open.
+
+164
+00:08:31,743 --> 00:08:33,523
+That's the habit to carry forward.
+
+165
+00:08:34,243 --> 00:08:37,123
+Which path would you have forgotten first, the
+
+166
+00:08:37,123 --> 00:08:39,263
+early return, or the exception?
+
+167
+00:08:40,223 --> 00:08:42,543
+Your answer tells you where to aim the
+
+168
+00:08:42,543 --> 00:08:43,403
+next test.

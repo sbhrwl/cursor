@@ -1,0 +1,7 @@
+{
+  "file": "operations-hub-01-06.zip",
+  "revision": "b11a543939b6c760e45af5b1c78157373a4cdbec",
+  "sha256": "ac0585108bcbcc133039912d2b0dcec95b9c86c653194480d37800b586e10001",
+  "contains_git_history": false,
+  "notes": "Install dependencies and configure the documented local development environment before running commands. The archive is the source tree of the recorded revision, not a Git clone."
+}

@@ -1,0 +1,1089 @@
+1
+00:00:00,750 --> 00:00:03,050
+Let managers approve requests.
+
+2
+00:00:03,770 --> 00:00:04,710
+That sounds like a feature.
+
+3
+00:00:05,410 --> 00:00:07,970
+It is also a surprisingly effective way to
+
+4
+00:00:07,970 --> 00:00:11,210
+hide a dozen decisions
+inside one short sentence.
+
+5
+00:00:11,870 --> 00:00:12,410
+Which managers?
+
+6
+00:00:13,090 --> 00:00:13,610
+Which requests?
+
+7
+00:00:14,390 --> 00:00:16,230
+What happens when someone clicks twice?
+
+8
+00:00:17,310 --> 00:00:19,670
+Cursor can help us uncover
+those decisions and
+
+9
+00:00:19,670 --> 00:00:20,490
+build the result.
+
+10
+00:00:21,050 --> 00:00:22,570
+Our job is to make sure the choices
+
+11
+00:00:22,570 --> 00:00:25,410
+match the product we
+actually intend to ship.
+
+12
+00:00:27,717 --> 00:00:30,737
+Today, we will build a decision contract for
+
+13
+00:00:30,737 --> 00:00:32,577
+a future Operations Hub feature.
+
+14
+00:00:33,197 --> 00:00:36,097
+We will inspect what
+exists, turn an ambiguous
+
+15
+00:00:36,097 --> 00:00:38,137
+request into observable behavior,
+
+16
+00:00:38,877 --> 00:00:41,917
+separate a product constraint
+from an implementation choice,
+
+17
+00:00:42,277 --> 00:00:44,597
+and define the evidence
+needed for acceptance.
+
+18
+00:00:45,297 --> 00:00:47,837
+The artifact we finish
+is a usable engineering
+
+19
+00:00:47,837 --> 00:00:48,277
+brief.
+
+20
+00:00:48,277 --> 00:00:51,197
+The approval endpoint itself
+comes later, after its
+
+21
+00:00:51,197 --> 00:00:52,077
+foundations exist.
+
+22
+00:00:54,450 --> 00:00:56,070
+Think of four responsibilities,
+
+23
+00:00:56,790 --> 00:01:00,550
+requirements, architecture,
+implementation, and acceptance.
+
+24
+00:01:01,230 --> 00:01:03,150
+One person might hold several of them.
+
+25
+00:01:03,670 --> 00:01:05,890
+On a team, they may be spread across
+
+26
+00:01:05,890 --> 00:01:07,210
+product and engineering.
+
+27
+00:01:07,870 --> 00:01:10,610
+An agent can contribute
+to every responsibility,
+
+28
+00:01:11,410 --> 00:01:13,850
+contribution and authority
+are separate questions.
+
+29
+00:01:14,590 --> 00:01:17,750
+A useful delegation says
+which decisions the agent
+
+30
+00:01:17,750 --> 00:01:20,950
+may make, which constraints
+it must preserve and
+
+31
+00:01:20,950 --> 00:01:22,590
+when it should bring back a trade-off.
+
+32
+00:01:25,117 --> 00:01:27,917
+requirements describe the
+behavior people need.
+
+33
+00:01:28,457 --> 00:01:30,997
+In our example, a manager can approve an
+
+34
+00:01:30,997 --> 00:01:33,357
+open request belonging to the same tenant.
+
+35
+00:01:33,897 --> 00:01:37,537
+That sentence contains policy,
+the role, the starting
+
+36
+00:01:37,537 --> 00:01:39,457
+state, and the tenant boundary.
+
+37
+00:01:40,217 --> 00:01:41,977
+We should choose that policy deliberately.
+
+38
+00:01:42,777 --> 00:01:45,117
+If the agent guesses that
+every signed-in person
+
+39
+00:01:45,117 --> 00:01:45,977
+is a manager,
+
+40
+00:01:46,837 --> 00:01:49,277
+beautifully organized code
+will not rescue the feature.
+
+41
+00:01:51,683 --> 00:01:54,743
+Architecture connects that
+behavior to a design.
+
+42
+00:01:55,443 --> 00:01:57,023
+Where is authorization enforced?
+
+43
+00:01:57,703 --> 00:02:00,123
+How does the status change
+stay consistent with
+
+44
+00:02:00,123 --> 00:02:00,903
+its audit record?
+
+45
+00:02:01,623 --> 00:02:04,563
+An agent can inspect the
+project, compare options,
+
+46
+00:02:04,823 --> 00:02:05,863
+and explain costs.
+
+47
+00:02:06,523 --> 00:02:08,923
+We can authorize it to
+choose within existing
+
+48
+00:02:08,923 --> 00:02:09,463
+conventions.
+
+49
+00:02:10,323 --> 00:02:12,503
+A new service or a new database is
+
+50
+00:02:12,503 --> 00:02:15,023
+a larger decision because it changes what we
+
+51
+00:02:15,023 --> 00:02:16,403
+must operate and maintain.
+
+52
+00:02:18,983 --> 00:02:22,883
+Implementation is where delegation
+can become very concrete.
+
+53
+00:02:23,743 --> 00:02:26,403
+Given an agreed behavior
+and a bounded design,
+
+54
+00:02:26,943 --> 00:02:29,723
+the agent can edit the relevant handler, add
+
+55
+00:02:29,723 --> 00:02:31,863
+the data operation, and write checks.
+
+56
+00:02:32,743 --> 00:02:35,223
+It should have room to
+solve ordinary details.
+
+57
+00:02:35,863 --> 00:02:37,843
+We do not need a meeting about every
+
+58
+00:02:37,843 --> 00:02:38,663
+variable name.
+
+59
+00:02:39,143 --> 00:02:40,603
+We do need it to preserve the permission
+
+60
+00:02:40,603 --> 00:02:42,183
+rule while solving those details.
+
+61
+00:02:44,517 --> 00:02:48,097
+Acceptance asks whether the
+delivered change meets the
+
+62
+00:02:48,097 --> 00:02:49,037
+agreed conditions.
+
+63
+00:02:49,697 --> 00:02:52,257
+The agent can collect
+evidence and help review
+
+64
+00:02:52,257 --> 00:02:52,657
+a diff.
+
+65
+00:02:53,257 --> 00:02:55,777
+The person or team
+responsible for the release
+
+66
+00:02:55,777 --> 00:02:58,097
+decides whether that evidence is sufficient.
+
+67
+00:02:58,837 --> 00:03:01,817
+That responsibility is
+easiest to exercise when the
+
+68
+00:03:01,817 --> 00:03:04,477
+change is understandable
+and the results are tied
+
+69
+00:03:04,477 --> 00:03:05,877
+to specific requirements.
+
+70
+00:03:06,477 --> 00:03:08,757
+A cheerful completion
+message is a useful update,
+
+71
+00:03:08,877 --> 00:03:09,937
+not the acceptance record.
+
+72
+00:03:12,283 --> 00:03:14,863
+Here is the request we actually send in
+
+73
+00:03:14,863 --> 00:03:15,163
+Cursor.
+
+74
+00:03:15,763 --> 00:03:18,623
+We describe the future
+approval feature, then ask
+
+75
+00:03:18,623 --> 00:03:21,623
+for three things before
+any code, what exists
+
+76
+00:03:21,623 --> 00:03:22,203
+today,
+
+77
+00:03:23,163 --> 00:03:25,663
+unresolved product decisions,
+and checks we would need.
+
+78
+00:03:26,383 --> 00:03:28,423
+We name the server and the database test.
+
+79
+00:03:29,043 --> 00:03:31,483
+For this investigation, we ask for no edits
+
+80
+00:03:31,483 --> 00:03:32,503
+and no commands.
+
+81
+00:03:32,923 --> 00:03:35,663
+That keeps the first step focused on reading
+
+82
+00:03:35,663 --> 00:03:36,563
+and diagnosis.
+
+83
+00:03:39,017 --> 00:03:42,737
+Cursor identifies the current
+application as a read-only
+
+84
+00:03:42,737 --> 00:03:44,777
+baseline with no approval path.
+
+85
+00:03:45,317 --> 00:03:48,857
+It then separates existing
+behavior, open decisions, and
+
+86
+00:03:48,857 --> 00:03:49,617
+possible checks.
+
+87
+00:03:50,277 --> 00:03:52,317
+That is a productive use of an agent.
+
+88
+00:03:52,777 --> 00:03:54,597
+It helps us discover the shape of the
+
+89
+00:03:54,597 --> 00:03:56,377
+work before committing to a design.
+
+90
+00:03:57,177 --> 00:03:59,737
+Now we verify the observations and make the
+
+91
+00:03:59,737 --> 00:04:02,437
+choices, rather than
+treating the response as an
+
+92
+00:04:02,437 --> 00:04:03,397
+approved specification.
+
+93
+00:04:06,150 --> 00:04:07,790
+Look at the actual server.
+
+94
+00:04:08,370 --> 00:04:10,330
+There is a health route, a route that
+
+95
+00:04:10,330 --> 00:04:13,410
+lists synthetic requests,
+and fallback error handling.
+
+96
+00:04:14,070 --> 00:04:16,750
+The list includes a tenant
+identifier, but this
+
+97
+00:04:16,750 --> 00:04:19,270
+file does not enforce a
+tenant permission boundary.
+
+98
+00:04:19,870 --> 00:04:22,490
+A field named tenant does
+not implement tenant
+
+99
+00:04:22,490 --> 00:04:22,990
+isolation.
+
+100
+00:04:23,850 --> 00:04:25,410
+We have a starting point for the course,
+
+101
+00:04:25,750 --> 00:04:27,910
+and we should describe that
+starting point accurately.
+
+102
+00:04:30,483 --> 00:04:34,183
+The existing database test
+opens a transaction, inserts
+
+103
+00:04:34,183 --> 00:04:36,903
+a synthetic request,
+rolls it back, and checks
+
+104
+00:04:36,903 --> 00:04:38,603
+that the inserted row is gone.
+
+105
+00:04:39,223 --> 00:04:41,843
+That tells us something
+useful about database access
+
+106
+00:04:41,843 --> 00:04:42,623
+and rollback.
+
+107
+00:04:43,123 --> 00:04:45,343
+It does not call an approval endpoint or
+
+108
+00:04:45,343 --> 00:04:46,723
+exercise a manager role.
+
+109
+00:04:47,303 --> 00:04:49,563
+If this test passes after we add approval
+
+110
+00:04:49,563 --> 00:04:51,723
+code, we still need evidence for the new
+
+111
+00:04:51,723 --> 00:04:52,043
+behavior.
+
+112
+00:04:54,583 --> 00:04:57,603
+The agent raises useful
+questions about who may
+
+113
+00:04:57,603 --> 00:05:01,963
+approve, valid state transitions,
+audit records, tenant scope,
+
+114
+00:05:02,343 --> 00:05:04,123
+repeated approvals, and the interface.
+
+115
+00:05:04,903 --> 00:05:06,803
+These questions are
+candidates for a decision.
+
+116
+00:05:07,423 --> 00:05:10,303
+Some belong to product
+policy, others are technical
+
+117
+00:05:10,303 --> 00:05:11,423
+choices we can delegate.
+
+118
+00:05:12,203 --> 00:05:15,063
+Sorting them prevents an
+implementation detail from silently
+
+119
+00:05:15,063 --> 00:05:16,303
+becoming a business rule.
+
+120
+00:05:16,703 --> 00:05:18,823
+It also keeps an open
+question from disappearing
+
+121
+00:05:18,823 --> 00:05:19,843
+inside a long chat.
+
+122
+00:05:22,183 --> 00:05:24,543
+Here is the brief prepared for our course
+
+123
+00:05:24,543 --> 00:05:25,083
+project.
+
+124
+00:05:25,583 --> 00:05:28,563
+Its status says proposed
+behavior for a future
+
+125
+00:05:28,563 --> 00:05:29,203
+implementation.
+
+126
+00:05:29,983 --> 00:05:31,363
+Our choices are explicit,
+
+127
+00:05:32,043 --> 00:05:32,543
+authentication,
+
+128
+00:05:33,243 --> 00:05:36,303
+manager authority, a
+matching tenant, and an open
+
+129
+00:05:36,303 --> 00:05:37,063
+starting state.
+
+130
+00:05:37,663 --> 00:05:39,943
+We also require an audit record for a
+
+131
+00:05:39,943 --> 00:05:40,943
+successful transition.
+
+132
+00:05:41,663 --> 00:05:43,863
+These are deliberate
+choices for this example.
+
+133
+00:05:44,263 --> 00:05:46,843
+A different product could
+choose different behavior and
+
+134
+00:05:46,843 --> 00:05:47,783
+need different evidence.
+
+135
+00:05:50,283 --> 00:05:52,603
+Let us settle the repeated click case.
+
+136
+00:05:53,443 --> 00:05:56,163
+Once the request is approved,
+another approval attempt
+
+137
+00:05:56,163 --> 00:05:59,083
+should leave the stored
+state unchanged and create
+
+138
+00:05:59,083 --> 00:06:00,923
+no second approval audit event.
+
+139
+00:06:01,503 --> 00:06:03,463
+The response will explain
+that the request is
+
+140
+00:06:03,463 --> 00:06:04,423
+already approved.
+
+141
+00:06:05,163 --> 00:06:06,923
+Notice how that describes a result we can
+
+142
+00:06:06,923 --> 00:06:07,283
+observe.
+
+143
+00:06:07,783 --> 00:06:10,503
+Later, we can design the
+exact response contract
+
+144
+00:06:10,503 --> 00:06:13,523
+and verify the behavior under
+concurrent requests too.
+
+145
+00:06:15,750 --> 00:06:19,390
+For an unauthorized request,
+the contract requires no
+
+146
+00:06:19,390 --> 00:06:22,810
+state change and no successful
+approval audit event.
+
+147
+00:06:23,210 --> 00:06:26,290
+That does not forbid
+recording a separate security
+
+148
+00:06:26,290 --> 00:06:26,770
+event.
+
+149
+00:06:27,270 --> 00:06:29,050
+It keeps two meanings distinct.
+
+150
+00:06:29,730 --> 00:06:32,430
+We also need a policy for what information
+
+151
+00:06:32,430 --> 00:06:35,810
+the response reveals about
+a request in another
+
+152
+00:06:35,810 --> 00:06:36,170
+tenant.
+
+153
+00:06:36,710 --> 00:06:38,590
+We record that as a design question to
+
+154
+00:06:38,590 --> 00:06:41,750
+resolve before implementation,
+instead of guessing a status
+
+155
+00:06:41,750 --> 00:06:42,350
+code here.
+
+156
+00:06:44,550 --> 00:06:47,570
+Consider two designs for
+the state change and
+
+157
+00:06:47,570 --> 00:06:48,370
+its audit event.
+
+158
+00:06:49,150 --> 00:06:51,970
+Separate writes are
+straightforward to sketch, but one
+
+159
+00:06:51,970 --> 00:06:53,790
+can succeed while the other fails.
+
+160
+00:06:54,490 --> 00:06:57,030
+A transaction can keep
+the two database changes
+
+161
+00:06:57,030 --> 00:06:57,510
+together.
+
+162
+00:06:58,070 --> 00:07:02,110
+That does not automatically solve
+identity, permissions, retries,
+
+163
+00:07:02,290 --> 00:07:02,950
+or concurrency.
+
+164
+00:07:03,770 --> 00:07:06,190
+It answers one consistency question.
+
+165
+00:07:06,790 --> 00:07:10,010
+Good architectural reasoning
+names the property an option
+
+166
+00:07:10,010 --> 00:07:12,330
+provides and the problems that remain.
+
+167
+00:07:14,883 --> 00:07:17,703
+Our delegation now has a useful boundary.
+
+168
+00:07:18,383 --> 00:07:20,923
+Explore an approach using
+the existing service and
+
+169
+00:07:20,923 --> 00:07:21,323
+database.
+
+170
+00:07:21,983 --> 00:07:25,543
+Explain the authorization point,
+the state transition, the
+
+171
+00:07:25,543 --> 00:07:26,963
+audit write, and the checks.
+
+172
+00:07:27,723 --> 00:07:30,163
+If the approach requires a new service, a
+
+173
+00:07:30,163 --> 00:07:33,323
+new dependency with meaningful
+operational cost, or a
+
+174
+00:07:33,323 --> 00:07:36,123
+policy change, bring that
+decision back with reasons.
+
+175
+00:07:36,803 --> 00:07:40,223
+Routine implementation details
+can stay inside the delegated
+
+176
+00:07:40,223 --> 00:07:40,583
+work.
+
+177
+00:07:42,883 --> 00:07:46,063
+Cursor has a planning
+workflow for researching the
+
+178
+00:07:46,063 --> 00:07:48,303
+code base and preparing a plan that you
+
+179
+00:07:48,303 --> 00:07:50,303
+can inspect and edit before building.
+
+180
+00:07:50,883 --> 00:07:52,763
+We will work through
+that interface in detail
+
+181
+00:07:52,763 --> 00:07:53,183
+later.
+
+182
+00:07:53,923 --> 00:07:55,123
+The habit matters here.
+
+183
+00:07:55,723 --> 00:07:58,203
+Review a plan against the
+behavior and constraints.
+
+184
+00:07:58,963 --> 00:08:01,543
+A plan earns confidence
+by addressing the hard
+
+185
+00:08:01,543 --> 00:08:01,943
+cases.
+
+186
+00:08:01,943 --> 00:08:04,683
+Its length and formatting do not make the
+
+187
+00:08:04,683 --> 00:08:06,223
+unresolved questions disappear.
+
+188
+00:08:08,483 --> 00:08:11,203
+Now, map each requirement to evidence.
+
+189
+00:08:11,883 --> 00:08:14,563
+A same tenant manager
+approves an open request.
+
+190
+00:08:15,203 --> 00:08:17,543
+Verify the stored state
+and its audit record.
+
+191
+00:08:18,163 --> 00:08:20,423
+An unauthorized actor attempts approval.
+
+192
+00:08:21,103 --> 00:08:23,423
+Verify the refusal and unchanged state.
+
+193
+00:08:24,023 --> 00:08:25,423
+A repeated approval arrives.
+
+194
+00:08:26,083 --> 00:08:28,743
+Verify that it creates no
+duplicate transition event.
+
+195
+00:08:29,443 --> 00:08:32,403
+Each row names behavior and an observation.
+
+196
+00:08:32,403 --> 00:08:36,003
+That makes a missing check
+visible before somebody
+
+197
+00:08:36,003 --> 00:08:37,463
+declares the feature finished.
+
+198
+00:08:40,017 --> 00:08:41,317
+Here's a tempting shortcut.
+
+199
+00:08:41,777 --> 00:08:44,457
+The happy path test passes, so approvals are
+
+200
+00:08:44,457 --> 00:08:44,897
+secure.
+
+201
+00:08:45,437 --> 00:08:47,637
+The observation is narrower
+than that conclusion.
+
+202
+00:08:48,137 --> 00:08:50,797
+A test can pass because
+the implementation and
+
+203
+00:08:50,797 --> 00:08:53,357
+the test share the same mistaken assumption.
+
+204
+00:08:53,937 --> 00:08:56,297
+Review the expectation
+against the requirement.
+
+205
+00:08:56,877 --> 00:08:58,657
+Then look for a case that would expose
+
+206
+00:08:58,657 --> 00:08:59,257
+the mistake.
+
+207
+00:08:59,637 --> 00:09:01,617
+In this example, try a different tenant and
+
+208
+00:09:01,617 --> 00:09:02,797
+a non-manager identity.
+
+209
+00:09:05,150 --> 00:09:08,710
+A useful completion report
+links the requirement, the
+
+210
+00:09:08,710 --> 00:09:12,010
+changed files, the command
+or interaction that checked
+
+211
+00:09:12,010 --> 00:09:13,690
+it, and the observed result.
+
+212
+00:09:13,950 --> 00:09:16,290
+It also states what remains untested.
+
+213
+00:09:16,650 --> 00:09:19,030
+When a check fails, keep the failure and
+
+214
+00:09:19,030 --> 00:09:20,790
+explain the next investigation.
+
+215
+00:09:21,270 --> 00:09:24,190
+That gives the next reviewer
+something concrete to
+
+216
+00:09:24,190 --> 00:09:24,570
+assess.
+
+217
+00:09:25,010 --> 00:09:26,910
+It also lets an agent continue from durable
+
+218
+00:09:26,910 --> 00:09:29,530
+evidence instead of reconstructing
+the task from memory.
+
+219
+00:09:31,883 --> 00:09:34,023
+Take a moment with the exercise and pause
+
+220
+00:09:34,023 --> 00:09:34,863
+when you need to.
+
+221
+00:09:35,343 --> 00:09:36,483
+Sort these four decisions.
+
+222
+00:09:37,243 --> 00:09:37,903
+Approval policy,
+
+223
+00:09:38,603 --> 00:09:41,003
+consistency between the
+status and its audit record,
+
+224
+00:09:41,443 --> 00:09:44,683
+the name of a local helper, and acceptance
+
+225
+00:09:44,683 --> 00:09:45,863
+of the finished feature.
+
+226
+00:09:46,423 --> 00:09:49,823
+For each decision, identify
+the responsible role, then
+
+227
+00:09:49,823 --> 00:09:51,823
+describe what the agent
+can contribute and what
+
+228
+00:09:51,823 --> 00:09:53,503
+information the responsible person needs.
+
+229
+00:10:01,983 --> 00:10:05,363
+Approval policy belongs with
+the people accountable for
+
+230
+00:10:05,363 --> 00:10:06,243
+the product behavior.
+
+231
+00:10:07,083 --> 00:10:10,663
+Consistency is an architectural
+responsibility informed by that
+
+232
+00:10:10,663 --> 00:10:11,103
+policy.
+
+233
+00:10:11,863 --> 00:10:14,243
+A helper name can usually
+be delegated within
+
+234
+00:10:14,243 --> 00:10:15,443
+the code base's conventions.
+
+235
+00:10:16,363 --> 00:10:19,283
+Acceptance belongs to the
+responsible reviewer or release
+
+236
+00:10:19,283 --> 00:10:21,503
+owner supported by the collected evidence.
+
+237
+00:10:22,183 --> 00:10:23,663
+These roles can overlap.
+
+238
+00:10:24,243 --> 00:10:27,063
+The point is to make authority visible, not
+
+239
+00:10:27,063 --> 00:10:29,303
+to invent a committee for a small change.
+
+240
+00:10:31,750 --> 00:10:34,790
+We now have a clearer task, a baseline
+
+241
+00:10:34,790 --> 00:10:39,190
+we inspected, proposed behavior
+we chose, technical questions
+
+242
+00:10:39,190 --> 00:10:42,370
+we recorded, a scope for delegation, and an
+
+243
+00:10:42,370 --> 00:10:43,070
+evidence map.
+
+244
+00:10:43,750 --> 00:10:46,310
+The feature is still unbuilt, and the brief
+
+245
+00:10:46,310 --> 00:10:48,750
+tells us exactly what must happen next.
+
+246
+00:10:49,430 --> 00:10:51,390
+In the next lesson, we will turn these
+
+247
+00:10:51,390 --> 00:10:53,450
+responsibilities into a working loop.
+
+248
+00:10:54,350 --> 00:10:58,090
+Understand, plan, build,
+verify, and integrate.

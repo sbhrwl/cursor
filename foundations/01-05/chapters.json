@@ -1,0 +1,70 @@
+[
+  {
+    "start": 0.0,
+    "title": "One header, a better test"
+  },
+  {
+    "start": 27.3,
+    "title": "One requirement, observable evidence"
+  },
+  {
+    "start": 55.3,
+    "title": "Define the contract"
+  },
+  {
+    "start": 80.03333333333333,
+    "title": "Inspect the starting state"
+  },
+  {
+    "start": 103.96666666666667,
+    "title": "Define the contract"
+  },
+  {
+    "start": 127.26666666666667,
+    "title": "Observe an expected failure"
+  },
+  {
+    "start": 151.76666666666668,
+    "title": "Give Cursor a bounded stopping point"
+  },
+  {
+    "start": 175.46666666666667,
+    "title": "Read the actual failure"
+  },
+  {
+    "start": 232.76666666666668,
+    "title": "Classify the failure"
+  },
+  {
+    "start": 258.76666666666665,
+    "title": "Implement the bounded change"
+  },
+  {
+    "start": 282.06666666666666,
+    "title": "Trace the implementation"
+  },
+  {
+    "start": 305.6666666666667,
+    "title": "Verify beyond the agent summary"
+  },
+  {
+    "start": 330.73333333333335,
+    "title": "Inspect the running service"
+  },
+  {
+    "start": 381.96666666666664,
+    "title": "Keep the claim precise"
+  },
+  {
+    "start": 409.1666666666667,
+    "title": "Preserve the reviewed change"
+  },
+  {
+    "start": 438.76666666666665,
+    "title": "Challenge the evidence"
+  },
+  {
+    "start": 495.03333333333336,
+    "title": "Practice the complete habit"
+  }
+]

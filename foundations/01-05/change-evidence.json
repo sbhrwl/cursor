@@ -1,0 +1,159 @@
+{
+  "change_commit": "c88b4a38b19f50989325efd8a4671a1aabb7f1b8",
+  "merge_commit": "b11a543939b6c760e45af5b1c78157373a4cdbec",
+  "baseline": "b6747c5f38b8c1c540e808b173fef6814ecf3280",
+  "local_checks": {
+    "command": "npm run typecheck && npm test",
+    "exit_code": 0,
+    "tests": 7,
+    "pass": 7,
+    "fail": 0
+  },
+  "red_state": {
+    "command": "node --import tsx --test test/health.test.ts",
+    "exit_code": 1,
+    "expected_failure": true,
+    "production_changed": false
+  },
+  "pull_request": {
+    "headRefOid": "c88b4a38b19f50989325efd8a4671a1aabb7f1b8",
+    "mergeCommit": {
+      "oid": "b11a543939b6c760e45af5b1c78157373a4cdbec"
+    },
+    "mergedAt": "2026-09-06T21:26:45Z",
+    "state": "MERGED",
+    "url": "https://github.com/OrMizrahi12/superposition-cursor-operations-hub/pull/3"
+  },
+  "pr_ci": {
+    "conclusion": "success",
+    "event": "pull_request",
+    "headSha": "c88b4a38b19f50989325efd8a4671a1aabb7f1b8",
+    "jobs": [
+      {
+        "completedAt": "2026-09-06T21:24:18Z",
+        "conclusion": "success",
+        "databaseId": 101561235758,
+        "name": "verify",
+        "startedAt": "2026-09-06T21:23:55Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-09-06T21:23:56Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-09-06T21:23:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:10Z",
+            "conclusion": "success",
+            "name": "Initialize containers",
+            "number": 2,
+            "startedAt": "2026-09-06T21:23:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:11Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 3,
+            "startedAt": "2026-09-06T21:24:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:13Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "number": 4,
+            "startedAt": "2026-09-06T21:24:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:14Z",
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 5,
+            "startedAt": "2026-09-06T21:24:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:15Z",
+            "conclusion": "success",
+            "name": "Run npm run db:init",
+            "number": 6,
+            "startedAt": "2026-09-06T21:24:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:15Z",
+            "conclusion": "success",
+            "name": "Run npm run typecheck",
+            "number": 7,
+            "startedAt": "2026-09-06T21:24:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:16Z",
+            "conclusion": "success",
+            "name": "Run npm test",
+            "number": 8,
+            "startedAt": "2026-09-06T21:24:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:16Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "number": 14,
+            "startedAt": "2026-09-06T21:24:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:16Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 15,
+            "startedAt": "2026-09-06T21:24:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:17Z",
+            "conclusion": "success",
+            "name": "Stop containers",
+            "number": 16,
+            "startedAt": "2026-09-06T21:24:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-06T21:24:17Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-09-06T21:24:17Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/OrMizrahi12/superposition-cursor-operations-hub/actions/runs/34060943283/job/101561235758"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/OrMizrahi12/superposition-cursor-operations-hub/actions/runs/34060943283"
+  },
+  "main_ci": {
+    "conclusion": "success",
+    "event": "push",
+    "headSha": "b11a543939b6c760e45af5b1c78157373a4cdbec",
+    "status": "completed",
+    "url": "https://github.com/OrMizrahi12/superposition-cursor-operations-hub/actions/runs/34061095121"
+  },
+  "runtime_observations": {
+    "service_restarted": true,
+    "GET_health": "200 with no-store and existing metadata",
+    "HEAD_health": "200 with no-store and no body",
+    "POST_health": "405 with no-store and Allow GET, HEAD",
+    "GET_demo_requests": "200, existing synthetic list, no Cache-Control"
+  },
+  "finished_archive_sha256": "32116e0c0b39d535a34fbc5385672ce6d12ccc168cc27706a5eeef315689463c",
+  "limits": "Controlled dependency HTTP tests cover the probe exception. Live checks do not deliberately fail the real database or test intermediary caches."
+}

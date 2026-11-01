@@ -1,0 +1,3 @@
+The exact `/health` route now sends `Cache-Control: no-store` on healthy GET/HEAD, failed probes and rejected methods. The header is set before early returns and the probe await, preserving existing status/body/Allow behavior and leaving other routes unchanged.
+
+Validation: the test-only state failed four health groups because the header was missing. After the single-line handler change, type checking and the full seven-test suite pass. The HTTP tests assert the scoped header on health paths and its absence on existing non-health routes. This verifies the origin response contract; it does not test arbitrary intermediary caches.

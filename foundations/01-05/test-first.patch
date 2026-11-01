@@ -1,0 +1,60 @@
+diff --git a/test/health.test.ts b/test/health.test.ts
+index bad0579..fde91e3 100644
+--- a/test/health.test.ts
++++ b/test/health.test.ts
+@@ -35,6 +35,7 @@ test('healthy GET /health returns 200 metadata and probes once',async()=>{
+   const res=await request(origin,'/health','GET');
+   assert.equal(res.status,200);
+   assert.equal(res.headers['content-type'],'application/json');
++  assert.equal(res.headers['cache-control'],'no-store');
+   assert.deepEqual(JSON.parse(res.body),{status:'ok',service:'operations-hub',database:'connected',stage:'environment-baseline'});
+   assert.equal(probes,1);
+  });
+@@ -49,6 +50,7 @@ test('healthy HEAD /health returns 200 with no body and probes once',async()=>{
+   const res=await request(origin,'/health','HEAD');
+   assert.equal(res.status,200);
+   assert.equal(res.headers['content-type'],'application/json');
++  assert.equal(res.headers['cache-control'],'no-store');
+   assert.equal(res.body,'');
+   assert.equal(probes,1);
+  });
+@@ -61,9 +63,11 @@ test('failing probe returns 503 for GET and empty-body HEAD',async()=>{
+  },async origin=>{
+   const get=await request(origin,'/health','GET');
+   assert.equal(get.status,503);
++  assert.equal(get.headers['cache-control'],'no-store');
+   assert.deepEqual(JSON.parse(get.body),{status:'unavailable'});
+   const head=await request(origin,'/health','HEAD');
+   assert.equal(head.status,503);
++  assert.equal(head.headers['cache-control'],'no-store');
+   assert.equal(head.body,'');
+  });
+ });
+@@ -78,6 +82,7 @@ test('unsupported /health methods return 405 without probing',async()=>{
+    const res=await request(origin,'/health',method);
+    assert.equal(res.status,405);
+    assert.equal(res.headers.allow,'GET, HEAD');
++   assert.equal(res.headers['cache-control'],'no-store');
+    assert.deepEqual(JSON.parse(res.body),{error:'method_not_allowed'});
+   }
+   assert.equal(probes,0);
+@@ -91,6 +96,7 @@ test('failing demo-list dependency preserves 503',async()=>{
+  },async origin=>{
+   const res=await request(origin,'/demo/requests','GET');
+   assert.equal(res.status,503);
++  assert.equal(res.headers['cache-control'],undefined);
+   assert.deepEqual(JSON.parse(res.body),{status:'unavailable'});
+  });
+ });
+@@ -103,9 +109,11 @@ test('unknown paths remain 404 and demo requests stay available',async()=>{
+  },async origin=>{
+   const missing=await request(origin,'/missing','GET');
+   assert.equal(missing.status,404);
++  assert.equal(missing.headers['cache-control'],undefined);
+   assert.deepEqual(JSON.parse(missing.body),{error:'not_found'});
+   const demo=await request(origin,'/demo/requests','GET');
+   assert.equal(demo.status,200);
++  assert.equal(demo.headers['cache-control'],undefined);
+   assert.deepEqual(JSON.parse(demo.body),rows);
+  });
+ });

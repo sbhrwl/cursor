@@ -1,0 +1,58 @@
+[
+  {
+    "start": 0.0,
+    "title": "A green test is only part of the story"
+  },
+  {
+    "start": 26.333333333333332,
+    "title": "The whole loop"
+  },
+  {
+    "start": 80.03333333333333,
+    "title": "Understand the baseline"
+  },
+  {
+    "start": 132.93333333333334,
+    "title": "Plan observable behavior"
+  },
+  {
+    "start": 212.86666666666667,
+    "title": "Separate tool failure from code failure"
+  },
+  {
+    "start": 239.83333333333334,
+    "title": "Inspect the proposed design"
+  },
+  {
+    "start": 298.26666666666665,
+    "title": "Build a bounded change"
+  },
+  {
+    "start": 377.6666666666667,
+    "title": "Review and strengthen the evidence"
+  },
+  {
+    "start": 427.7,
+    "title": "Verify the changed code"
+  },
+  {
+    "start": 453.8,
+    "title": "Verify the running process"
+  },
+  {
+    "start": 549.0333333333333,
+    "title": "Connect evidence to its scope"
+  },
+  {
+    "start": 576.4,
+    "title": "Integrate an identifiable revision"
+  },
+  {
+    "start": 675.3333333333334,
+    "title": "Your next useful action"
+  },
+  {
+    "start": 735.4333333333333,
+    "title": "Carry the loop forward"
+  }
+]

@@ -1,0 +1,179 @@
+diff --git a/src/handler.ts b/src/handler.ts
+new file mode 100644
+index 0000000..7fd8063
+--- /dev/null
++++ b/src/handler.ts
+@@ -0,0 +1,33 @@
++import type {IncomingMessage,ServerResponse} from 'node:http';
++
++export type HandlerDeps={
++ probeHealth:()=>Promise<void>;
++ listDemoRequests:()=>Promise<unknown>;
++};
++
++const healthOk=JSON.stringify({status:'ok',service:'operations-hub',database:'connected',stage:'environment-baseline'});
++
++export function createHandler(deps:HandlerDeps){
++ return async(req:IncomingMessage,res:ServerResponse)=>{
++  res.setHeader('Content-Type','application/json');
++  try {
++   if(req.url==='/health') {
++    if(req.method!=='GET'&&req.method!=='HEAD') {
++     res.statusCode=405;
++     res.setHeader('Allow','GET, HEAD');
++     res.end(JSON.stringify({error:'method_not_allowed'}));
++     return;
++    }
++    await deps.probeHealth();
++    if(req.method==='HEAD') {res.end();return;}
++    res.end(healthOk);
++   }
++   else if(req.url==='/demo/requests') {res.end(JSON.stringify(await deps.listDemoRequests()));}
++   else {res.statusCode=404;res.end(JSON.stringify({error:'not_found'}));}
++  } catch {
++   res.statusCode=503;
++   if(req.url==='/health'&&req.method==='HEAD') {res.end();return;}
++   res.end(JSON.stringify({status:'unavailable'}));
++  }
++ };
++}
+diff --git a/src/server.ts b/src/server.ts
+index 6c61d73..d891ee4 100644
+--- a/src/server.ts
++++ b/src/server.ts
+@@ -1,13 +1,10 @@
+ import http from 'node:http';
+ import pg from 'pg';
++import {createHandler} from './handler.js';
+ const pool=new pg.Pool({connectionString:process.env.DATABASE_URL});
+-const server=http.createServer(async(req,res)=>{
+- res.setHeader('Content-Type','application/json');
+- try {
+-  if(req.url==='/health') {await pool.query('select 1');res.end(JSON.stringify({status:'ok',service:'operations-hub',database:'connected',stage:'environment-baseline'}));}
+-  else if(req.url==='/demo/requests') {const r=await pool.query('select id,tenant_id,title,status from course_demo_requests order by id');res.end(JSON.stringify(r.rows));}
+-  else {res.statusCode=404;res.end(JSON.stringify({error:'not_found'}));}
+- } catch {res.statusCode=503;res.end(JSON.stringify({status:'unavailable'}));}
+-});
++const server=http.createServer(createHandler({
++ probeHealth:async()=>{await pool.query('select 1');},
++ listDemoRequests:async()=>(await pool.query('select id,tenant_id,title,status from course_demo_requests order by id')).rows
++}));
+ server.listen(3100,'127.0.0.1',()=>console.log('Operations baseline listening on 3100'));
+ process.on('SIGTERM',()=>server.close(()=>pool.end().then(()=>process.exit(0))));
+diff --git a/test/health.test.ts b/test/health.test.ts
+new file mode 100644
+index 0000000..bad0579
+--- /dev/null
++++ b/test/health.test.ts
+@@ -0,0 +1,111 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import http from 'node:http';
++import type {AddressInfo} from 'node:net';
++import {createHandler,type HandlerDeps} from '../src/handler.js';
++
++type HttpResult={status:number;headers:http.IncomingHttpHeaders;body:string};
++
++function request(origin:string,path:string,method:string){
++ return new Promise<HttpResult>((resolve,reject)=>{
++  const req=http.request(`${origin}${path}`,{method,signal:AbortSignal.timeout(2000)},res=>{
++   const chunks:Buffer[]=[];
++   res.on('data',chunk=>chunks.push(chunk as Buffer));
++   res.on('end',()=>resolve({status:res.statusCode??0,headers:res.headers,body:Buffer.concat(chunks).toString('utf8')}));
++  });
++  req.on('error',reject);
++  req.end();
++ });
++}
++
++async function withServer(deps:HandlerDeps,run:(origin:string)=>Promise<void>){
++ const server=http.createServer(createHandler(deps));
++ await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));
++ const address=server.address() as AddressInfo;
++ try {await run(`http://127.0.0.1:${address.port}`);}
++ finally {await new Promise<void>((resolve,reject)=>server.close(err=>err?reject(err):resolve()));}
++}
++
++test('healthy GET /health returns 200 metadata and probes once',async()=>{
++ let probes=0;
++ await withServer({
++  probeHealth:async()=>{probes+=1;},
++  listDemoRequests:async()=>{throw new Error('unused');}
++ },async origin=>{
++  const res=await request(origin,'/health','GET');
++  assert.equal(res.status,200);
++  assert.equal(res.headers['content-type'],'application/json');
++  assert.deepEqual(JSON.parse(res.body),{status:'ok',service:'operations-hub',database:'connected',stage:'environment-baseline'});
++  assert.equal(probes,1);
++ });
++});
++
++test('healthy HEAD /health returns 200 with no body and probes once',async()=>{
++ let probes=0;
++ await withServer({
++  probeHealth:async()=>{probes+=1;},
++  listDemoRequests:async()=>{throw new Error('unused');}
++ },async origin=>{
++  const res=await request(origin,'/health','HEAD');
++  assert.equal(res.status,200);
++  assert.equal(res.headers['content-type'],'application/json');
++  assert.equal(res.body,'');
++  assert.equal(probes,1);
++ });
++});
++
++test('failing probe returns 503 for GET and empty-body HEAD',async()=>{
++ await withServer({
++  probeHealth:async()=>{throw new Error('probe failed');},
++  listDemoRequests:async()=>{throw new Error('unused');}
++ },async origin=>{
++  const get=await request(origin,'/health','GET');
++  assert.equal(get.status,503);
++  assert.deepEqual(JSON.parse(get.body),{status:'unavailable'});
++  const head=await request(origin,'/health','HEAD');
++  assert.equal(head.status,503);
++  assert.equal(head.body,'');
++ });
++});
++
++test('unsupported /health methods return 405 without probing',async()=>{
++ let probes=0;
++ await withServer({
++  probeHealth:async()=>{probes+=1;},
++  listDemoRequests:async()=>{throw new Error('unused');}
++ },async origin=>{
++  for(const method of ['POST','PUT','DELETE','PATCH','OPTIONS']) {
++   const res=await request(origin,'/health',method);
++   assert.equal(res.status,405);
++   assert.equal(res.headers.allow,'GET, HEAD');
++   assert.deepEqual(JSON.parse(res.body),{error:'method_not_allowed'});
++  }
++  assert.equal(probes,0);
++ });
++});
++
++test('failing demo-list dependency preserves 503',async()=>{
++ await withServer({
++  probeHealth:async()=>{throw new Error('unused');},
++  listDemoRequests:async()=>{throw new Error('demo list failed');}
++ },async origin=>{
++  const res=await request(origin,'/demo/requests','GET');
++  assert.equal(res.status,503);
++  assert.deepEqual(JSON.parse(res.body),{status:'unavailable'});
++ });
++});
++
++test('unknown paths remain 404 and demo requests stay available',async()=>{
++ const rows=[{id:1,tenant_id:'demo-acme',title:'Laptop approval',status:'open'}];
++ await withServer({
++  probeHealth:async()=>{throw new Error('unused');},
++  listDemoRequests:async()=>rows
++ },async origin=>{
++  const missing=await request(origin,'/missing','GET');
++  assert.equal(missing.status,404);
++  assert.deepEqual(JSON.parse(missing.body),{error:'not_found'});
++  const demo=await request(origin,'/demo/requests','GET');
++  assert.equal(demo.status,200);
++  assert.deepEqual(JSON.parse(demo.body),rows);
++ });
++});

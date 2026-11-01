@@ -1,0 +1,34 @@
+[
+  {
+    "start": 0.0,
+    "title": "The failure has a location"
+  },
+  {
+    "start": 23.533333333333335,
+    "title": "Four layers to inspect"
+  },
+  {
+    "start": 173.3,
+    "title": "Trace a real Cursor request"
+  },
+  {
+    "start": 346.06666666666666,
+    "title": "From an action to an observation"
+  },
+  {
+    "start": 374.23333333333335,
+    "title": "Diagnose an execution failure"
+  },
+  {
+    "start": 494.4,
+    "title": "Keep the right information available"
+  },
+  {
+    "start": 547.2333333333333,
+    "title": "Choose a useful first investigation"
+  },
+  {
+    "start": 632.5666666666667,
+    "title": "Carry the map into the next task"
+  }
+]

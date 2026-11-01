@@ -1,0 +1,1075 @@
+1
+00:00:00,750 --> 00:00:02,950
+Same code, same machine.
+
+2
+00:00:03,530 --> 00:00:05,870
+One request fails and the next one works.
+
+3
+00:00:06,630 --> 00:00:08,130
+We did not replace the model.
+
+4
+00:00:08,590 --> 00:00:10,850
+We changed the address we were asking the
+
+5
+00:00:10,850 --> 00:00:11,810
+machine to contact.
+
+6
+00:00:12,470 --> 00:00:14,470
+That is a small example of a much
+
+7
+00:00:14,470 --> 00:00:15,270
+bigger habit.
+
+8
+00:00:15,870 --> 00:00:17,970
+Before you ask an agent to try harder,
+
+9
+00:00:18,530 --> 00:00:20,310
+figure out which part of the system can
+
+10
+00:00:20,310 --> 00:00:21,750
+actually explain the failure.
+
+11
+00:00:24,283 --> 00:00:26,403
+In this lesson, we will separate the model,
+
+12
+00:00:26,843 --> 00:00:29,223
+the context, the tools, and the runtime.
+
+13
+00:00:30,003 --> 00:00:32,503
+This is our engineering map for diagnosing a
+
+14
+00:00:32,503 --> 00:00:32,863
+workflow.
+
+15
+00:00:33,543 --> 00:00:35,543
+It is not a claim about four boxes
+
+16
+00:00:35,543 --> 00:00:36,663
+hidden inside cursor.
+
+17
+00:00:37,263 --> 00:00:38,843
+By the end, you should be able to
+
+18
+00:00:38,843 --> 00:00:40,723
+look at a failed task and choose a
+
+19
+00:00:40,723 --> 00:00:44,123
+useful first investigation
+instead of changing everything at
+
+20
+00:00:44,123 --> 00:00:44,403
+once.
+
+21
+00:00:46,783 --> 00:00:48,043
+Start with the model.
+
+22
+00:00:48,583 --> 00:00:50,883
+It takes the information available to it and
+
+23
+00:00:50,883 --> 00:00:53,543
+produces a response, which
+can include a proposed
+
+24
+00:00:53,543 --> 00:00:54,023
+action.
+
+25
+00:00:54,663 --> 00:00:57,883
+That proposal may be excellent,
+confused, or somewhere
+
+26
+00:00:57,883 --> 00:01:00,663
+in between, but a proposed command has not
+
+27
+00:01:00,663 --> 00:01:01,543
+magically run.
+
+28
+00:01:02,203 --> 00:01:04,483
+If the answer says, I checked the database,
+
+29
+00:01:05,043 --> 00:01:07,063
+the next question is wonderfully boring.
+
+30
+00:01:07,643 --> 00:01:09,443
+Where is the tool call and its result?
+
+31
+00:01:11,983 --> 00:01:15,243
+Context is the information
+available for that step.
+
+32
+00:01:15,823 --> 00:01:19,283
+It can include instructions,
+project rules, relevant files,
+
+33
+00:01:19,823 --> 00:01:22,643
+your messages, and observations
+returned by tools.
+
+34
+00:01:23,543 --> 00:01:24,703
+Notice the word relevant.
+
+35
+00:01:25,443 --> 00:01:28,323
+Giving the agent a thousand
+unrelated files is
+
+36
+00:01:28,323 --> 00:01:30,063
+not the same as giving it the permission
+
+37
+00:01:30,063 --> 00:01:31,123
+rule it needs.
+
+38
+00:01:31,503 --> 00:01:34,263
+A missing requirement can make
+a beautifully implemented
+
+39
+00:01:34,263 --> 00:01:35,723
+feature the wrong feature.
+
+40
+00:01:38,083 --> 00:01:41,663
+Tools connect the conversation
+to actions and observations.
+
+41
+00:01:42,543 --> 00:01:45,683
+Reading a file, searching a
+repository, editing code,
+
+42
+00:01:46,023 --> 00:01:48,323
+and running a shell command
+are different operations.
+
+43
+00:01:49,103 --> 00:01:51,763
+Each has inputs, an execution path, and a
+
+44
+00:01:51,763 --> 00:01:52,583
+result to inspect.
+
+45
+00:01:53,383 --> 00:01:55,543
+A tool refusing an action is also a
+
+46
+00:01:55,543 --> 00:01:55,843
+result.
+
+47
+00:01:56,403 --> 00:01:57,883
+It is not the same event as the
+
+48
+00:01:57,883 --> 00:01:59,863
+application running and returning an error.
+
+49
+00:02:02,350 --> 00:02:05,130
+The runtime is where an
+action actually happens.
+
+50
+00:02:05,950 --> 00:02:07,210
+Which checkout is open?
+
+51
+00:02:07,730 --> 00:02:08,970
+What is the working directory?
+
+52
+00:02:09,710 --> 00:02:11,350
+Is the executable installed?
+
+53
+00:02:12,010 --> 00:02:13,250
+Is the database running?
+
+54
+00:02:13,810 --> 00:02:15,690
+Can this machine reach that address?
+
+55
+00:02:16,130 --> 00:02:18,770
+A brilliant explanation of a test does not
+
+56
+00:02:18,770 --> 00:02:20,090
+put node on the path.
+
+57
+00:02:20,790 --> 00:02:23,570
+Sometimes the most productive
+next move is checking
+
+58
+00:02:23,570 --> 00:02:26,230
+one very ordinary environmental assumption.
+
+59
+00:02:28,683 --> 00:02:31,043
+These layers influence one another.
+
+60
+00:02:32,003 --> 00:02:33,483
+Instructions guide how the agent works.
+
+61
+00:02:34,083 --> 00:02:36,903
+Tools can bring new
+information into context, and
+
+62
+00:02:36,903 --> 00:02:39,803
+the runtime determines what
+an executed command can
+
+63
+00:02:39,803 --> 00:02:40,223
+observe.
+
+64
+00:02:41,163 --> 00:02:43,283
+Cursor coordinates the model and its tools.
+
+65
+00:02:44,043 --> 00:02:46,023
+Our job is to make the objective and
+
+66
+00:02:46,023 --> 00:02:49,423
+constraints clear, then inspect
+enough of that interaction
+
+67
+00:02:49,423 --> 00:02:51,583
+to know why the next step makes sense.
+
+68
+00:02:54,050 --> 00:02:56,590
+Let us make the map concrete in cursor.
+
+69
+00:02:57,430 --> 00:02:59,530
+We are using the operations hub server from
+
+70
+00:02:59,530 --> 00:03:00,430
+the previous lesson.
+
+71
+00:03:01,110 --> 00:03:02,850
+The question is deliberately narrow.
+
+72
+00:03:03,570 --> 00:03:06,750
+Trace the health endpoint,
+identify the database operation,
+
+73
+00:03:07,190 --> 00:03:09,750
+and explain what happens
+if that operation throws.
+
+74
+00:03:10,510 --> 00:03:12,490
+We are asking for an explanation of the
+
+75
+00:03:12,490 --> 00:03:13,410
+current implementation.
+
+76
+00:03:14,130 --> 00:03:16,170
+We are not asking the agent to modify
+
+77
+00:03:16,170 --> 00:03:16,710
+the service.
+
+78
+00:03:19,183 --> 00:03:21,343
+the model controls are
+worth reading carefully.
+
+79
+00:03:22,083 --> 00:03:25,043
+In this recorded setup,
+the menu identifies Cursor
+
+80
+00:03:25,043 --> 00:03:28,143
+Grok 4.6 as the model, while High is
+
+81
+00:03:28,143 --> 00:03:28,863
+the Effort setting.
+
+82
+00:03:29,503 --> 00:03:30,483
+Those are different choices.
+
+83
+00:03:31,323 --> 00:03:33,563
+Available labels can change
+with the product and
+
+84
+00:03:33,563 --> 00:03:34,083
+your account.
+
+85
+00:03:34,943 --> 00:03:37,963
+Learn to inspect the selected
+configuration rather than
+
+86
+00:03:37,963 --> 00:03:40,263
+assuming every word beside the chat box is
+
+87
+00:03:40,263 --> 00:03:40,903
+a model name.
+
+88
+00:03:43,183 --> 00:03:46,403
+Here, I attach the actual server file with
+
+89
+00:03:46,403 --> 00:03:47,143
+an at mention.
+
+90
+00:03:47,703 --> 00:03:50,203
+That makes the relevant
+source explicit in the
+
+91
+00:03:50,203 --> 00:03:50,583
+request.
+
+92
+00:03:51,283 --> 00:03:53,223
+If I did not know the location, I
+
+93
+00:03:53,223 --> 00:03:55,083
+could ask the agent to search first.
+
+94
+00:03:55,803 --> 00:03:58,083
+Attaching a file does not mean every other
+
+95
+00:03:58,083 --> 00:04:00,763
+input disappears, and it does not prove the
+
+96
+00:04:00,763 --> 00:04:02,123
+agent will reason correctly.
+
+97
+00:04:02,123 --> 00:04:04,603
+It gives us a specific piece of context
+
+98
+00:04:04,603 --> 00:04:05,463
+we can point to.
+
+99
+00:04:07,750 --> 00:04:09,490
+Read the rest of the prompt too.
+
+100
+00:04:10,130 --> 00:04:12,770
+We ask for file and line references, forbid
+
+101
+00:04:12,770 --> 00:04:15,730
+edits and command execution
+for this particular task,
+
+102
+00:04:16,030 --> 00:04:17,310
+and keep the response short.
+
+103
+00:04:17,950 --> 00:04:19,930
+The important part is the bounded objective.
+
+104
+00:04:20,550 --> 00:04:23,210
+We want an explanation
+grounded in this file.
+
+105
+00:04:23,770 --> 00:04:25,650
+We are not turning a small reading question
+
+106
+00:04:25,650 --> 00:04:28,070
+into a request to redesign the application.
+
+107
+00:04:30,550 --> 00:04:33,830
+The response identifies the
+health route, the small
+
+108
+00:04:33,830 --> 00:04:36,030
+database query, and the error response.
+
+109
+00:04:36,670 --> 00:04:38,750
+We can compare that directly with the source
+
+110
+00:04:38,750 --> 00:04:39,330
+on the left.
+
+111
+00:04:40,070 --> 00:04:42,530
+The handler waits for the
+query before returning
+
+112
+00:04:42,530 --> 00:04:42,970
+success.
+
+113
+00:04:43,690 --> 00:04:46,430
+The catch block sets a
+service unavailable response
+
+114
+00:04:46,430 --> 00:04:49,070
+when something inside the
+protected block throws.
+
+115
+00:04:49,830 --> 00:04:52,370
+This is an explanation
+we can inspect against
+
+116
+00:04:52,370 --> 00:04:53,190
+the current code.
+
+117
+00:04:55,750 --> 00:04:58,950
+Now, expand the activity
+instead of stopping at
+
+118
+00:04:58,950 --> 00:04:59,970
+the polished answer.
+
+119
+00:05:00,570 --> 00:05:02,850
+This run shows a file read, a project
+
+120
+00:05:02,850 --> 00:05:04,790
+skill, and a repository search.
+
+121
+00:05:05,290 --> 00:05:07,470
+That is useful evidence about how the answer
+
+122
+00:05:07,470 --> 00:05:08,070
+was assembled.
+
+123
+00:05:08,670 --> 00:05:10,630
+It also reminds us that our typed message
+
+124
+00:05:10,630 --> 00:05:12,630
+was not the only instruction in play.
+
+125
+00:05:12,630 --> 00:05:15,870
+Project guidance can shape
+the workflow around the
+
+126
+00:05:15,870 --> 00:05:16,150
+model.
+
+127
+00:05:18,550 --> 00:05:20,750
+There is a limit to this result.
+
+128
+00:05:21,690 --> 00:05:24,730
+Reading the handler and
+describing its catch block
+
+129
+00:05:24,730 --> 00:05:27,690
+is not a runtime test of the failure
+
+130
+00:05:27,690 --> 00:05:28,130
+path.
+
+131
+00:05:28,830 --> 00:05:30,990
+Keep two kinds of evidence separate.
+
+132
+00:05:32,110 --> 00:05:35,270
+Code inspection tells us
+about a possible execution
+
+133
+00:05:35,270 --> 00:05:35,870
+path.
+
+134
+00:05:36,570 --> 00:05:39,650
+A runtime check tells us
+what actually happened
+
+135
+00:05:39,650 --> 00:05:40,990
+during an execution.
+
+136
+00:05:41,750 --> 00:05:44,050
+Both matter, and each has limits.
+
+137
+00:05:46,817 --> 00:05:49,677
+The simplified round trip looks like this.
+
+138
+00:05:50,137 --> 00:05:51,857
+A request supplies the question.
+
+139
+00:05:52,417 --> 00:05:54,477
+The model proposes a tool action.
+
+140
+00:05:55,137 --> 00:05:58,177
+The tool executes under its
+configured conditions and
+
+141
+00:05:58,177 --> 00:05:59,357
+returns an observation.
+
+142
+00:06:00,097 --> 00:06:03,257
+That observation becomes
+information for the next decision.
+
+143
+00:06:03,897 --> 00:06:06,417
+A useful agent can revise its approach from
+
+144
+00:06:06,417 --> 00:06:06,957
+that result.
+
+145
+00:06:07,337 --> 00:06:09,997
+If the result is hidden
+or misunderstood, the
+
+146
+00:06:09,997 --> 00:06:12,437
+next step is built on a shaky foundation.
+
+147
+00:06:14,983 --> 00:06:17,603
+Now we move from reading code to checking
+
+148
+00:06:17,603 --> 00:06:18,203
+the machine.
+
+149
+00:06:18,843 --> 00:06:21,063
+In this terminal, the
+working directory is the
+
+150
+00:06:21,063 --> 00:06:23,703
+operations hub checkout
+and node is available.
+
+151
+00:06:24,523 --> 00:06:27,243
+Those are modest observations,
+but they remove two
+
+152
+00:06:27,243 --> 00:06:28,683
+possible sources of confusion.
+
+153
+00:06:29,283 --> 00:06:31,723
+A command run from a different directory or
+
+154
+00:06:31,723 --> 00:06:34,223
+through a different terminal
+environment might not see
+
+155
+00:06:34,223 --> 00:06:35,983
+the same files or executables.
+
+156
+00:06:38,517 --> 00:06:41,917
+For this demonstration, I
+deliberately request the health
+
+157
+00:06:41,917 --> 00:06:44,017
+endpoint on port 3101.
+
+158
+00:06:44,857 --> 00:06:46,997
+Our service is configured on 3100.
+
+159
+00:06:47,697 --> 00:06:49,497
+The first request fails to connect.
+
+160
+00:06:50,117 --> 00:06:53,137
+This is an intentional
+wrong address exercise, not
+
+161
+00:06:53,137 --> 00:06:54,837
+a spontaneous production incident.
+
+162
+00:06:55,457 --> 00:06:57,837
+We have not changed the
+application, stopped the
+
+163
+00:06:57,837 --> 00:07:00,177
+database, or asked the
+model to repair anything
+
+164
+00:07:00,177 --> 00:07:00,457
+yet.
+
+165
+00:07:02,850 --> 00:07:04,850
+What does that failure establish?
+
+166
+00:07:05,490 --> 00:07:07,770
+The client did not establish a connection to
+
+167
+00:07:07,770 --> 00:07:09,670
+the address it tried at that moment.
+
+168
+00:07:10,250 --> 00:07:12,250
+It does not establish that the handler has
+
+169
+00:07:12,250 --> 00:07:14,150
+a bug because we did not get as
+
+170
+00:07:14,150 --> 00:07:16,650
+far as executing that handler
+through this request.
+
+171
+00:07:17,410 --> 00:07:20,810
+Before rewriting code, compare
+the requested address with
+
+172
+00:07:20,810 --> 00:07:23,270
+the address the service
+is actually configured to
+
+173
+00:07:23,270 --> 00:07:23,590
+use.
+
+174
+00:07:25,983 --> 00:07:28,843
+Change the request to
+the configured port and
+
+175
+00:07:28,843 --> 00:07:29,523
+run it again.
+
+176
+00:07:30,323 --> 00:07:32,963
+Now the health response
+comes back, including the
+
+177
+00:07:32,963 --> 00:07:34,303
+database connection status.
+
+178
+00:07:35,063 --> 00:07:38,523
+In this controlled example,
+correcting the address explains
+
+179
+00:07:38,523 --> 00:07:39,803
+the difference we observed.
+
+180
+00:07:40,423 --> 00:07:43,403
+We keep both results, the failed attempt and
+
+181
+00:07:43,403 --> 00:07:44,383
+the successful check.
+
+182
+00:07:44,883 --> 00:07:46,903
+The failed attempt is part of the diagnosis,
+
+183
+00:07:47,563 --> 00:07:49,323
+not something embarrassing to erase.
+
+184
+00:07:51,683 --> 00:07:54,263
+Notice what we did not need here, a
+
+185
+00:07:54,263 --> 00:07:55,263
+tournament of models.
+
+186
+00:07:55,903 --> 00:07:59,023
+We needed a hypothesis
+about the environment, one
+
+187
+00:07:59,023 --> 00:08:01,443
+changed input, and another observation.
+
+188
+00:08:02,243 --> 00:08:04,503
+That does not mean models
+never make reasoning
+
+189
+00:08:04,503 --> 00:08:04,923
+mistakes.
+
+190
+00:08:05,563 --> 00:08:07,883
+It means a model comparison is a poor
+
+191
+00:08:07,883 --> 00:08:10,723
+substitute for checking an
+address when the evidence
+
+192
+00:08:10,723 --> 00:08:12,683
+already points to an address problem.
+
+193
+00:08:15,150 --> 00:08:17,110
+Context has a budget too.
+
+194
+00:08:18,150 --> 00:08:22,330
+Files, instructions, conversation,
+and tool results consume space,
+
+195
+00:08:22,710 --> 00:08:24,990
+and long conversations may be summarized.
+
+196
+00:08:25,810 --> 00:08:28,510
+Do not build your workflow
+around one remembered
+
+197
+00:08:28,510 --> 00:08:30,490
+capacity number for every model.
+
+198
+00:08:31,130 --> 00:08:34,690
+Preserve the requirements,
+decisions, and useful evidence where
+
+199
+00:08:34,690 --> 00:08:36,190
+the next step can recover them.
+
+200
+00:08:36,590 --> 00:08:39,430
+We will explore cursor
+context controls in detail
+
+201
+00:08:39,430 --> 00:08:41,130
+when we work on larger changes.
+
+202
+00:08:43,483 --> 00:08:46,143
+The same reasoning applies
+when work moves to
+
+203
+00:08:46,143 --> 00:08:46,903
+a cloud agent.
+
+204
+00:08:47,423 --> 00:08:50,223
+The remote machine needs its
+own checkout, dependencies,
+
+205
+00:08:50,703 --> 00:08:52,483
+configuration, and running services.
+
+206
+00:08:53,163 --> 00:08:55,323
+A file saved only on your laptop does
+
+207
+00:08:55,323 --> 00:08:57,763
+not become a remote file because both agents
+
+208
+00:08:57,763 --> 00:08:58,583
+can discuss it.
+
+209
+00:08:59,163 --> 00:09:02,023
+When a result differs across
+environments, compare the
+
+210
+00:09:02,023 --> 00:09:04,823
+inputs and machine state
+before deciding which layer
+
+211
+00:09:04,823 --> 00:09:05,423
+is responsible.
+
+212
+00:09:07,983 --> 00:09:11,423
+Your checkpoint is to choose
+a first investigation.
+
+213
+00:09:12,103 --> 00:09:14,983
+Not to pretend every failure has exactly one
+
+214
+00:09:14,983 --> 00:09:15,383
+cause.
+
+215
+00:09:16,123 --> 00:09:17,903
+A terminal cannot find node.
+
+216
+00:09:18,543 --> 00:09:21,023
+An agent implements a feature
+without a requirement
+
+217
+00:09:21,023 --> 00:09:22,163
+it was never given.
+
+218
+00:09:22,803 --> 00:09:25,683
+The tool boundary refuses an edit, and an
+
+219
+00:09:25,683 --> 00:09:28,463
+agent draws a conclusion
+broader than its evidence.
+
+220
+00:09:29,203 --> 00:09:31,523
+Pause and assign a starting layer to each
+
+221
+00:09:31,523 --> 00:09:31,823
+case.
+
+222
+00:09:40,317 --> 00:09:43,377
+For the missing executable,
+start with the runtime.
+
+223
+00:09:44,257 --> 00:09:47,317
+For the missing requirement,
+inspect the context and
+
+224
+00:09:47,317 --> 00:09:48,397
+clarify the behavior.
+
+225
+00:09:49,157 --> 00:09:52,057
+For the refused edit, inspect the action and
+
+226
+00:09:52,057 --> 00:09:52,977
+its permitted scope.
+
+227
+00:09:53,697 --> 00:09:56,997
+For the unsupported conclusion,
+challenge the reasoning and
+
+228
+00:09:56,997 --> 00:09:58,257
+ask for an evidence map.
+
+229
+00:09:58,957 --> 00:10:00,797
+These are starting points for investigation.
+
+230
+00:10:01,377 --> 00:10:03,597
+They are not verdicts that rule out every
+
+231
+00:10:03,597 --> 00:10:04,797
+other contributing factor.
+
+232
+00:10:07,217 --> 00:10:10,457
+The next check should reduce
+a specific uncertainty.
+
+233
+00:10:11,457 --> 00:10:13,537
+Which executable can this terminal find?
+
+234
+00:10:14,277 --> 00:10:16,697
+Which permission requirement
+reached the conversation?
+
+235
+00:10:17,597 --> 00:10:19,577
+Was the requested tool action allowed?
+
+236
+00:10:20,397 --> 00:10:22,497
+Which observation supports that conclusion?
+
+237
+00:10:23,357 --> 00:10:26,097
+You can ask those questions
+calmly and precisely.
+
+238
+00:10:26,777 --> 00:10:29,237
+A longer prompt with more
+exclamation points does
+
+239
+00:10:29,237 --> 00:10:30,917
+not make the missing evidence appear.
+
+240
+00:10:33,317 --> 00:10:35,277
+Keep this map beside you,
+
+241
+00:10:35,957 --> 00:10:36,857
+Model, Context,
+
+242
+00:10:37,777 --> 00:10:38,797
+Tools, Runtime.
+
+243
+00:10:39,557 --> 00:10:43,177
+Read the actual request,
+inspect the actual action,
+
+244
+00:10:43,577 --> 00:10:45,617
+and connect the result to the place it
+
+245
+00:10:45,617 --> 00:10:45,937
+ran.
+
+246
+00:10:46,677 --> 00:10:48,657
+That gives you a much better starting point
+
+247
+00:10:48,657 --> 00:10:49,937
+when an agent gets stuck.
+
+248
+00:10:50,937 --> 00:10:53,477
+Next, we will decide who
+owns the requirements,
+
+249
+00:10:53,977 --> 00:10:57,657
+the architectural choices, the
+implementation, and the final
+
+250
+00:10:57,657 --> 00:10:59,137
+judgment that a change is ready.

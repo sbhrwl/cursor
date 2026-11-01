@@ -1,0 +1,5 @@
+The baseline accepted POST /health with a successful health response. Health now supports GET and HEAD; unsupported methods return 405 with `Allow: GET, HEAD` before the health probe runs. Successful metadata, failing-probe 503 responses, the demo listing, and unknown-path behavior are preserved. HEAD responses have no body.
+
+A small handler extraction allows HTTP tests to use an ephemeral server and controlled dependencies. Tests cover status, headers, body, rejected-method probe counts, and the existing demo failure response. Requests have a two-second deadline. The existing database rollback test remains unchanged.
+
+Validation: `npm run typecheck` passed; `npm test` passed all 7 tests. After restarting the development process, POST /health returned 405 with the correct Allow header; HEAD and GET succeeded and the synthetic demo listing remained available. The original POST-200 behavior and final results were recorded in the course. GitHub Actions is checked for this pull request before integration.
