@@ -1,6 +1,9 @@
 # 01.02 — Model, context, tools, and runtime
 - [Overview](#overview)
   - [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
+  - [Cursor Agent overview](https://cursor.com/docs/agent/overview)
+  - [Cursor prompting](https://cursor.com/docs/agent/prompting)
+  - [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent)
 - [Diagnostic map](#diagnostic-map)
 - [Prompt for agent](#prompt-for-agent)
 - [Deliberate wrong-address exercise](#deliberate-wrong-address-exercise)
@@ -21,7 +24,6 @@
 - This is an original teaching map for diagnosis.
   - Cursor describes its agent through instructions, tools and a selected model.
   - The runtime is added here as a practical dimension of investigation.
-  - [Cursor Agent overview](https://cursor.com/docs/agent/overview).
 ## Prompt for agent
 - We attach the actual `src/server.ts` file and ask:
 ```
@@ -29,8 +31,8 @@
 ```
 - The observed response describes the `select` query and the catch path that returns `HTTP 503`.
 - The expanded activity lists a source read, a project skill and a repository search.
-- [Cursor prompting](https://cursor.com/docs/agent/prompting).
 ## Deliberate wrong-address exercise
+- [worked-answer.md](worked-answer.md)
 - In the course's isolated Operations Hub terminal:
 ```bash
 pwd
@@ -46,7 +48,6 @@ curl --max-time 2 -sS http://127.0.0.1:3100/health
   - **It does not establish that the handler ran and failed**.
   - Change one relevant input, rerun the check, and keep both observations.
 - `127.0.0.1` refers to the machine or network namespace in which the command runs.
-- [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent).
 ## Exercise
 - Open [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html).
 - For each scenario:
