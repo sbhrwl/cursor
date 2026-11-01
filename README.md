@@ -1,2 +1,2 @@
 # cursor
-- [Foundations](foundations/lesson-notes.md)
+- [Foundations](foundations/README.md)
