@@ -1,13 +1,15 @@
 # 01.02 — Model, context, tools, and runtime
-- [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
-- [The diagnostic map](#the-diagnostic-map)
-- [The recorded Cursor request](#the-recorded-cursor-request)
+- [Overview](#overview)
+  - [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
+- [Diagnostic map](#diagnostic-map)
+- [Prompt for agent](#prompt-for-agent)
 - [Deliberate wrong-address exercise](#deliberate-wrong-address-exercise)
 - [Exercise](#exercise)
 - [Carry forward](#carry-forward)
 - [Files](#files)
-- By the end of this lesson, you should be able to choose an evidence-producing first investigation when an agent task fails.
-## The diagnostic map
+## Overview
+- We shall be able to choose an `evidence-producing investigation` when an `agent task fails`.
+## Diagnostic map
 
 | Layer | Inspect | Useful question |
 |---|---|---|
@@ -20,20 +22,14 @@
   - Cursor describes its agent through instructions, tools and a selected model.
   - The runtime is added here as a practical dimension of investigation.
   - [Cursor Agent overview](https://cursor.com/docs/agent/overview).
-## The recorded Cursor request
+## Prompt for agent
 - We attach the actual `src/server.ts` file and ask:
 ```
 > Read the attached Operations Hub server. Trace GET /health from request to response. Identify the database operation and what happens if it throws. Cite the file and line numbers. Do not edit files or run commands. Keep the answer under 150 words.
 ```
-- The observed response describes the `select 1` query and the catch path that returns HTTP 503.
+- The observed response describes the `select` query and the catch path that returns `HTTP 503`.
 - The expanded activity lists a source read, a project skill and a repository search.
-- The working tree remained clean.
-  - This verifies an explanation against the source
-  - It does not constitute a runtime test of the thrown-query path.
-- At mentions make known relevant context explicit.
-  - When the location is unknown, the agent can search.
-  - Context also includes other instructions and observations, and long conversations can be summarized. [Cursor prompting documentation](https://cursor.com/docs/agent/prompting).
-- The recording shows Cursor Grok 4.6 with a separate High effort setting. This is the observed configuration on the recording date, not a promise about every account's model menu.
+- [Cursor prompting](https://cursor.com/docs/agent/prompting).
 ## Deliberate wrong-address exercise
 - In the course's isolated Operations Hub terminal:
 ```bash
@@ -47,14 +43,12 @@ curl --max-time 2 -sS http://127.0.0.1:3100/health
   - Port 3100 returns the real health response with `database: connected`.
   - No application repair or model swap is performed between these checks.
 - The first result concerns the attempted connection.
-  - It does not establish that the handler ran and failed.
+  - **It does not establish that the handler ran and failed**.
   - Change one relevant input, rerun the check, and keep both observations.
 - `127.0.0.1` refers to the machine or network namespace in which the command runs.
-  - If you adapt the exercise to another environment, inspect that environment's configured address rather than assuming the recording's port is universal.
-  - Cloud Agents have their own execution environment.
-  - [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent).
+- [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent).
 ## Exercise
-- Open `interactive-diagnostic-map.html`.
+- Open [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html).
 - For each scenario:
   - Select the first layer you would inspect.
   - Name one concrete check and the uncertainty it reduces.
