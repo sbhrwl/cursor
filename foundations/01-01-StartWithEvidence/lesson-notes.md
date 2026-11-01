@@ -3,9 +3,11 @@
 - **Outcome:**
   - Distinguish `a claim`, `an observation`, and `a justified conclusion`
   - Connect a running behavior to code, a check, and a specific revision.
-    - The demonstrated starting system is an API and PostgreSQL database.
-    - It is a development baseline, not the finished Operations Hub product.
-    - Organization identifiers alone do not establish authorization or tenant isolation.
+    - The demonstrated starting system is
+      - API
+      - PostgreSQL database
+    - It is a `development baseline`, `not the finished Operations Hub product`.
+    - Organization identifiers alone do not `establish authorization` or `tenant isolation`.
 
 ## Follow the evidence
 
@@ -13,8 +15,8 @@
 |---|---|---|
 | `/demo/requests` returns two synthetic records | The endpoint returned those records on that run | A caller cannot access another organization's data |
 | `/health` succeeds after a database query | The service reached PostgreSQL for that query | Approval policy and persistence are correct |
-| Integration test passes | The exercised transaction/rollback behavior passed | Every planned product requirement is implemented |
-| CI succeeds at a commit | Those checks passed for that revision in CI | Later untested changes also pass |
+| `Integration test` passes | The exercised transaction/rollback behavior passed | Every planned product requirement is implemented |
+| `CI succeeds` at a commit | Those checks passed for that revision in CI | Later untested changes also pass |
 | Fresh Cloud Agent startup succeeds | That environment started the API and database on that run | Future changes cannot break startup |
 
 ## The recurring workflow
@@ -23,9 +25,9 @@
 - A useful loop needs a signal and a stopping condition.
 
 ## Course destinations
-- **Operations Hub:** a business application with requests, approval policy, tenant boundaries, background work and audit history.
-- **Evidence Desk:** a service that retrieves authorized sources and provides evidence-backed answers, with evaluations.
-- **Engineering Control Plane:** a coordinator with explicit task dependencies, execution state and failure recovery.
+- **Operations Hub** is a business application with request, approval policy, tenant boundaries, background work and audit history.
+- **Evidence Desk** is a service that retrieves authorized sources and provides evidence-backed answers, with evaluations.
+- **Engineering Control Plane** is a coordinator with explicit task dependencies, execution state and failure recovery.
 
 These capabilities will be built in later lessons. The current repositories are starter foundations.
 
