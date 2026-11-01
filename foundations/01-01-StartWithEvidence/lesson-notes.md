@@ -1,6 +1,7 @@
 # 01.01 — Start with evidence
 - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [Outcome](#outcome)
+- [Demonstration](#demonstration)
 - [Follow the evidence](#follow-the-evidence)
 - [The recurring workflow](#the-recurring-workflow)
 - [Course destinations](#course-destinations)
@@ -10,10 +11,11 @@
 ## Outcome
 - Distinguish `a claim`, `an observation`, and `a justified conclusion`
 - Connect a running behavior to `code`, `a check`, and `a specific revision`.
-  - The demonstrated starting system is
-    - API
-    - PostgreSQL database
-  - It is a `development baseline`, `not the finished Operations Hub product`.
+# Demonstration
+- The demonstrated starting system is
+  - API
+  - PostgreSQL database
+- It is a `development baseline`, `not the finished Operations Hub product`.
   - Organization identifiers alone do not `establish authorization` or `tenant isolation`.
 ## Follow the evidence
 
