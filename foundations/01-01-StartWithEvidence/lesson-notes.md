@@ -47,8 +47,8 @@ These capabilities will be built in later lessons. The current repositories are 
 ## Files
 - [interactive-checkpoint.html](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [worked-answer.md](worked-answer.md)
-- [01-01-start-with-evidence.en.srt](01-01-start-with-evidence.en.srt)
-- [narration-script.md](narration-script.md)
 - [PROMPTS.md](PROMPTS.md)
+- [narration-script.md](narration-script.md)
+  - [01-01-start-with-evidence.en.srt](01-01-start-with-evidence.en.srt)
 - [sources-and-credits.md](sources-and-credits.md)
 - [chapters.json](chapters.json)
