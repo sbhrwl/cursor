@@ -1,17 +1,17 @@
 # 01.01 — Start with evidence
 - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
-- [Outcome](#outcome)
+- [Overview](#overview)
+- [Recurring workflow](#recurring-workflow)
 - [Demonstration](#demonstration)
-- [The recurring workflow](#the-recurring-workflow)
 - [Follow the evidence](#follow-the-evidence)
 - [Checkpoint](#checkpoint)
 - [Course destinations](#course-destinations)
 - [Demonstration version](#demonstration-version)
 - [Files](#files)
-## Outcome
+## Overview 
 - Distinguish `a claim`, `an observation`, and `a justified conclusion`
 - Connect a running behavior to `code`, `a check`, and `a specific revision`.
-## The recurring workflow
+## Recurring workflow
 - `Understand → plan → build → verify → integrate`.
 - Return to the step that needs better information when a check fails.
 - A useful loop needs `a signal` and `a stopping condition`.
