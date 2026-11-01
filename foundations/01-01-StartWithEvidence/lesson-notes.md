@@ -2,7 +2,7 @@
 - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - **Outcome:**
   - Distinguish `a claim`, `an observation`, and `a justified conclusion`
-  - Connect a running behavior to `code`, a `check`, and a `specific revision`.
+  - Connect a running behavior to `code`, `a check`, and `a specific revision`.
     - The demonstrated starting system is
       - API
       - PostgreSQL database
