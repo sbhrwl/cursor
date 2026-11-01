@@ -18,7 +18,7 @@
 - A useful loop needs `a signal` and `a stopping condition`.
 ## Carry forward
 - Before retrying a failed task, write: 
-  - **observed result → working hypothesis → next check**. 
+  - `observed result` → `working hypothesis` → `next check`. 
 ## Demonstration
 - The demonstrated starting system is
   - API
