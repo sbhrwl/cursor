@@ -15,7 +15,6 @@
     - PostgreSQL database
   - It is a `development baseline`, `not the finished Operations Hub product`.
   - Organization identifiers alone do not `establish authorization` or `tenant isolation`.
-
 ## Follow the evidence
 
 | Observation | What it supports | What it does not establish |
@@ -30,19 +29,15 @@
 - `Understand → plan → build → verify → integrate`.
 - Return to the step that needs better information when a check fails.
 - A useful loop needs a signal and a stopping condition.
-
 ## Course destinations
 - **Operations Hub** is a business application with request, approval policy, tenant boundaries, background work and audit history.
 - **Evidence Desk** is a service that retrieves authorized sources and provides evidence-backed answers, with evaluations.
 - **Engineering Control Plane** is a coordinator with explicit task dependencies, execution state and failure recovery.
-
-These capabilities will be built in later lessons. The current repositories are starter foundations.
-
+- These capabilities will be built in later lessons. The current repositories are starter foundations.
 ## Demonstration version
 - Cursor Desktop 3.19.13, recorded September 6, 2026.
   - Operations Hub main commit: `b3b306ab7bd13091db4780ca5e853f7727be67af`.
   - AgentBox/CI PostgreSQL 17; verified Cloud environment PostgreSQL 16.15.
-
 ## Checkpoint
 - An agent reports: “The approval feature is complete. The server starts and the page looks right.”
   - Write two observations that statement supports.
@@ -50,7 +45,6 @@ These capabilities will be built in later lessons. The current repositories are 
   - Choose one next check and explain which uncertainty it reduces.
 - See [`worked-answer.md`](worked-answer.md) after attempting the checkpoint.
   - The interactive companion is provided as [`interactive-checkpoint.html`](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html) and runs locally in a browser.
-
 ## Files
 - [interactive-checkpoint.html](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [worked-answer.md](worked-answer.md)

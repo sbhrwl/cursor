@@ -20,7 +20,6 @@
   - Cursor describes its agent through instructions, tools and a selected model.
   - The runtime is added here as a practical dimension of investigation.
   - [Cursor Agent overview](https://cursor.com/docs/agent/overview).
-
 ## The recorded Cursor request
 - We attach the actual `src/server.ts` file and ask:
 ```
@@ -43,7 +42,6 @@ node --version
 curl --max-time 2 -sS http://127.0.0.1:3101/health
 curl --max-time 2 -sS http://127.0.0.1:3100/health
 ```
-
 - Port 3101 is deliberately incorrect for this configured baseline.
   - Its request fails to connect.
   - Port 3100 returns the real health response with `database: connected`.
@@ -55,7 +53,6 @@ curl --max-time 2 -sS http://127.0.0.1:3100/health
   - If you adapt the exercise to another environment, inspect that environment's configured address rather than assuming the recording's port is universal.
   - Cloud Agents have their own execution environment.
   - [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent).
-
 ## Exercise
 - Open `interactive-diagnostic-map.html`.
 - For each scenario:
@@ -64,11 +61,10 @@ curl --max-time 2 -sS http://127.0.0.1:3100/health
   - State what the current observation does not establish.
 - A satisfactory answer distinguishes a missing executable, a missing requirement, a refused tool action and an unsupported inference.
   - It also acknowledges that an incident can involve several layers.
-
 ## Carry forward
-
-Before retrying a failed task, write: **observed result → working hypothesis → next check**. In 01.03, we will connect these checks to ownership of requirements, design choices, implementation and acceptance.
-
+- Before retrying a failed task, write: 
+  - **observed result → working hypothesis → next check**. 
+- In 01.03, we will connect these checks to ownership of requirements, design choices, implementation and acceptance.
 ## Files
 - [interactive-diagnostic-map.html](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
 - [worked-answer.md](worked-answer.md)
