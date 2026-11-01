@@ -40,4 +40,4 @@ These capabilities will be built in later lessons. The current repositories are 
   - Write two requirements it does not establish.
   - Choose one next check and explain which uncertainty it reduces.
 - See [`worked-answer.md`](worked-answer.md) after attempting the checkpoint.
-  - The interactive companion is provided as [`interactive-checkpoint.html`](interactive-checkpoint.html) and runs locally in a browser.
+  - The interactive companion is provided as [`interactive-checkpoint.html`](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html) and runs locally in a browser.
