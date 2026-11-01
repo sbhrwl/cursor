@@ -1,10 +1,11 @@
 # 01.01 — Start with evidence
 - [interactive-checkpoint](interactive-checkpoint.html)
 - **Outcome:**
-  - Distinguish a claim, an observation, and a justified conclusion; connect a running behavior to code, a check, and a specific revision.
-  - The demonstrated starting system is an API and PostgreSQL database.
-  - It is a development baseline, not the finished Operations Hub product.
-  - Organization identifiers alone do not establish authorization or tenant isolation.
+  - Distinguish `a claim`, `an observation`, and `a justified conclusion`
+  - Connect a running behavior to code, a check, and a specific revision.
+    - The demonstrated starting system is an API and PostgreSQL database.
+    - It is a development baseline, not the finished Operations Hub product.
+    - Organization identifiers alone do not establish authorization or tenant isolation.
 
 ## Follow the evidence
 
@@ -30,7 +31,8 @@ These capabilities will be built in later lessons. The current repositories are 
 
 ## Demonstration version
 - Cursor Desktop 3.19.13, recorded September 6, 2026.
-- Operations Hub main commit: `b3b306ab7bd13091db4780ca5e853f7727be67af`. AgentBox/CI PostgreSQL 17; verified Cloud environment PostgreSQL 16.15.
+  - Operations Hub main commit: `b3b306ab7bd13091db4780ca5e853f7727be67af`.
+  - AgentBox/CI PostgreSQL 17; verified Cloud environment PostgreSQL 16.15.
 
 ## Checkpoint
 - An agent reports: “The approval feature is complete. The server starts and the page looks right.”
