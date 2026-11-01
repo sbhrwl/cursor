@@ -68,7 +68,6 @@ Before retrying a failed task, write: **observed result â†’ working hypothesis â
 - [worked-answer.md](worked-answer.md)
 - [BASELINE-SOURCE.md](BASELINE-SOURCE.md)
 - [operations-hub-baseline-b3b306a.zip](operations-hub-baseline-b3b306a.zip)
-
 - [01-02-model-context-tools-runtime.en.srt](01-02-model-context-tools-runtime.en.srt)
 - [narration-script.md](narration-script.md)
 - [PROMPTS.md](PROMPTS.md)
