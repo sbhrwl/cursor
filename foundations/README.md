@@ -15,3 +15,5 @@
 - Carry forward
   - Before retrying a failed task, write: 
     - `observed result` → `working hypothesis` → `next check`. 
+- [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
+- 
