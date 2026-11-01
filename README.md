@@ -1,2 +1,2 @@
-# cursor
+# Cursor
 - [Foundations](foundations/README.md)
