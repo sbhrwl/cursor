@@ -1,5 +1,5 @@
 # 01.01 — Start with evidence
-- [interactive-checkpoint](interactive-checkpoint.html)
+- [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - **Outcome:**
   - Distinguish `a claim`, `an observation`, and `a justified conclusion`
   - Connect a running behavior to code, a check, and a specific revision.
