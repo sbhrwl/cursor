@@ -1,6 +1,7 @@
 # 01.01 — Start with evidence
 - [Overview](#overview)
 - [Recurring workflow](#recurring-workflow)
+- [Carry forward](#carry-forward)
 - [Demonstration](#demonstration)
 - [Follow the evidence](#follow-the-evidence)
 - [Checkpoint](#checkpoint)
@@ -15,6 +16,9 @@
 - `Understand → plan → build → verify → integrate`.
 - Return to the step that needs better information when a check fails.
 - A useful loop needs `a signal` and `a stopping condition`.
+## Carry forward
+- Before retrying a failed task, write: 
+  - **observed result → working hypothesis → next check**. 
 ## Demonstration
 - The demonstrated starting system is
   - API
