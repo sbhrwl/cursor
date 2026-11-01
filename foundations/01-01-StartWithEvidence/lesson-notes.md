@@ -14,7 +14,7 @@
 ## The recurring workflow
 - `Understand → plan → build → verify → integrate`.
 - Return to the step that needs better information when a check fails.
-- A useful loop needs a signal and a stopping condition.
+- A useful loop needs `a signal` and `a stopping condition`.
 ## Demonstration
 - The demonstrated starting system is
   - API
