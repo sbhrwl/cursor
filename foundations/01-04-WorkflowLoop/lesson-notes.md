@@ -53,3 +53,21 @@ The release includes a separate evidence record for the actual implementation, t
 
 ## CI annotation visible in the recording
 The successful GitHub job includes a runner warning about the Node runtime used by the pinned checkout/setup-node actions. This is distinct from the application Node version and from the seven passing tests. The warning is retained in the footage; this bounded endpoint change does not upgrade those action pins. Revisit supported action versions during the course CI maintenance workflow.
+
+## Files
+- [interactive-workflow.html](https://sbhrwl.github.io/cursor/foundations/01-04-WorkflowLoop/interactive-workflow.html)
+- [worked-answer.md](worked-answer.md)
+- [BASELINE-SOURCE.md](BASELINE-SOURCE.md)
+- [operations-hub-baseline-b3b306a.zip](operations-hub-baseline-b3b306a.zip)
+- [operations-hub-01-04.zip](operations-hub-01-04.zip)
+- [health-method-contract.md](health-method-contract.md)
+- [health-method-change.patch](health-method-change.patch)
+
+- [01-04-the-workflow-loop.en.srt](01-04-the-workflow-loop.en.srt)
+- [narration-script.md](narration-script.md)
+- [PROMPTS.md](PROMPTS.md)
+- [pull-request-description.md](pull-request-description.md)
+- [sources-and-credits.md](sources-and-credits.md)
+- [chapters.json](chapters.json)
+- [source-snapshot.md](source-snapshot.md)
+- [change-evidence.json](change-evidence.json)

@@ -62,3 +62,15 @@ curl --max-time 2 -sS http://127.0.0.1:3100/health
 ## Carry forward
 
 Before retrying a failed task, write: **observed result → working hypothesis → next check**. In 01.03, we will connect these checks to ownership of requirements, design choices, implementation and acceptance.
+
+## Files
+- [interactive-diagnostic-map.html](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
+- [worked-answer.md](worked-answer.md)
+- [BASELINE-SOURCE.md](BASELINE-SOURCE.md)
+- [operations-hub-baseline-b3b306a.zip](operations-hub-baseline-b3b306a.zip)
+
+- [01-02-model-context-tools-runtime.en.srt](01-02-model-context-tools-runtime.en.srt)
+- [narration-script.md](narration-script.md)
+- [PROMPTS.md](PROMPTS.md)
+- [sources-and-credits.md](sources-and-credits.md)
+- [chapters.json](chapters.json)

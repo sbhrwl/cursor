@@ -43,3 +43,13 @@ These capabilities will be built in later lessons. The current repositories are 
   - Choose one next check and explain which uncertainty it reduces.
 - See [`worked-answer.md`](worked-answer.md) after attempting the checkpoint.
   - The interactive companion is provided as [`interactive-checkpoint.html`](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html) and runs locally in a browser.
+
+## Files
+- [interactive-checkpoint.html](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
+- [worked-answer.md](worked-answer.md)
+
+- [01-01-start-with-evidence.en.srt](01-01-start-with-evidence.en.srt)
+- [narration-script.md](narration-script.md)
+- [PROMPTS.md](PROMPTS.md)
+- [sources-and-credits.md](sources-and-credits.md)
+- [chapters.json](chapters.json)

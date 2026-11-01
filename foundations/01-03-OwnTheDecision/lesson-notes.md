@@ -48,3 +48,16 @@ Review test expectations against requirements. Passing a happy-path test is insu
 Use `interactive-ownership.html` to assign responsibility for approval policy, write consistency, helper naming, and acceptance. For each decision, write the agent's contribution and the information the responsible person needs. Then adapt `approval-decision-contract.md` to a feature of your own.
 
 A satisfactory brief names observable behavior, unresolved decisions, delegated scope, and evidence for both success and meaningful failure cases.
+
+## Files
+- [interactive-ownership.html](https://sbhrwl.github.io/cursor/foundations/01-03-OwnTheDecision/interactive-ownership.html)
+- [worked-answer.md](worked-answer.md)
+- [BASELINE-SOURCE.md](BASELINE-SOURCE.md)
+- [operations-hub-baseline-b3b306a.zip](operations-hub-baseline-b3b306a.zip)
+- [approval-decision-contract.md](approval-decision-contract.md)
+
+- [01-03-who-owns-the-decision.en.srt](01-03-who-owns-the-decision.en.srt)
+- [narration-script.md](narration-script.md)
+- [PROMPTS.md](PROMPTS.md)
+- [sources-and-credits.md](sources-and-credits.md)
+- [chapters.json](chapters.json)

@@ -44,3 +44,17 @@ These priorities do not waive prerequisites. Complete the common workspace basel
 ## Deliver your own report
 
 Use `assessment-report-template.md`. Trace HEAD or an unsupported method, inspect the relevant assertions, run the targeted test, and record a live request. For each artifact, mark one level: demonstrated independently, completed with a reference, or needs another attempt. Attach the evidence supporting the rating. A missing prerequisite remains a practice target even if other parts went well.
+
+## Files
+- [interactive-assessment.html](https://sbhrwl.github.io/cursor/foundations/01-06-EntryAssessment/interactive-assessment.html)
+- [worked-example.md](worked-example.md)
+- [practice.md](practice.md)
+- [operations-hub-01-06.zip](operations-hub-01-06.zip)
+- [assessment-report-template.md](assessment-report-template.md)
+
+- [01-06-entry-assessment-and-learning-paths.en.srt](01-06-entry-assessment-and-learning-paths.en.srt)
+- [narration-script.md](narration-script.md)
+- [PROMPTS.md](PROMPTS.md)
+- [sources-and-credits.md](sources-and-credits.md)
+- [source-snapshot.json](source-snapshot.json)
+- [chapters.json](chapters.json)

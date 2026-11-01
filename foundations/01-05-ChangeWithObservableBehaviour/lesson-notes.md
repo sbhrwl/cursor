@@ -25,3 +25,20 @@ Use `practice.md`, the starting source ZIP and `test-first.patch`. Try the exerc
 ## Source
 
 The interpretation of the response directive comes from [RFC 9111 §5.2.2.5](https://www.rfc-editor.org/rfc/rfc9111.html#section-5.2.2.5). This lesson introduces a product requirement; it does not claim to have caught an existing client caching an old response. Origin-header checks do not test every cache or establish a privacy guarantee.
+
+## Files
+- [interactive-health-contract.html](https://sbhrwl.github.io/cursor/foundations/01-05-ChangeWithObservableBehaviour/interactive-health-contract.html)
+- [practice.md](practice.md)
+- [operations-hub-01-05-start.zip](operations-hub-01-05-start.zip)
+- [operations-hub-01-05-finished.zip](operations-hub-01-05-finished.zip)
+- [health-cache-contract.md](health-cache-contract.md)
+- [health-cache-change.patch](health-cache-change.patch)
+- [test-first.patch](test-first.patch)
+
+- [01-05-a-small-change-with-observable-behavior.en.srt](01-05-a-small-change-with-observable-behavior.en.srt)
+- [narration-script.md](narration-script.md)
+- [PROMPTS.md](PROMPTS.md)
+- [pull-request-description.md](pull-request-description.md)
+- [sources-and-credits.md](sources-and-credits.md)
+- [chapters.json](chapters.json)
+- [change-evidence.json](change-evidence.json)
