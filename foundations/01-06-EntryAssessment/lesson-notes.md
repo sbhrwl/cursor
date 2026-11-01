@@ -1,5 +1,10 @@
 # Entry assessment and learning paths
 - [interactive-assessment](interactive-assessment.html)
+- [Trace the demonstrated behavior](#trace-the-demonstrated-behavior)
+- [Use the four cases](#use-the-four-cases)
+- [Practice priorities](#practice-priorities)
+- [Deliver your own report](#deliver-your-own-report)
+- [Files](#files)
 Produce a short, reproducible evidence trail, then choose one concrete practice goal. The assessment is original course guidance. The hands-on artifact matters more than a quiz result.
 
 If you are starting without a configured workspace, complete the four reasoning cases now and return to the hands-on trace after module 02. Follow the recorded demonstration in the meantime. Existing developers can attempt the trace with the supplied source and documented prerequisites.

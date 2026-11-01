@@ -1,5 +1,11 @@
 # 01.02 — Model, context, tools, and runtime
 - [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
+- [The diagnostic map](#the-diagnostic-map)
+- [The recorded Cursor request](#the-recorded-cursor-request)
+- [Deliberate wrong-address exercise](#deliberate-wrong-address-exercise)
+- [Exercise](#exercise)
+- [Carry forward](#carry-forward)
+- [Files](#files)
 - By the end of this lesson, you should be able to choose an evidence-producing first investigation when an agent task fails.
 ## The diagnostic map
 

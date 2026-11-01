@@ -1,5 +1,11 @@
 # A small change with observable behavior
 - [interactive-health-contract](interactive-health-contract.html)
+- [The change](#the-change)
+- [The test-first stopping point](#the-test-first-stopping-point)
+- [Why the implementation is placed there](#why-the-implementation-is-placed-there)
+- [Practice](#practice)
+- [Source](#source)
+- [Files](#files)
 By the end of this lesson, you can express a small requirement as a response assertion, read a meaningful failure, guide a bounded Cursor edit, and explain the limits of the resulting evidence.
 
 ## The change

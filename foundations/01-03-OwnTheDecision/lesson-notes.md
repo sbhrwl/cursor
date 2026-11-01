@@ -1,5 +1,12 @@
 # 01.03 — Who owns the decision?
 - [interactive-ownership](interactive-ownership.html)
+- [Start with the actual baseline](#start-with-the-actual-baseline)
+- [Responsibility and contribution](#responsibility-and-contribution)
+- [The course example](#the-course-example)
+- [Compare a design property](#compare-a-design-property)
+- [Acceptance evidence](#acceptance-evidence)
+- [Exercise](#exercise)
+- [Files](#files)
 By the end of this lesson, you should be able to turn an ambiguous feature request into a bounded engineering brief with explicit decisions, delegated work, and acceptance evidence.
 
 ## Start with the actual baseline
