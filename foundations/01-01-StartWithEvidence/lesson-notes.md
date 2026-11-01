@@ -4,9 +4,9 @@
 - [Demonstration](#demonstration)
 - [The recurring workflow](#the-recurring-workflow)
 - [Follow the evidence](#follow-the-evidence)
+- [Checkpoint](#checkpoint)
 - [Course destinations](#course-destinations)
 - [Demonstration version](#demonstration-version)
-- [Checkpoint](#checkpoint)
 - [Files](#files)
 ## Outcome
 - Distinguish `a claim`, `an observation`, and `a justified conclusion`
@@ -31,6 +31,13 @@
 | `CI succeeds` at a commit | Those checks passed for that revision in CI | Later untested changes also pass |
 | Fresh Cloud Agent startup succeeds | That environment started the API and database on that run | Future changes cannot break startup |
 
+## Checkpoint
+- An agent reports: “The approval feature is complete. The server starts and the page looks right.”
+  - Write two observations that statement supports.
+  - Write two requirements it does not establish.
+  - Choose one next check and explain which uncertainty it reduces.
+- See [`worked-answer.md`](worked-answer.md) after attempting the checkpoint.
+  - The interactive companion is provided as [`interactive-checkpoint.html`](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html) and runs locally in a browser.
 ## Course destinations
 - **Operations Hub** is a business application with request, approval policy, tenant boundaries, background work and audit history.
 - **Evidence Desk** is a service that retrieves authorized sources and provides evidence-backed answers, with evaluations.
@@ -40,13 +47,6 @@
 - Cursor Desktop 3.19.13, recorded September 6, 2026.
   - Operations Hub main commit: `b3b306ab7bd13091db4780ca5e853f7727be67af`.
   - AgentBox/CI PostgreSQL 17; verified Cloud environment PostgreSQL 16.15.
-## Checkpoint
-- An agent reports: “The approval feature is complete. The server starts and the page looks right.”
-  - Write two observations that statement supports.
-  - Write two requirements it does not establish.
-  - Choose one next check and explain which uncertainty it reduces.
-- See [`worked-answer.md`](worked-answer.md) after attempting the checkpoint.
-  - The interactive companion is provided as [`interactive-checkpoint.html`](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html) and runs locally in a browser.
 ## Files
 - [interactive-checkpoint.html](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [worked-answer.md](worked-answer.md)
