@@ -62,7 +62,6 @@ The successful GitHub job includes a runner warning about the Node runtime used 
 - [operations-hub-01-04.zip](operations-hub-01-04.zip)
 - [health-method-contract.md](health-method-contract.md)
 - [health-method-change.patch](health-method-change.patch)
-
 - [01-04-the-workflow-loop.en.srt](01-04-the-workflow-loop.en.srt)
 - [narration-script.md](narration-script.md)
 - [PROMPTS.md](PROMPTS.md)
