@@ -16,4 +16,4 @@
   - Before retrying a failed task, write: 
     - `observed result` → `working hypothesis` → `next check`. 
 - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
-- 
+- [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
