@@ -1,10 +1,10 @@
 # 01.01 — Start with evidence
-- [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [Overview](#overview)
 - [Recurring workflow](#recurring-workflow)
 - [Demonstration](#demonstration)
 - [Follow the evidence](#follow-the-evidence)
 - [Checkpoint](#checkpoint)
+  - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [Course destinations](#course-destinations)
 - [Demonstration version](#demonstration-version)
 - [Files](#files)
