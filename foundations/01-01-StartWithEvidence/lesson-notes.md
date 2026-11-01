@@ -1,5 +1,5 @@
 # 01.01 — Start with evidence
-
+- [interactive-checkpoint](interactive-checkpoint.html)
 **Outcome:** distinguish a claim, an observation, and a justified conclusion; connect a running behavior to code, a check, and a specific revision.
 
 The demonstrated starting system is an API and PostgreSQL database. It is a development baseline, not the finished Operations Hub product. Organization identifiers alone do not establish authorization or tenant isolation.

@@ -1,5 +1,5 @@
 # Entry assessment and learning paths
-
+- [interactive-assessment](interactive-assessment.html)
 Produce a short, reproducible evidence trail, then choose one concrete practice goal. The assessment is original course guidance. The hands-on artifact matters more than a quiz result.
 
 If you are starting without a configured workspace, complete the four reasoning cases now and return to the hands-on trace after module 02. Follow the recorded demonstration in the meantime. Existing developers can attempt the trace with the supplied source and documented prerequisites.

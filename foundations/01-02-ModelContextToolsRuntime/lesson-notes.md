@@ -1,5 +1,5 @@
 # 01.02 — Model, context, tools, and runtime
-
+- [interactive-diagnostic-map](interactive-diagnostic-map.html)
 By the end of this lesson, you should be able to choose an evidence-producing first investigation when an agent task fails.
 
 ## The diagnostic map

@@ -1,5 +1,5 @@
 # 01.04 — The workflow loop
-
+- [interactive-workflow](interactive-workflow.html)
 ## Outcome
 
 Use Cursor to take a bounded HTTP behavior change through understand, plan, build, verify, and integrate. Explain the evidence produced at each stage and why a failed observation may send you back.

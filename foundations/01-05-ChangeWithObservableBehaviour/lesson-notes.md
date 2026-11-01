@@ -1,5 +1,5 @@
 # A small change with observable behavior
-
+- [interactive-health-contract](interactive-health-contract.html)
 By the end of this lesson, you can express a small requirement as a response assertion, read a meaningful failure, guide a bounded Cursor edit, and explain the limits of the resulting evidence.
 
 ## The change
