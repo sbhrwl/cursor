@@ -55,7 +55,6 @@ A satisfactory brief names observable behavior, unresolved decisions, delegated 
 - [BASELINE-SOURCE.md](BASELINE-SOURCE.md)
 - [operations-hub-baseline-b3b306a.zip](operations-hub-baseline-b3b306a.zip)
 - [approval-decision-contract.md](approval-decision-contract.md)
-
 - [01-03-who-owns-the-decision.en.srt](01-03-who-owns-the-decision.en.srt)
 - [narration-script.md](narration-script.md)
 - [PROMPTS.md](PROMPTS.md)
