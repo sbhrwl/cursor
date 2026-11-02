@@ -7,7 +7,7 @@
 - [Deliver your own report](#deliver-your-own-report)
 - [Files](#files)
 ## Overview
-- Produce a short, reproducible evidence trail, then choose one concrete practice goal.
+- Produce a short, `reproducible evidence trail`, then `choose one concrete practice goal`.
 - The assessment is original course guidance.
 - The hands-on artifact matters more than a quiz result.
 - If you are starting without a configured workspace, complete the four reasoning cases now and return to the hands-on trace after module 02.
