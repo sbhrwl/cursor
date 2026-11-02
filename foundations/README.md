@@ -15,5 +15,15 @@
 - Carry forward
   - Before retrying a failed task, write: 
     - `observed result` → `working hypothesis` → `next check`. 
+- Turn an ambiguous feature request into a `bounded engineering brief` with `explicit decisions`, `delegated work`, and `acceptance evidence`.
 - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
+- [interactive-ownership](https://sbhrwl.github.io/cursor/foundations/01-03-OwnTheDecision/interactive-ownership.html)
+
+---
+- [Cursor Agent overview](https://cursor.com/docs/agent/overview)
+- [Cursor prompting](https://cursor.com/docs/agent/prompting)
+- [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent)
+- [Cursor Plan Mode](https://cursor.com/docs/agent/plan-mode)
+- [Reviewing and testing](https://cursor.com/learn/reviewing-testing)
+- [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
