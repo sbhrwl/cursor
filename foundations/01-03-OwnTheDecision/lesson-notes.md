@@ -1,5 +1,5 @@
 # 01.03 — Who owns the decision?
-- [interactive-ownership](interactive-ownership.html)
+- [interactive-ownership](https://sbhrwl.github.io/cursor/foundations/01-03-OwnTheDecision/interactive-ownership.html)
 - [Start with the actual baseline](#start-with-the-actual-baseline)
 - [Responsibility and contribution](#responsibility-and-contribution)
 - [The course example](#the-course-example)
