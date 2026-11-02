@@ -1,14 +1,14 @@
-# Editor Fluency
-- [Command Palette, search, symbols, and platform shortcuts](03-01-CommandPaletteSearchSymbols/lesson-notes.md)
+# Editor fluency
+- [Command palette, search, symbols, and platform shortcuts](03-01-CommandPaletteSearchSymbols/lesson-notes.md)
   - [interactive-navigation-lab](https://sbhrwl.github.io/cursor/editor-fluency/03-01-CommandPaletteSearchSymbols/interactive-navigation-lab.html)
   - Trace a behavior from its implementation to the server that uses it and a specific test assertion, while preserving the working copy.
 - [Inspect, partially accept, and reject Tab suggestions](03-02-InspectTabSuggestions/lesson-notes.md)
   - [interactive-tab-lab](https://sbhrwl.github.io/cursor/editor-fluency/03-02-InspectTabSuggestions/interactive-tab-lab.html)
   - Use Cursor Tab to make a bounded edit while keeping responsibility for its behavior.
-- [Bound an Inline Edit to the intended change](03-03-BoundInlineEdit/lesson-notes.md)
+- [Bound an inline edit to the intended change](03-03-BoundInlineEdit/lesson-notes.md)
   - [interactive-inline-edit-lab](https://sbhrwl.github.io/cursor/editor-fluency/03-03-BoundInlineEdit/interactive-inline-edit-lab.html)
   - Turn a narrow requirement into a reviewed change; the selected range communicates an editing target, not an enforcement boundary.
-- [Choose direct editing, Inline Edit, or Agent](03-04-ChooseEditingTool/lesson-notes.md)
+- [Choose direct editing, Inline edit, or Agent](03-04-ChooseEditingTool/lesson-notes.md)
   - [interactive-tool-choice-lab](https://sbhrwl.github.io/cursor/editor-fluency/03-04-ChooseEditingTool/interactive-tool-choice-lab.html)
   - Choose assistance according to the understanding, editing, and verification work it helps perform.
 - [Inspect diffs and distinguish checkpoints from Git recovery](03-05-DiffsCheckpointsGitRecovery/lesson-notes.md)
