@@ -5,6 +5,8 @@
 - [The workflow loop](01-04-WorkflowLoop/lesson-notes.md)
 - [A small change with observable behavior](01-05-ChangeWithObservableBehaviour/lesson-notes.md)
 - [Entry assessment and learning paths](01-06-EntryAssessment/lesson-notes.md)
+- [Takeaways](#takeaways)
+- [Running the app](#running-the-app)
 ## Takeaways
 - Distinguish `a claim`, `an observation`, and `a justified conclusion`
 - Connect a running behavior to `code`, `a check`, and `a specific revision`.
@@ -31,3 +33,28 @@
 - [Cursor Plan Mode](https://cursor.com/docs/agent/plan-mode)
 - [Reviewing and testing](https://cursor.com/learn/reviewing-testing)
 - [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
+## Running the app
+- Unzip the zipped file: operations-hub-baseline-b3b306a.zip
+- Go to unzipped folder
+- Create a copy of `.env.example` to `.env`
+  - As i want to use existing postgresql DB
+  - `DATABASE_URL=postgresql://gfc_db_01_user:VuxXSPgHW%3F-%7Dp9R1qeF%3Apz2%3E@localhost:5432/operations_hub`
+  - Next run `npm run db:init`
+    ```
+    C:\Git\practice\cursor\foundations\01-02-ModelContextToolsRuntime\operations-hub-baseline-b3b306a\operations-hub>npm run db:init
+    
+    > operations-hub@0.0.1 db:init
+    > node --env-file-if-exists=.env --import tsx scripts/init-db.ts
+    ```
+- run app `npm run dev`
+    ```
+    C:\Git\practice\cursor\foundations\01-02-ModelContextToolsRuntime\operations-hub-baseline-b3b306a\operations-hub>npm run dev
+
+    > operations-hub@0.0.1 dev
+    > node --env-file-if-exists=.env --import tsx src/server.ts
+    
+    Operations baseline listening on 3100
+    ```
+- Endpoints
+  - `http://127.0.0.1:3100/health`
+  - `http://127.0.0.1:3100/demo/requests`
