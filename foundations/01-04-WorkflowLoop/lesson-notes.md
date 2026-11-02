@@ -1,6 +1,6 @@
 # 01.04 — The workflow loop
-- [interactive-workflow](interactive-workflow.html)
-- [Outcome](#outcome)
+- [Overview](#overview)
+  - [interactive-workflow](https://sbhrwl.github.io/cursor/foundations/01-04-WorkflowLoop/interactive-workflow.html)
 - [The original behavior](#the-original-behavior)
 - [The requested behavior](#the-requested-behavior)
 - [Work in an inspectable loop](#work-in-an-inspectable-loop)
@@ -10,8 +10,8 @@
 - [Research](#research)
 - [CI annotation visible in the recording](#ci-annotation-visible-in-the-recording)
 - [Files](#files)
-## Outcome
-- Use Cursor to take a bounded HTTP behavior change through understand, plan, build, verify, and integrate. 
+## Overview
+- Use Cursor to take a bounded HTTP behavior change through `understand`, `plan`, `build`, `verify`, and `integrate`. 
 - Explain the evidence produced at each stage and why a failed observation may send you back.
 ## The original behavior
 - Operations Hub initially returns 200 for both GET /health and POST /health. 
@@ -50,7 +50,7 @@
   - The retained retry completed the plan. 
   - Application changes are not a remedy for an observed model-provider connection failure.
 ## Practice
-- Open `interactive-workflow.html`. 
+- Open [interactive-workflow](https://sbhrwl.github.io/cursor/foundations/01-04-WorkflowLoop/interactive-workflow.html). 
   - Choose the next useful action for each scenario and explain what it would establish. 
   - Then repeat a bounded change in your own isolated branch, keeping the baseline observation and final result together.
 ## Research
