@@ -8,7 +8,7 @@
 - [Source](#source)
 - [Files](#files)
 ## Overview
-- We shall be able to express a small requirement as a response assertion, read a meaningful failure, guide a bounded Cursor edit, and explain the limits of the resulting evidence.
+- We shall be able to `express a small requirement` as a `response assertion`, `read a meaningful failure`, `guide a bounded Cursor edit`, and `explain the limits of the resulting evidence`.
 ## The change
 - Operations Hub's exact `/health` route must send `Cache-Control: no-store` on healthy GET/HEAD responses, probe failures and rejected methods.
 - Existing status, body, `Allow` and dependency-call behavior remain part of the contract.
