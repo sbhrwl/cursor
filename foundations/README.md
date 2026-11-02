@@ -14,7 +14,7 @@
 - [The workflow loop](01-04-WorkflowLoop/lesson-notes.md)
   - [interactive-workflow](https://sbhrwl.github.io/cursor/foundations/01-04-WorkflowLoop/interactive-workflow.html)
   - Recurring workflow
-    - `Understand → plan → build → verify → integrate`.
+    - `Understand` → `plan` → `build` → `verify` → `integrate`.
     - Return to the step that needs better information when a check fails.
     - A useful loop needs `a signal` and `a stopping condition`.
 - [A small change with observable behavior](01-05-ChangeWithObservableBehaviour/lesson-notes.md)
