@@ -64,7 +64,7 @@
   - Cursor's review guidance also emphasizes that passing tests can miss incorrect expectations or edge cases. 
   - Authorization needs correctly placed enforcement and relevant verification.
 ## Exercise
-- Use `interactive-ownership.html` to assign responsibility for approval policy, write consistency, helper naming, and acceptance.
+- Use [interactive-ownership](https://sbhrwl.github.io/cursor/foundations/01-03-OwnTheDecision/interactive-ownership.html) to assign responsibility for approval policy, write consistency, helper naming, and acceptance.
   - For each decision, write the agent's contribution and the information the responsible person needs. 
   - Then adapt [`approval-decision-contract.md`](approval-decision-contract.md) to a feature of your own.
 - A satisfactory brief names observable behavior, unresolved decisions, delegated scope, and evidence for both success and meaningful failure cases.
