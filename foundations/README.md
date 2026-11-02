@@ -24,13 +24,13 @@
   - [interactive-assessment](https://sbhrwl.github.io/cursor/foundations/01-06-EntryAssessment/interactive-assessment.html)
   - Produce a short, `reproducible evidence trail`, then `choose one concrete practice goal`.
 - [Running the app](#running-the-app)
----
-- [Cursor Agent overview](https://cursor.com/docs/agent/overview)
-- [Cursor prompting](https://cursor.com/docs/agent/prompting)
-- [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent)
-- [Cursor Plan Mode](https://cursor.com/docs/agent/plan-mode)
-- [Reviewing and testing](https://cursor.com/learn/reviewing-testing)
-- [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
+- Links
+  - [Cursor Agent overview](https://cursor.com/docs/agent/overview)
+  - [Cursor prompting](https://cursor.com/docs/agent/prompting)
+  - [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent)
+  - [Cursor Plan Mode](https://cursor.com/docs/agent/plan-mode)
+  - [Reviewing and testing](https://cursor.com/learn/reviewing-testing)
+  - [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
 ## Running the app
 - Unzip the zipped file: operations-hub-baseline-b3b306a.zip
 - Go to unzipped folder
