@@ -1,0 +1,763 @@
+1
+00:00:00,750 --> 00:00:03,810
+A one-word correction doesn't need to become a
+
+2
+00:00:03,810 --> 00:00:06,750
+space mission, but when a change involves reading
+
+3
+00:00:06,750 --> 00:00:09,630
+code, updating tests, and running checks,
+
+4
+00:00:10,310 --> 00:00:11,910
+coordinating that work can be useful.
+
+5
+00:00:12,630 --> 00:00:15,870
+In this lesson, we'll compare direct editing, Inline
+
+6
+00:00:15,870 --> 00:00:18,750
+Edit, and Agent using real work in our
+
+7
+00:00:18,750 --> 00:00:19,730
+practice repository.
+
+8
+00:00:20,470 --> 00:00:22,550
+The goal is to choose a tool for
+
+9
+00:00:22,550 --> 00:00:25,250
+a reason you can explain, then verify the
+
+10
+00:00:25,250 --> 00:00:28,050
+result with the same care, whichever route you take.
+
+11
+00:00:30,517 --> 00:00:32,697
+Start with three kinds of effort,
+
+12
+00:00:33,737 --> 00:00:37,077
+understanding the task, making the
+change, and checking the result.
+
+13
+00:00:37,857 --> 00:00:40,517
+If you already know the exact edit, direct
+
+14
+00:00:40,517 --> 00:00:41,677
+editing may be quickest.
+
+15
+00:00:42,477 --> 00:00:44,757
+If you can describe a transformation within a
+
+16
+00:00:44,757 --> 00:00:47,177
+selected range, Inline Edit can help.
+
+17
+00:00:47,837 --> 00:00:51,657
+If exploration, file changes,
+and commands need coordination,
+
+18
+00:00:52,217 --> 00:00:52,917
+consider Agent.
+
+19
+00:00:53,637 --> 00:00:55,497
+These aren't rigid categories.
+
+20
+00:00:55,497 --> 00:00:59,577
+The useful question is where
+assistance reduces effort
+
+21
+00:00:59,577 --> 00:01:02,197
+without making the result harder to understand.
+
+22
+00:01:04,783 --> 00:01:08,263
+Here's a deliberately prepared
+typo in the contract comment.
+
+23
+00:01:08,983 --> 00:01:10,043
+Labels is misspelled.
+
+24
+00:01:10,683 --> 00:01:12,723
+We know the replacement and we aren't changing
+
+25
+00:01:12,723 --> 00:01:14,203
+the behavior of either helper.
+
+26
+00:01:14,543 --> 00:01:17,323
+So select the word, type the correction, and save.
+
+27
+00:01:17,983 --> 00:01:19,363
+That's a complete tool choice.
+
+28
+00:01:19,743 --> 00:01:21,603
+The editor already gives us what we need.
+
+29
+00:01:22,083 --> 00:01:23,643
+You can still use AI for a correction
+
+30
+00:01:23,643 --> 00:01:25,443
+like this but there should be some benefit
+
+31
+00:01:25,443 --> 00:01:26,883
+beyond using the newest button.
+
+32
+00:01:29,183 --> 00:01:32,143
+The Git diff shows one comment correction.
+
+33
+00:01:32,783 --> 00:01:34,563
+The function bodies haven't changed.
+
+34
+00:01:35,143 --> 00:01:37,403
+This is the kind of evidence appropriate to
+
+35
+00:01:37,403 --> 00:01:38,923
+a spelling fix in a comment.
+
+36
+00:01:39,443 --> 00:01:42,223
+It doesn't require inventing a new behavior test.
+
+37
+00:01:42,903 --> 00:01:44,083
+Keep that distinction in mind.
+
+38
+00:01:44,863 --> 00:01:48,083
+Verification should respond to
+what could actually be affected.
+
+39
+00:01:48,683 --> 00:01:50,243
+We'll leave this small edit in the working
+
+40
+00:01:50,243 --> 00:01:52,843
+tree and explicitly tell the
+next tool to preserve it.
+
+41
+00:01:55,050 --> 00:01:57,310
+This is footage from the previous lesson.
+
+42
+00:01:57,950 --> 00:02:01,250
+We selected the display helper, described one exact
+
+43
+00:02:01,250 --> 00:02:03,950
+label change, and reviewed the resulting proposal.
+
+44
+00:02:04,810 --> 00:02:07,010
+Inline Edit was a useful fit because the
+
+45
+00:02:07,010 --> 00:02:09,650
+target was known and the transformation was bounded.
+
+46
+00:02:10,610 --> 00:02:12,630
+Direct editing would also have been reasonable if
+
+47
+00:02:12,630 --> 00:02:14,110
+we already knew the implementation.
+
+48
+00:02:15,030 --> 00:02:17,670
+Choosing Inline Edit didn't remove the need to
+
+49
+00:02:17,670 --> 00:02:20,730
+review the code or run the
+existing behavioral checks.
+
+50
+00:02:23,217 --> 00:02:25,497
+Now the task has several related pieces.
+
+51
+00:02:25,937 --> 00:02:27,797
+We want a helper that converts a list
+
+52
+00:02:27,797 --> 00:02:30,017
+of status values into display labels.
+
+53
+00:02:30,377 --> 00:02:32,437
+Reuse the existing scalar helper.
+
+54
+00:02:32,877 --> 00:02:35,177
+Preserve the input order and repeated values.
+
+55
+00:02:35,757 --> 00:02:37,637
+Return an empty list for empty input.
+
+56
+00:02:38,117 --> 00:02:39,457
+And leave the input untouched.
+
+57
+00:02:40,117 --> 00:02:42,057
+We'll also need tests for those requirements.
+
+58
+00:02:42,517 --> 00:02:44,097
+This is a small example where we can
+
+59
+00:02:44,097 --> 00:02:46,597
+inspect all the coordination before applying the same
+
+60
+00:02:46,597 --> 00:02:47,917
+habits to larger features.
+
+61
+00:02:50,283 --> 00:02:53,043
+In the Agent panel, name the new helper,
+
+62
+00:02:53,383 --> 00:02:56,183
+its behavior, and the two files that may change.
+
+63
+00:02:56,943 --> 00:03:00,403
+Ask for tests covering mixed
+values, duplicates, empty
+
+64
+00:03:00,403 --> 00:03:02,043
+input, and a frozen array.
+
+65
+00:03:02,803 --> 00:03:06,463
+Preserve the existing labels, permission
+policy, and comment correction.
+
+66
+00:03:07,243 --> 00:03:09,603
+We also specify the commands to run and
+
+67
+00:03:09,603 --> 00:03:11,023
+exclude unrelated work.
+
+68
+00:03:11,663 --> 00:03:14,643
+The instruction gives the Agent useful room to
+
+69
+00:03:14,643 --> 00:03:17,703
+implement the task while keeping the expected result
+
+70
+00:03:17,703 --> 00:03:19,423
+and the review scope concrete.
+
+71
+00:03:21,983 --> 00:03:25,283
+Submit the request and watch the actual workflow.
+
+72
+00:03:25,923 --> 00:03:29,243
+Here, the Agent reads code,
+changes the implementation
+
+73
+00:03:29,243 --> 00:03:31,403
+and tests, and runs commands.
+
+74
+00:03:31,803 --> 00:03:34,263
+That's the coordination we're asking it to handle.
+
+75
+00:03:34,703 --> 00:03:37,363
+The exact sequence and waiting time can vary.
+
+76
+00:03:37,863 --> 00:03:39,263
+Keep an eye on what it's doing.
+
+77
+00:03:39,643 --> 00:03:43,123
+A clear request still needs
+supervision appropriate to the work.
+
+78
+00:03:43,783 --> 00:03:46,963
+For this exercise, everything stays in our dedicated
+
+79
+00:03:46,963 --> 00:03:50,083
+practice checkout, and the task involves only the
+
+80
+00:03:50,083 --> 00:03:51,283
+two named files.
+
+81
+00:03:53,750 --> 00:03:56,870
+The Agent reports which files it modified and
+
+82
+00:03:56,870 --> 00:03:57,810
+the checks it ran.
+
+83
+00:03:58,510 --> 00:04:00,410
+That's useful as a guide to the review,
+
+84
+00:04:00,750 --> 00:04:02,950
+but the report isn't our only evidence.
+
+85
+00:04:03,710 --> 00:04:06,210
+Open the actual files and inspect the behavior.
+
+86
+00:04:07,150 --> 00:04:09,930
+Notice that the earlier spelling fix is mentioned
+
+87
+00:04:09,930 --> 00:04:11,550
+separately from the new helper.
+
+88
+00:04:12,230 --> 00:04:14,990
+Keeping track of earlier
+working tree changes matters.
+
+89
+00:04:15,510 --> 00:04:18,930
+Otherwise, you can accidentally
+attribute every change in
+
+90
+00:04:18,930 --> 00:04:21,870
+the final diff to the most recent Agent request.
+
+91
+00:04:24,550 --> 00:04:27,230
+The new helper maps each input through the
+
+92
+00:04:27,230 --> 00:04:29,090
+existing scalar label function.
+
+93
+00:04:29,470 --> 00:04:32,770
+That reuses our exact matching
+and unknown label behavior.
+
+94
+00:04:33,430 --> 00:04:35,430
+There is no need to duplicate the label
+
+95
+00:04:35,430 --> 00:04:37,470
+branches or change the permission helper.
+
+96
+00:04:38,090 --> 00:04:40,350
+Read the implementation against each requirement,
+
+97
+00:04:41,190 --> 00:04:44,130
+order, duplicates, empty input, and no mutation.
+
+98
+00:04:44,990 --> 00:04:48,250
+This implementation is short
+enough to understand directly.
+
+99
+00:04:48,970 --> 00:04:51,910
+Using Agent doesn't mean we should stop understanding
+
+100
+00:04:51,910 --> 00:04:53,210
+the code it leaves behind.
+
+101
+00:04:55,750 --> 00:05:00,270
+The new tests cover mixed exact and unknown values,
+
+102
+00:05:00,950 --> 00:05:04,690
+repeated values, an empty array, and a frozen input.
+
+103
+00:05:05,230 --> 00:05:08,370
+Look at the expected arrays, not just the test names.
+
+104
+00:05:09,110 --> 00:05:12,050
+Do those expectations match
+the behavior we requested?
+
+105
+00:05:12,610 --> 00:05:15,810
+The frozen input case checks both the returned
+
+106
+00:05:15,810 --> 00:05:17,490
+labels and the original array.
+
+107
+00:05:18,210 --> 00:05:21,470
+When the same Agent writes implementation and tests,
+
+108
+00:05:21,870 --> 00:05:25,870
+compare both with the independent
+requirement. Matching mistakes
+
+109
+00:05:25,870 --> 00:05:29,110
+in both files can still produce a green test run.
+
+110
+00:05:31,617 --> 00:05:35,157
+After reviewing the
+implementation and tests, keep the
+
+111
+00:05:35,157 --> 00:05:37,517
+changes and inspect the repository diff.
+
+112
+00:05:38,097 --> 00:05:39,817
+There are two modified files.
+
+113
+00:05:40,357 --> 00:05:43,237
+The source contains our
+earlier comment correction and
+
+114
+00:05:43,237 --> 00:05:44,237
+the new batch helper.
+
+115
+00:05:44,777 --> 00:05:47,817
+The test file imports that
+helper and adds the new cases.
+
+116
+00:05:48,517 --> 00:05:51,137
+Keeping the Agent's changes does not create a commit.
+
+117
+00:05:51,877 --> 00:05:53,997
+The diff still needs to tell a coherent
+
+118
+00:05:53,997 --> 00:05:57,297
+story, including work that was already present before
+
+119
+00:05:57,297 --> 00:05:58,117
+the Agent started.
+
+120
+00:06:00,683 --> 00:06:03,103
+Run the status test file in the terminal,
+
+121
+00:06:03,443 --> 00:06:04,983
+then run the TypeScript check.
+
+122
+00:06:05,623 --> 00:06:09,123
+All nine tests pass, five existing cases and
+
+123
+00:06:09,123 --> 00:06:10,023
+four new cases.
+
+124
+00:06:10,703 --> 00:06:12,703
+The type check also completes successfully.
+
+125
+00:06:13,343 --> 00:06:16,203
+This verifies the bounded
+helper work we just inspected.
+
+126
+00:06:16,783 --> 00:06:19,523
+It doesn't demonstrate a live application screen or
+
+127
+00:06:19,523 --> 00:06:21,083
+a complete authorization system.
+
+128
+00:06:21,463 --> 00:06:24,323
+The value of the Agent's coordination is now
+
+129
+00:06:24,323 --> 00:06:26,443
+connected to code and results that we can
+
+130
+00:06:26,443 --> 00:06:27,263
+examine ourselves.
+
+131
+00:06:29,750 --> 00:06:31,650
+Try the decision exercise.
+
+132
+00:06:32,390 --> 00:06:34,550
+A known typo favors direct editing.
+
+133
+00:06:35,230 --> 00:06:38,390
+A selected helper transformation can fit Inline Edit.
+
+134
+00:06:39,010 --> 00:06:42,130
+A coordinated implementation and test change can fit
+
+135
+00:06:42,130 --> 00:06:45,290
+Agent, although direct editing remains valid if you
+
+136
+00:06:45,290 --> 00:06:46,350
+already know the work.
+
+137
+00:06:47,090 --> 00:06:49,630
+Then look at the unclear permission request.
+
+138
+00:06:50,270 --> 00:06:53,130
+No editing tool can supply the missing product
+
+139
+00:06:53,130 --> 00:06:54,370
+decision responsibly.
+
+140
+00:06:54,990 --> 00:06:57,350
+Investigate the intended policy first.
+
+141
+00:06:57,350 --> 00:07:01,010
+File count alone doesn't tell
+you which route is sensible.
+
+142
+00:07:03,517 --> 00:07:06,837
+Use this original expected value model to think
+
+143
+00:07:06,837 --> 00:07:08,317
+through the batch contract.
+
+144
+00:07:09,177 --> 00:07:11,237
+Mixed values preserve their positions.
+
+145
+00:07:12,017 --> 00:07:13,557
+Duplicates stay duplicated.
+
+146
+00:07:14,257 --> 00:07:16,437
+Empty input produces an empty result.
+
+147
+00:07:17,237 --> 00:07:19,497
+You can enter your own array and calculate
+
+148
+00:07:19,497 --> 00:07:20,717
+the expected labels.
+
+149
+00:07:21,317 --> 00:07:23,697
+This page doesn't run the repository code.
+
+150
+00:07:24,437 --> 00:07:28,037
+It helps you state expectations before comparing them
+
+151
+00:07:28,037 --> 00:07:29,137
+with the real tests.
+
+152
+00:07:29,957 --> 00:07:33,417
+Check input immutability in
+the actual checkout, using
+
+153
+00:07:33,417 --> 00:07:35,917
+a frozen array as one concrete case.
+
+154
+00:07:38,417 --> 00:07:40,457
+Save a short decision record.
+
+155
+00:07:40,917 --> 00:07:45,057
+The starting revision, desired
+behavior, chosen tool, changed
+
+156
+00:07:45,057 --> 00:07:46,997
+files, and the checks you observed.
+
+157
+00:07:47,757 --> 00:07:49,817
+Explain what work the tool helped with.
+
+158
+00:07:50,397 --> 00:07:53,097
+In this example, we made the
+known correction directly.
+
+159
+00:07:53,737 --> 00:07:57,457
+Then, Agent coordinated
+implementation, tests, and commands.
+
+160
+00:07:58,137 --> 00:08:02,097
+Another engineer might reasonably
+make the whole change directly.
+
+161
+00:08:02,097 --> 00:08:05,297
+A useful record explains the choice and the
+
+162
+00:08:05,297 --> 00:08:08,877
+result without pretending there
+is only one correct workflow.
+
+163
+00:08:11,383 --> 00:08:14,443
+For practice, add a batch helper that reuses
+
+164
+00:08:14,443 --> 00:08:16,643
+the existing approval decision function.
+
+165
+00:08:17,223 --> 00:08:20,203
+Keep the role policy unchanged and preserve order,
+
+166
+00:08:20,583 --> 00:08:23,303
+duplicates, empty input, and the original array.
+
+167
+00:08:24,043 --> 00:08:25,923
+Choose your own route and justify it.
+
+168
+00:08:26,483 --> 00:08:29,443
+Inspect the implementation
+and tests, run the relevant
+
+169
+00:08:29,443 --> 00:08:32,043
+checks, and record one limit of your evidence.
+
+170
+00:08:32,743 --> 00:08:36,043
+The exercise is about choosing
+assistance deliberately.
+
+171
+00:08:36,043 --> 00:08:39,163
+You don't need to reproduce our exact sequence
+
+172
+00:08:39,163 --> 00:08:41,163
+of buttons to demonstrate that skill.
+
+173
+00:08:43,650 --> 00:08:46,130
+You now have a practical way to choose
+
+174
+00:08:46,130 --> 00:08:49,370
+among direct editing, Inline Edit, and Agent.
+
+175
+00:08:50,050 --> 00:08:53,090
+Ask what you already understand,
+what needs coordination,
+
+176
+00:08:53,570 --> 00:08:55,390
+and how you'll verify the outcome.
+
+177
+00:08:56,070 --> 00:08:58,310
+A small known edit can stay small.
+
+178
+00:08:58,870 --> 00:09:01,250
+A broader task can benefit from an Agent
+
+179
+00:09:01,250 --> 00:09:03,610
+without losing a concrete review boundary.
+
+180
+00:09:04,370 --> 00:09:07,450
+Before moving on, name one task you'd edit
+
+181
+00:09:07,450 --> 00:09:10,930
+directly, and one where Agent would save meaningful
+
+182
+00:09:10,930 --> 00:09:12,010
+coordination work.
+
+183
+00:09:12,510 --> 00:09:15,530
+Explain the difference in the
+work, not just the tool names.

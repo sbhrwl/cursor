@@ -1,0 +1,70 @@
+[
+  {
+    "start": 0.0,
+    "title": "Keep the useful part; own the result"
+  },
+  {
+    "start": 27.133333333333333,
+    "title": "Define the behavior before inviting a completion"
+  },
+  {
+    "start": 57.63333333333333,
+    "title": "Read the independent checks"
+  },
+  {
+    "start": 92.43333333333334,
+    "title": "Enable partial acceptance in this installation"
+  },
+  {
+    "start": 119.33333333333333,
+    "title": "Pause on the actual proposal"
+  },
+  {
+    "start": 147.6,
+    "title": "Dismiss a suggestion without undoing your typing"
+  },
+  {
+    "start": 173.3,
+    "title": "Accept a smaller piece and inspect it"
+  },
+  {
+    "start": 202.76666666666668,
+    "title": "Accept the remainder of the current proposal"
+  },
+  {
+    "start": 227.96666666666667,
+    "title": "Accept only after reading the branches"
+  },
+  {
+    "start": 258.06666666666666,
+    "title": "Review the change as ordinary code"
+  },
+  {
+    "start": 286.4,
+    "title": "Run focused behavior and type checks"
+  },
+  {
+    "start": 313.8666666666667,
+    "title": "Test a tempting change to the requirements"
+  },
+  {
+    "start": 342.8333333333333,
+    "title": "Choose acceptance by evidence"
+  },
+  {
+    "start": 371.1666666666667,
+    "title": "Know the escape hatch and the limits"
+  },
+  {
+    "start": 396.93333333333334,
+    "title": "Record the decision and the checks"
+  },
+  {
+    "start": 424.6333333333333,
+    "title": "Make a new bounded change independently"
+  },
+  {
+    "start": 454.4,
+    "title": "Acceptance is an editing decision"
+  }
+]

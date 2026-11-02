@@ -1,0 +1,70 @@
+[
+  {
+    "start": 0.0,
+    "title": "One label, one bounded change"
+  },
+  {
+    "start": 30.733333333333334,
+    "title": "Continue from the tested helper"
+  },
+  {
+    "start": 60.5,
+    "title": "Separate display from permission"
+  },
+  {
+    "start": 88.9,
+    "title": "Make the intended difference testable"
+  },
+  {
+    "start": 120.26666666666667,
+    "title": "Read the failing baseline"
+  },
+  {
+    "start": 150.76666666666668,
+    "title": "Select the intended editing target"
+  },
+  {
+    "start": 179.5,
+    "title": "State the change and the invariants"
+  },
+  {
+    "start": 220.0,
+    "title": "Submit and wait for an inspectable proposal"
+  },
+  {
+    "start": 247.3,
+    "title": "Review each changed part"
+  },
+  {
+    "start": 274.8333333333333,
+    "title": "Accept after the review"
+  },
+  {
+    "start": 304.3,
+    "title": "Inspect the actual changed-file set"
+  },
+  {
+    "start": 331.8333333333333,
+    "title": "Verify the new behavior and the invariants"
+  },
+  {
+    "start": 358.0,
+    "title": "Practice choosing the selection"
+  },
+  {
+    "start": 387.3666666666667,
+    "title": "Spot a helpful-looking scope violation"
+  },
+  {
+    "start": 420.26666666666665,
+    "title": "Make the boundary reviewable"
+  },
+  {
+    "start": 446.8333333333333,
+    "title": "Repeat with a different exact label"
+  },
+  {
+    "start": 479.0,
+    "title": "A selection communicates intent; evidence checks it"
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "start": 0.0,
+    "title": "Choose the assistance the work needs"
+  },
+  {
+    "start": 29.766666666666666,
+    "title": "Consider understanding, changing, and checking"
+  },
+  {
+    "start": 64.03333333333333,
+    "title": "Make a known comment correction directly"
+  },
+  {
+    "start": 88.43333333333334,
+    "title": "Check the actual scope of the direct edit"
+  },
+  {
+    "start": 114.3,
+    "title": "Revisit the bounded Inline Edit example"
+  },
+  {
+    "start": 142.46666666666667,
+    "title": "Define a coordinated change before delegating it"
+  },
+  {
+    "start": 169.53333333333333,
+    "title": "Give Agent a bounded task and concrete checks"
+  },
+  {
+    "start": 201.23333333333332,
+    "title": "Observe the native Agent workflow"
+  },
+  {
+    "start": 233.0,
+    "title": "Treat the completion report as a review guide"
+  },
+  {
+    "start": 263.8,
+    "title": "Read the generated implementation"
+  },
+  {
+    "start": 295.0,
+    "title": "Review generated tests against the requirement"
+  },
+  {
+    "start": 330.8666666666667,
+    "title": "Keep the reviewed work and inspect the file set"
+  },
+  {
+    "start": 359.93333333333334,
+    "title": "Run the checks in the actual checkout"
+  },
+  {
+    "start": 389.0,
+    "title": "Practice choosing a route without rigid rules"
+  },
+  {
+    "start": 422.76666666666665,
+    "title": "Write expected behavior independently"
+  },
+  {
+    "start": 457.6666666666667,
+    "title": "Record the tool choice and the observed outcome"
+  },
+  {
+    "start": 490.6333333333333,
+    "title": "Repeat with a permission batch helper"
+  },
+  {
+    "start": 522.9,
+    "title": "Choose assistance deliberately and retain judgment"
+  }
+]

@@ -1,0 +1,730 @@
+1
+00:00:00,750 --> 00:00:03,590
+Somewhere in this repository,
+we tell clients not
+
+2
+00:00:03,590 --> 00:00:05,110
+to cache the health response.
+
+3
+00:00:05,870 --> 00:00:06,600
+Where?
+
+4
+00:00:06,670 --> 00:00:07,930
+And which test checks it?
+
+5
+00:00:08,410 --> 00:00:09,990
+Let's answer that ourselves in Cursor.
+
+6
+00:00:10,590 --> 00:00:13,150
+We'll jump between a file, its symbols, the
+
+7
+00:00:13,150 --> 00:00:15,130
+code that calls it, and the test that
+
+8
+00:00:15,130 --> 00:00:16,010
+checks the response.
+
+9
+00:00:16,610 --> 00:00:18,970
+The goal isn't a keyboard shortcut speed run,
+
+10
+00:00:19,230 --> 00:00:21,210
+it's arriving at the right evidence before we
+
+11
+00:00:21,210 --> 00:00:22,770
+ask an agent to change anything.
+
+12
+00:00:25,083 --> 00:00:27,203
+Start with what you already know.
+
+13
+00:00:27,703 --> 00:00:30,243
+A command name belongs in the Command Palette.
+
+14
+00:00:30,863 --> 00:00:32,863
+A file name belongs in Quick Open.
+
+15
+00:00:33,683 --> 00:00:36,523
+A string belongs in Find or Workspace search.
+
+16
+00:00:37,263 --> 00:00:41,203
+A function belongs in Symbol
+Navigation, Definitions, or References.
+
+17
+00:00:41,923 --> 00:00:42,943
+Those are different questions.
+
+18
+00:00:43,763 --> 00:00:45,883
+Choosing the right one turns a huge code
+
+19
+00:00:45,883 --> 00:00:47,583
+base into a short investigation.
+
+20
+00:00:48,363 --> 00:00:51,043
+We'll use this small working starter to make
+
+21
+00:00:51,043 --> 00:00:52,083
+each move visible.
+
+22
+00:00:54,617 --> 00:00:59,397
+Open the Command Palette with
+Ctrl-Shift-P on this Linux machine.
+
+23
+00:00:59,897 --> 00:01:03,237
+Type Keyboard Shortcuts and
+read the actual result labels.
+
+24
+00:01:03,917 --> 00:01:06,617
+We want the interactive
+settings page, so select
+
+25
+00:01:06,617 --> 00:01:09,697
+Open Keyboard Shortcuts
+without the JSON suffix.
+
+26
+00:01:10,777 --> 00:01:12,317
+Similar names can open different views.
+
+27
+00:01:13,017 --> 00:01:15,417
+The palette is a searchable command menu, and
+
+28
+00:01:15,417 --> 00:01:18,237
+it often shows the assigned
+shortcut alongside the command.
+
+29
+00:01:18,837 --> 00:01:20,637
+You don't have to memorize everything today.
+
+30
+00:01:23,117 --> 00:01:25,937
+Search this settings page
+for Go to Definition.
+
+31
+00:01:26,757 --> 00:01:29,037
+The binding is F12 in this installation.
+
+32
+00:01:29,957 --> 00:01:31,117
+Notice the when column?
+
+33
+00:01:31,677 --> 00:01:34,737
+The editor needs the appropriate
+focus and definition support.
+
+34
+00:01:35,417 --> 00:01:37,237
+A shortcut is more than a few keys.
+
+35
+00:01:37,697 --> 00:01:39,317
+It's a command plus a context.
+
+36
+00:01:40,097 --> 00:01:42,297
+If a shortcut behaves
+differently on your machine,
+
+37
+00:01:42,737 --> 00:01:45,577
+inspect its binding here before
+assuming the feature is missing.
+
+38
+00:01:48,183 --> 00:01:51,923
+Close Settings and open
+Quick Open with Ctrl-P.
+
+39
+00:01:52,503 --> 00:01:54,503
+Type the path to the handler file, then
+
+40
+00:01:54,503 --> 00:01:55,743
+choose the matching result.
+
+41
+00:01:56,323 --> 00:01:58,903
+This searches file names
+rather than file contents.
+
+42
+00:01:59,483 --> 00:02:02,743
+Including the folder helps when
+several files share the same name.
+
+43
+00:02:03,343 --> 00:02:05,263
+Check the breadcrumb after opening it.
+
+44
+00:02:05,443 --> 00:02:08,563
+We're in the source folder, in handler.ts, in
+
+45
+00:02:08,563 --> 00:02:10,383
+the fresh clone from the previous lesson.
+
+46
+00:02:12,750 --> 00:02:15,850
+With the editor focused, open find and search
+
+47
+00:02:15,850 --> 00:02:18,570
+for cache control with a
+hyphen between the words.
+
+48
+00:02:19,210 --> 00:02:20,970
+Here we have one match in this file.
+
+49
+00:02:21,570 --> 00:02:23,650
+The line sets the response header to no
+
+50
+00:02:23,650 --> 00:02:25,270
+store inside the health route.
+
+51
+00:02:25,870 --> 00:02:28,630
+Read the surrounding condition
+as well as the matching text.
+
+52
+00:02:29,270 --> 00:02:31,270
+A highlighted string tells us where to look.
+
+53
+00:02:31,930 --> 00:02:35,190
+Its surrounding control flow
+tells us when that line runs.
+
+54
+00:02:37,817 --> 00:02:41,417
+Now, search the workspace
+for create handler, written
+
+55
+00:02:41,417 --> 00:02:42,557
+as one identifier.
+
+56
+00:02:43,917 --> 00:02:46,897
+We get five text matches across three files
+
+57
+00:02:46,897 --> 00:02:47,677
+in this checkout.
+
+58
+00:02:48,437 --> 00:02:51,437
+There's the definition,
+the server that imports and
+
+59
+00:02:51,437 --> 00:02:53,797
+calls it, and the test file that also
+
+60
+00:02:53,797 --> 00:02:54,677
+builds a server.
+
+61
+00:02:55,357 --> 00:02:57,717
+These are text results, grouped by file.
+
+62
+00:02:57,937 --> 00:02:59,637
+They give us useful leads, but the count
+
+63
+00:02:59,637 --> 00:03:03,237
+doesn't mean five runtime calls
+or five independent tests.
+
+64
+00:03:05,683 --> 00:03:10,123
+Put src slash double star in the files
+
+65
+00:03:10,123 --> 00:03:11,143
+to include field.
+
+66
+00:03:11,883 --> 00:03:15,343
+The results narrow to three
+matches in two source files.
+
+67
+00:03:16,143 --> 00:03:19,003
+The tests disappear because
+we excluded their folder
+
+68
+00:03:19,003 --> 00:03:21,623
+from this search, not
+because the tests vanished
+
+69
+00:03:21,623 --> 00:03:22,443
+from the project.
+
+70
+00:03:23,423 --> 00:03:25,803
+Clear that filter and the test results return.
+
+71
+00:03:26,283 --> 00:03:28,623
+Before trusting a missing
+result, check the open
+
+72
+00:03:28,623 --> 00:03:31,723
+folder include and exclude
+fields and the search options.
+
+73
+00:03:34,017 --> 00:03:36,257
+Back in the handler editor, open go to
+
+74
+00:03:36,257 --> 00:03:39,017
+symbol in editor with control, shift, O.
+
+75
+00:03:39,017 --> 00:03:41,737
+Cursor lists the symbols
+recognized in this file,
+
+76
+00:03:42,297 --> 00:03:44,917
+filter for create handler
+and select the function.
+
+77
+00:03:45,497 --> 00:03:46,977
+We land at its definition.
+
+78
+00:03:47,557 --> 00:03:50,597
+This uses language support
+to navigate code structure.
+
+79
+00:03:51,197 --> 00:03:53,337
+It isn't a text search, and the at
+
+80
+00:03:53,337 --> 00:03:55,397
+sign in this picker is not an instruction
+
+81
+00:03:55,397 --> 00:03:57,677
+to attach code to an agent conversation.
+
+82
+00:04:00,183 --> 00:04:02,723
+Open the server file and put the caret
+
+83
+00:04:02,723 --> 00:04:04,423
+on the call to create handler.
+
+84
+00:04:04,963 --> 00:04:05,763
+Press F12.
+
+85
+00:04:06,523 --> 00:04:08,723
+Cursor takes us to the function definition in
+
+86
+00:04:08,723 --> 00:04:09,543
+the handler file.
+
+87
+00:04:09,983 --> 00:04:11,523
+That's the relationship we wanted.
+
+88
+00:04:12,003 --> 00:04:15,163
+This server constructs its request
+handler from that function.
+
+89
+00:04:15,843 --> 00:04:18,383
+If navigation can't
+resolve a symbol in another
+
+90
+00:04:18,383 --> 00:04:21,663
+project, check language support
+and project configuration.
+
+91
+00:04:22,663 --> 00:04:24,803
+Guessing from a similar file name is a
+
+92
+00:04:24,803 --> 00:04:25,583
+weaker substitute.
+
+93
+00:04:28,283 --> 00:04:32,403
+From the definition, open
+references with Shift, F12.
+
+94
+00:04:33,123 --> 00:04:36,523
+This inline view shows five
+locations, including the
+
+95
+00:04:36,523 --> 00:04:37,923
+declaration in this example.
+
+96
+00:04:38,763 --> 00:04:41,083
+Expand the test file and inspect its use
+
+97
+00:04:41,083 --> 00:04:42,083
+of the same handler.
+
+98
+00:04:42,983 --> 00:04:45,223
+References and text search happen to give the
+
+99
+00:04:45,223 --> 00:04:46,083
+same count here.
+
+100
+00:04:46,543 --> 00:04:47,783
+They are still different tools.
+
+101
+00:04:48,723 --> 00:04:51,143
+Language references follow
+a recognized symbol.
+
+102
+00:04:51,703 --> 00:04:54,503
+Text search finds matching characters
+within its configured scope.
+
+103
+00:04:56,950 --> 00:04:59,450
+Open the health test file and find the
+
+104
+00:04:59,450 --> 00:05:01,050
+cache control header assertion.
+
+105
+00:05:01,650 --> 00:05:03,950
+In the healthy GET case, the test makes
+
+106
+00:05:03,950 --> 00:05:06,450
+a request and expects the response header to
+
+107
+00:05:06,450 --> 00:05:07,530
+equal no store.
+
+108
+00:05:08,230 --> 00:05:10,890
+Now we have a specific
+check tied to the behavior.
+
+109
+00:05:11,610 --> 00:05:14,150
+Read the test setup and
+the assertion together.
+
+110
+00:05:14,870 --> 00:05:17,050
+Merely finding the word health in a test
+
+111
+00:05:17,050 --> 00:05:19,530
+name would not establish
+that this header is checked.
+
+112
+00:05:22,083 --> 00:05:24,323
+The lesson uses Linux shortcuts.
+
+113
+00:05:24,883 --> 00:05:27,543
+The practice sheet includes
+common Windows and Mac
+
+114
+00:05:27,543 --> 00:05:30,263
+defaults for the same
+commands, but your installed
+
+115
+00:05:30,263 --> 00:05:31,543
+bindings are the authority.
+
+116
+00:05:32,703 --> 00:05:36,703
+Extensions, remapping, keyboard layout,
+and focus can change what a key does.
+
+117
+00:05:37,323 --> 00:05:39,463
+Use the Command Palette to find the command,
+
+118
+00:05:39,703 --> 00:05:41,063
+then inspect its binding.
+
+119
+00:05:41,723 --> 00:05:44,883
+That's a more portable
+skill than blindly replacing
+
+120
+00:05:44,883 --> 00:05:46,843
+every control key with command.
+
+121
+00:05:49,450 --> 00:05:52,570
+Before recording our findings,
+check Source Control.
+
+122
+00:05:53,190 --> 00:05:54,930
+There are no pending file changes.
+
+123
+00:05:55,630 --> 00:05:57,310
+We navigated and read the code.
+
+124
+00:05:57,830 --> 00:05:59,790
+We didn't need to rewrite it to understand
+
+125
+00:05:59,790 --> 00:06:00,650
+these relationships.
+
+126
+00:06:01,430 --> 00:06:04,330
+This is a useful habit before
+handing work to an agent.
+
+127
+00:06:04,970 --> 00:06:08,230
+Establish the current behavior,
+locate the relevant test,
+
+128
+00:06:08,610 --> 00:06:09,890
+and know the starting state.
+
+129
+00:06:11,110 --> 00:06:13,970
+Navigation evidence helps
+define a change, but it doesn't
+
+130
+00:06:13,970 --> 00:06:15,610
+replace running the relevant checks.
+
+131
+00:06:18,183 --> 00:06:22,203
+Record four locations, the
+header assignment, the handler
+
+132
+00:06:22,203 --> 00:06:25,263
+definition, the server's
+call, and the test assertion.
+
+133
+00:06:25,963 --> 00:06:29,123
+Include the repository revision
+because line numbers can move.
+
+134
+00:06:29,803 --> 00:06:32,203
+For each location, write what it establishes.
+
+135
+00:06:33,083 --> 00:06:35,623
+Our map connects a concrete behavior to its
+
+136
+00:06:35,623 --> 00:06:38,163
+implementation, its wiring, and a check.
+
+137
+00:06:38,663 --> 00:06:41,003
+That's useful context for a future agent task,
+
+138
+00:06:41,363 --> 00:06:43,883
+a code review, or another
+engineer joining the project.
+
+139
+00:06:46,183 --> 00:06:47,203
+Quick checkpoint.
+
+140
+00:06:47,923 --> 00:06:50,263
+You searched only the source folder and found
+
+141
+00:06:50,263 --> 00:06:51,283
+no matching test.
+
+142
+00:06:51,903 --> 00:06:52,683
+What's the next move?
+
+143
+00:06:53,903 --> 00:06:55,423
+Inspect and widen the search scope.
+
+144
+00:06:56,003 --> 00:06:58,223
+Don't conclude that coverage is missing from a
+
+145
+00:06:58,223 --> 00:06:59,003
+filtered search.
+
+146
+00:06:59,903 --> 00:07:00,703
+Second situation.
+
+147
+00:07:01,283 --> 00:07:04,103
+You know a function's name,
+but not its file name.
+
+148
+00:07:05,003 --> 00:07:07,983
+Workspace text search can
+locate candidates, then use
+
+149
+00:07:07,983 --> 00:07:11,323
+definition and reference
+navigation to inspect the actual
+
+150
+00:07:11,323 --> 00:07:12,243
+symbol relationship.
+
+151
+00:07:15,583 --> 00:07:18,923
+Your exercise is to trace
+the unsupported method
+
+152
+00:07:18,923 --> 00:07:20,443
+response on the health route.
+
+153
+00:07:20,983 --> 00:07:24,323
+Locate the condition, find
+the response status, and
+
+154
+00:07:24,323 --> 00:07:26,223
+identify the test that checks it.
+
+155
+00:07:27,143 --> 00:07:29,703
+Record file paths and line
+references at your revision,
+
+156
+00:07:30,143 --> 00:07:31,283
+plus how you found them.
+
+157
+00:07:31,883 --> 00:07:33,163
+Keep the checkout unchanged.
+
+158
+00:07:33,943 --> 00:07:36,103
+If you get stuck, choose the tool based
+
+159
+00:07:36,103 --> 00:07:38,943
+on what you know—a file name, a string,
+
+160
+00:07:39,303 --> 00:07:40,623
+a symbol, or a command.
+
+161
+00:07:43,183 --> 00:07:45,143
+We can now move from a question to
+
+162
+00:07:45,143 --> 00:07:47,603
+code, follow a symbol to the places that
+
+163
+00:07:47,603 --> 00:07:50,103
+use it, and locate a relevant assertion.
+
+164
+00:07:50,703 --> 00:07:53,783
+That's the foundation for working
+quickly without losing the plot.
+
+165
+00:07:54,283 --> 00:07:56,823
+Next, we'll use Cursor Tab for small edits
+
+166
+00:07:56,823 --> 00:07:59,403
+and learn how to accept
+suggestions deliberately.
+
+167
+00:08:00,063 --> 00:08:02,623
+Before moving on, which
+search filter could hide
+
+168
+00:08:02,623 --> 00:08:04,403
+the very file you are trying to inspect?

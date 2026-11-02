@@ -1,0 +1,24 @@
+diff --git a/docs/recovery-note.md b/docs/recovery-note.md
+index e4e464a..65e059d 100644
+--- a/docs/recovery-note.md
++++ b/docs/recovery-note.md
+@@ -1,3 +1,5 @@
+ # Recovery exercise
+ 
+ Baseline: display labels and permissions are separate.
++
++Manual note: preserve this sentence during the Agent experiment.
+\ No newline at end of file
+diff --git a/src/request-status.ts b/src/request-status.ts
+index 9746d78..5b49fa5 100644
+--- a/src/request-status.ts
++++ b/src/request-status.ts
+@@ -8,7 +8,7 @@ export function requestStatusLabel(status: string): string {
+   } else if (status === "rejected") {
+     return "Rejected";
+   } else {
+-    return "Unknown status";
++    return "No label";
+   }
+ }
+ 

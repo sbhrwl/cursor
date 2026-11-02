@@ -1,0 +1,61 @@
+diff --git a/src/request-status.ts b/src/request-status.ts
+index f23e2c0..9746d78 100644
+--- a/src/request-status.ts
++++ b/src/request-status.ts
+@@ -1,4 +1,4 @@
+-// Display lables contract: open -> Awaiting review; approved -> Approved; rejected -> Rejected.
++// Display labels contract: open -> Awaiting review; approved -> Approved; rejected -> Rejected.
+ // Any other value -> Unknown status. Match exact strings; do not normalize.
+ export function requestStatusLabel(status: string): string {
+   if (status === "open") {
+@@ -12,6 +12,10 @@ export function requestStatusLabel(status: string): string {
+   }
+ }
+ 
++export function requestStatusLabels(statuses: readonly string[]): string[] {
++  return statuses.map(requestStatusLabel);
++}
++
+ // Permission policy is separate from display labels. Do not change it here.
+ export function canApproveRequest(role: string): boolean {
+   return role === 'reviewer';
+diff --git a/test/request-status.test.ts b/test/request-status.test.ts
+index f904c74..278439e 100644
+--- a/test/request-status.test.ts
++++ b/test/request-status.test.ts
+@@ -1,6 +1,6 @@
+ import test from 'node:test';
+ import assert from 'node:assert/strict';
+-import {requestStatusLabel, canApproveRequest} from '../src/request-status.js';
++import {requestStatusLabel, requestStatusLabels, canApproveRequest} from '../src/request-status.js';
+ 
+ test('open requests display the review label', () => {
+   assert.equal(requestStatusLabel('open'), 'Awaiting review');
+@@ -25,3 +25,27 @@ test('approval permission remains independent of display labels', () => {
+     assert.equal(canApproveRequest(role), false);
+   }
+ });
++
++test('maps mixed exact and unknown statuses in order', () => {
++  assert.deepEqual(
++    requestStatusLabels(['open', 'pending', 'approved', 'REJECTED', 'rejected']),
++    ['Awaiting review', 'Unknown status', 'Approved', 'Unknown status', 'Rejected'],
++  );
++});
++
++test('preserves duplicates', () => {
++  assert.deepEqual(
++    requestStatusLabels(['open', 'open', 'approved']),
++    ['Awaiting review', 'Awaiting review', 'Approved'],
++  );
++});
++
++test('returns an empty array for empty input', () => {
++  assert.deepEqual(requestStatusLabels([]), []);
++});
++
++test('does not mutate a frozen input array', () => {
++  const statuses = Object.freeze(['open', 'rejected']);
++  assert.deepEqual(requestStatusLabels(statuses), ['Awaiting review', 'Rejected']);
++  assert.deepEqual(statuses, ['open', 'rejected']);
++});

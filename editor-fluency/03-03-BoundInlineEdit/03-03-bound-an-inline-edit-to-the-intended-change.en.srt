@@ -1,0 +1,717 @@
+1
+00:00:00,750 --> 00:00:02,570
+We need one new label.
+
+2
+00:00:03,750 --> 00:00:07,130
+Somehow, that's also a great
+opportunity to accidentally change
+
+3
+00:00:07,130 --> 00:00:08,610
+who can approve a request.
+
+4
+00:00:09,390 --> 00:00:10,830
+Let's avoid that little adventure.
+
+5
+00:00:11,550 --> 00:00:14,030
+In this lesson, we'll use Inline Edit on
+
+6
+00:00:14,030 --> 00:00:16,710
+a specific piece of code, describe the behavior
+
+7
+00:00:16,710 --> 00:00:19,290
+we want, and check what actually changed.
+
+8
+00:00:19,890 --> 00:00:22,210
+The useful skill is setting a boundary and
+
+9
+00:00:22,210 --> 00:00:23,330
+then verifying it.
+
+10
+00:00:23,890 --> 00:00:26,610
+A highlighted selection helps communicate intent.
+
+11
+00:00:27,130 --> 00:00:29,090
+It doesn't do your code review for you.
+
+12
+00:00:31,483 --> 00:00:33,803
+We're continuing with our status helper.
+
+13
+00:00:34,643 --> 00:00:38,203
+Open and approved already have
+display labels, and everything
+
+14
+00:00:38,203 --> 00:00:39,823
+else gets Unknown status.
+
+15
+00:00:40,563 --> 00:00:42,063
+The new requirement is narrow.
+
+16
+00:00:42,603 --> 00:00:45,723
+The exact value rejected should display Rejected.
+
+17
+00:00:46,543 --> 00:00:49,223
+Uppercase and padded versions should remain unknown.
+
+18
+00:00:49,943 --> 00:00:52,363
+This is prepared exercise code, so we can
+
+19
+00:00:52,363 --> 00:00:55,483
+inspect the whole behavior without
+getting lost in the application.
+
+20
+00:00:56,023 --> 00:00:57,963
+We'll keep the existing branches and add the
+
+21
+00:00:57,963 --> 00:00:59,123
+new case deliberately.
+
+22
+00:01:01,250 --> 00:01:02,910
+Look just below the display helper.
+
+23
+00:01:03,350 --> 00:01:05,330
+There's a separate function that decides whether a
+
+24
+00:01:05,330 --> 00:01:06,550
+role can approve a request.
+
+25
+00:01:07,170 --> 00:01:09,150
+Its policy belongs to a different decision.
+
+26
+00:01:09,430 --> 00:01:11,490
+Adding a display label gives us no reason
+
+27
+00:01:11,490 --> 00:01:12,730
+to change that policy.
+
+28
+00:01:13,110 --> 00:01:15,510
+This neighboring function makes our boundary visible.
+
+29
+00:01:15,810 --> 00:01:17,270
+The display helper may change.
+
+30
+00:01:17,850 --> 00:01:21,250
+The permission helper must stay exactly as it is.
+
+31
+00:01:21,810 --> 00:01:25,730
+When two responsibilities live
+close together, proximity isn't
+
+32
+00:01:25,730 --> 00:01:27,070
+permission to edit both.
+
+33
+00:01:29,650 --> 00:01:32,530
+The prepared tests spell out the new label
+
+34
+00:01:32,530 --> 00:01:35,350
+and two inputs that must remain unknown.
+
+35
+00:01:36,070 --> 00:01:38,790
+Another test checks the existing permission policy.
+
+36
+00:01:39,410 --> 00:01:41,710
+We still have the earlier label tests, too.
+
+37
+00:01:42,410 --> 00:01:45,490
+Read those expectations before
+opening the editing tool.
+
+38
+00:01:45,990 --> 00:01:49,230
+Otherwise, a polished suggestion
+can become the specification
+
+39
+00:01:49,230 --> 00:01:50,210
+by accident.
+
+40
+00:01:51,030 --> 00:01:54,530
+Here, the requirement and the checks already exist,
+
+41
+00:01:54,650 --> 00:01:57,250
+so we can judge the proposed change against
+
+42
+00:01:57,250 --> 00:01:58,270
+something independent.
+
+43
+00:02:01,017 --> 00:02:04,237
+Run the focused tests against the starting version.
+
+44
+00:02:04,837 --> 00:02:07,477
+The new label test fails because the helper
+
+45
+00:02:07,477 --> 00:02:10,317
+still returns Unknown status for rejected.
+
+46
+00:02:10,897 --> 00:02:12,617
+That's the gap we're here to close.
+
+47
+00:02:13,257 --> 00:02:15,177
+The existing behavior checks pass.
+
+48
+00:02:15,817 --> 00:02:18,157
+A failure is useful when you understand its
+
+49
+00:02:18,157 --> 00:02:20,137
+cause and expect it at this stage.
+
+50
+00:02:20,837 --> 00:02:23,577
+Keep the baseline result separate from the result
+
+51
+00:02:23,577 --> 00:02:26,917
+after editing, otherwise you lose the evidence that
+
+52
+00:02:26,917 --> 00:02:28,957
+the change addressed the missing behavior.
+
+53
+00:02:31,517 --> 00:02:33,897
+Return to the source file and select the
+
+54
+00:02:33,897 --> 00:02:36,117
+display helper with its contract comments.
+
+55
+00:02:36,617 --> 00:02:38,837
+Leave the permission helper outside the selection.
+
+56
+00:02:39,617 --> 00:02:42,317
+Now open Inline Edit with Control K on
+
+57
+00:02:42,317 --> 00:02:43,297
+this Linux installation.
+
+58
+00:02:44,137 --> 00:02:46,697
+Check the highlighted range
+before writing the instruction.
+
+59
+00:02:47,597 --> 00:02:50,137
+Including the contract comment lets the edit keep
+
+60
+00:02:50,137 --> 00:02:52,457
+the explanation consistent with the implementation.
+
+61
+00:02:53,157 --> 00:02:55,757
+Selecting everything would make
+the intended boundary harder
+
+62
+00:02:55,757 --> 00:02:57,897
+to see, even for a tiny file.
+
+63
+00:03:00,250 --> 00:03:03,210
+Give the instruction three useful ingredients.
+
+64
+00:03:04,110 --> 00:03:05,430
+First, the change.
+
+65
+00:03:06,130 --> 00:03:08,150
+Add the exact rejected label.
+
+66
+00:03:08,870 --> 00:03:12,870
+Second, what must stay true, the existing labels,
+
+67
+00:03:13,630 --> 00:03:16,730
+exact matching, and the unknown result.
+
+68
+00:03:17,910 --> 00:03:19,470
+Third, the exclusions.
+
+69
+00:03:20,030 --> 00:03:21,150
+No normalization,
+
+70
+00:03:21,830 --> 00:03:25,050
+no permission changes, and no other files.
+
+71
+00:03:25,990 --> 00:03:29,130
+We also ask to keep the explicit branches.
+
+72
+00:03:29,710 --> 00:03:31,970
+That's a concrete editing request.
+
+73
+00:03:32,810 --> 00:03:35,030
+Notice how little depends on telling the model
+
+74
+00:03:35,030 --> 00:03:38,190
+to be brilliant or to try really, really hard.
+
+75
+00:03:40,750 --> 00:03:43,710
+Submit the instruction and let the edit finish.
+
+76
+00:03:44,490 --> 00:03:47,590
+The amount of waiting and
+the exact proposal can vary.
+
+77
+00:03:48,350 --> 00:03:51,090
+Read the result before using the acceptance controls.
+
+78
+00:03:51,870 --> 00:03:54,110
+Our request was for a small change in
+
+79
+00:03:54,110 --> 00:03:56,770
+the selected code, but the selection isn't a
+
+80
+00:03:56,770 --> 00:04:00,370
+security boundary or proof that
+every constraint was obeyed.
+
+81
+00:04:00,810 --> 00:04:03,210
+We'll inspect the proposed changes here, then inspect
+
+82
+00:04:03,210 --> 00:04:05,790
+the actual repository diff after accepting them.
+
+83
+00:04:08,050 --> 00:04:10,690
+There are two changes to inspect in this proposal.
+
+84
+00:04:11,270 --> 00:04:13,910
+The contract comment names the new label, and
+
+85
+00:04:13,910 --> 00:04:16,630
+a new branch returns Rejected for the exact
+
+86
+00:04:16,630 --> 00:04:17,550
+rejected value.
+
+87
+00:04:18,170 --> 00:04:20,270
+Check that the previous branches and the unknown
+
+88
+00:04:20,270 --> 00:04:23,130
+result remain in place, then read the neighboring
+
+89
+00:04:23,130 --> 00:04:23,950
+permission helper.
+
+90
+00:04:24,550 --> 00:04:27,050
+An accurate comment is useful, but it can't
+
+91
+00:04:27,050 --> 00:04:28,530
+compensate for incorrect code.
+
+92
+00:04:29,250 --> 00:04:32,990
+The comment and implementation
+should describe the same behavior.
+
+93
+00:04:35,583 --> 00:04:38,923
+The visible changes match our request, so accept
+
+94
+00:04:38,923 --> 00:04:40,183
+them and save the file.
+
+95
+00:04:40,803 --> 00:04:43,703
+If your proposal adds extra behavior, reject it
+
+96
+00:04:43,703 --> 00:04:46,003
+or refine the instruction before keeping it.
+
+97
+00:04:46,583 --> 00:04:49,703
+The installed interface has
+controls for reviewing changes,
+
+98
+00:04:49,983 --> 00:04:51,923
+including individual changed sections.
+
+99
+00:04:52,663 --> 00:04:55,883
+We're accepting this complete proposal
+because we've read both parts.
+
+100
+00:04:56,563 --> 00:04:59,483
+That decision keeps the edit, it doesn't create
+
+101
+00:04:59,483 --> 00:05:02,423
+a Git commit, and it doesn't
+replace running the tests.
+
+102
+00:05:05,050 --> 00:05:06,410
+Open the Git diff.
+
+103
+00:05:06,850 --> 00:05:08,930
+We want the comment update and the new
+
+104
+00:05:08,930 --> 00:05:12,030
+exact branch with no unrelated file changes.
+
+105
+00:05:12,650 --> 00:05:14,750
+Compare the surrounding code as well as the
+
+106
+00:05:14,750 --> 00:05:15,670
+highlighted additions.
+
+107
+00:05:16,330 --> 00:05:18,230
+The permission helper should be unchanged.
+
+108
+00:05:19,050 --> 00:05:21,570
+This second review matters because the final working
+
+109
+00:05:21,570 --> 00:05:24,110
+tree is what you'll test and eventually commit.
+
+110
+00:05:24,870 --> 00:05:27,090
+Your instruction describes an intention.
+
+111
+00:05:27,550 --> 00:05:30,150
+The diff describes the code you actually have.
+
+112
+00:05:32,583 --> 00:05:35,863
+Run the status tests again,
+then the TypeScript check.
+
+113
+00:05:36,623 --> 00:05:39,443
+Now all five tests pass, including the new
+
+114
+00:05:39,443 --> 00:05:41,463
+label and the permission regression check.
+
+115
+00:05:42,123 --> 00:05:44,203
+Read the result and confirm that the intended
+
+116
+00:05:44,203 --> 00:05:45,163
+test file ran.
+
+117
+00:05:46,003 --> 00:05:48,123
+These checks support the helper change we made.
+
+118
+00:05:48,643 --> 00:05:50,623
+They do not show a live user interface
+
+119
+00:05:50,623 --> 00:05:53,383
+or prove the whole authorization system is correct.
+
+120
+00:05:54,023 --> 00:05:56,223
+Keep the conclusion as specific as the evidence.
+
+121
+00:05:58,750 --> 00:06:02,130
+In this original course exercise, choose an editing
+
+122
+00:06:02,130 --> 00:06:03,590
+scope for the same request.
+
+123
+00:06:04,210 --> 00:06:06,810
+The display helper and its contract comment are
+
+124
+00:06:06,810 --> 00:06:07,770
+a sensible target.
+
+125
+00:06:08,410 --> 00:06:11,470
+The permission helper is
+unrelated, and selecting both
+
+126
+00:06:11,470 --> 00:06:13,790
+functions adds unnecessary ambiguity.
+
+127
+00:06:14,550 --> 00:06:16,590
+This is a teaching model, not a replacement
+
+128
+00:06:16,590 --> 00:06:17,350
+for the editor.
+
+129
+00:06:18,110 --> 00:06:20,330
+Use it to explain why you chose a
+
+130
+00:06:20,330 --> 00:06:23,310
+range, then verify that range in your actual
+
+131
+00:06:23,310 --> 00:06:25,630
+code before invoking Inline Edit.
+
+132
+00:06:28,117 --> 00:06:30,737
+Now, inspect three candidate changes.
+
+133
+00:06:31,317 --> 00:06:32,997
+One adds the exact label.
+
+134
+00:06:33,537 --> 00:06:36,677
+Another normalizes the input, changing the result for
+
+135
+00:06:36,677 --> 00:06:38,397
+uppercase and padded values.
+
+136
+00:06:39,057 --> 00:06:41,217
+A third also changes permission behavior.
+
+137
+00:06:42,017 --> 00:06:43,897
+Only the first matches this request.
+
+138
+00:06:44,557 --> 00:06:46,937
+The other changes might
+belong in separately discussed
+
+139
+00:06:46,937 --> 00:06:50,217
+work, but they aren't justified
+by adding a display label.
+
+140
+00:06:50,837 --> 00:06:53,537
+A small change can still carry a big
+
+141
+00:06:53,537 --> 00:06:54,457
+product decision.
+
+142
+00:06:54,457 --> 00:06:57,497
+Read what the code means, not just how
+
+143
+00:06:57,497 --> 00:06:58,577
+many lines changed.
+
+144
+00:07:01,017 --> 00:07:04,877
+Record the requested change, the selected range, the
+
+145
+00:07:04,877 --> 00:07:08,017
+behavior you preserved, and
+the checks you actually ran.
+
+146
+00:07:09,017 --> 00:07:11,817
+Include the starting revision
+and the changed file set.
+
+147
+00:07:12,497 --> 00:07:14,617
+Keep it short enough that a teammate would read it.
+
+148
+00:07:15,037 --> 00:07:16,257
+The purpose isn't paperwork.
+
+149
+00:07:16,797 --> 00:07:18,817
+It's making the decision easy to inspect.
+
+150
+00:07:19,497 --> 00:07:21,577
+Here's what I asked for, here's what changed,
+
+151
+00:07:21,937 --> 00:07:24,177
+and here's the evidence that the important behavior
+
+152
+00:07:24,177 --> 00:07:24,977
+stayed intact.
+
+153
+00:07:27,583 --> 00:07:31,243
+For your independent exercise, add one more exact
+
+154
+00:07:31,243 --> 00:07:33,863
+display label from the supplied practice snapshot.
+
+155
+00:07:34,543 --> 00:07:37,783
+Define its expected text and
+its negative cases first.
+
+156
+00:07:38,403 --> 00:07:41,223
+Use a bounded selection and a specific Inline
+
+157
+00:07:41,223 --> 00:07:42,143
+Edit instruction.
+
+158
+00:07:42,643 --> 00:07:45,663
+Review the proposal, inspect the final diff, and
+
+159
+00:07:45,663 --> 00:07:47,643
+run the status tests and the type check.
+
+160
+00:07:48,343 --> 00:07:50,183
+Leave the permission helper unchanged.
+
+161
+00:07:50,703 --> 00:07:52,783
+If your model takes a different route, judge
+
+162
+00:07:52,783 --> 00:07:55,523
+the behavior and explain your decision instead of
+
+163
+00:07:55,523 --> 00:07:57,343
+copying our output line for line.
+
+164
+00:07:59,750 --> 00:08:02,190
+You can now take a narrow requirement through
+
+165
+00:08:02,190 --> 00:08:05,130
+Inline Edit without handing over the whole decision.
+
+166
+00:08:05,730 --> 00:08:08,350
+Choose a range, describe the change and its
+
+167
+00:08:08,350 --> 00:08:12,570
+limits, inspect the proposal,
+then verify the working tree.
+
+168
+00:08:13,150 --> 00:08:15,910
+In the next lesson, we'll decide when direct
+
+169
+00:08:15,910 --> 00:08:19,010
+editing, Inline Edit, or Agent is the right
+
+170
+00:08:19,010 --> 00:08:20,030
+tool for the job.
+
+171
+00:08:20,550 --> 00:08:23,730
+Before moving on, name one behavior in your
+
+172
+00:08:23,730 --> 00:08:26,950
+own code that must stay unchanged during an
+
+173
+00:08:26,950 --> 00:08:28,350
+apparently simple edit.
+
+174
+00:08:28,350 --> 00:08:30,770
+That's where your review should get specific.

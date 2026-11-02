@@ -1,0 +1,64 @@
+diff --git a/docs/recovery-note.md b/docs/recovery-note.md
+index e4e464a..65e059d 100644
+--- a/docs/recovery-note.md
++++ b/docs/recovery-note.md
+@@ -1,3 +1,5 @@
+ # Recovery exercise
+ 
+ Baseline: display labels and permissions are separate.
++
++Manual note: preserve this sentence during the Agent experiment.
+\ No newline at end of file
+diff --git a/src/request-status.ts b/src/request-status.ts
+index 9746d78..6cdc924 100644
+--- a/src/request-status.ts
++++ b/src/request-status.ts
+@@ -1,8 +1,8 @@
+-// Display labels contract: open -> Awaiting review; approved -> Approved; rejected -> Rejected.
++// Display labels contract: open -> Needs review; approved -> Approved; rejected -> Rejected.
+ // Any other value -> Unknown status. Match exact strings; do not normalize.
+ export function requestStatusLabel(status: string): string {
+   if (status === "open") {
+-    return "Awaiting review";
++    return "Needs review";
+   } else if (status === "approved") {
+     return "Approved";
+   } else if (status === "rejected") {
+diff --git a/test/request-status.test.ts b/test/request-status.test.ts
+index 278439e..2589077 100644
+--- a/test/request-status.test.ts
++++ b/test/request-status.test.ts
+@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
+ import {requestStatusLabel, requestStatusLabels, canApproveRequest} from '../src/request-status.js';
+ 
+ test('open requests display the review label', () => {
+-  assert.equal(requestStatusLabel('open'), 'Awaiting review');
++  assert.equal(requestStatusLabel('open'), 'Needs review');
+ });
+ test('approved requests display the approved label', () => {
+   assert.equal(requestStatusLabel('approved'), 'Approved');
+@@ -29,14 +29,14 @@ test('approval permission remains independent of display labels', () => {
+ test('maps mixed exact and unknown statuses in order', () => {
+   assert.deepEqual(
+     requestStatusLabels(['open', 'pending', 'approved', 'REJECTED', 'rejected']),
+-    ['Awaiting review', 'Unknown status', 'Approved', 'Unknown status', 'Rejected'],
++    ['Needs review', 'Unknown status', 'Approved', 'Unknown status', 'Rejected'],
+   );
+ });
+ 
+ test('preserves duplicates', () => {
+   assert.deepEqual(
+     requestStatusLabels(['open', 'open', 'approved']),
+-    ['Awaiting review', 'Awaiting review', 'Approved'],
++    ['Needs review', 'Needs review', 'Approved'],
+   );
+ });
+ 
+@@ -46,6 +46,6 @@ test('returns an empty array for empty input', () => {
+ 
+ test('does not mutate a frozen input array', () => {
+   const statuses = Object.freeze(['open', 'rejected']);
+-  assert.deepEqual(requestStatusLabels(statuses), ['Awaiting review', 'Rejected']);
++  assert.deepEqual(requestStatusLabels(statuses), ['Needs review', 'Rejected']);
+   assert.deepEqual(statuses, ['open', 'rejected']);
+ });

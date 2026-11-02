@@ -1,0 +1,94 @@
+[
+  {
+    "start": 0.0,
+    "title": "Recover the state you actually intended"
+  },
+  {
+    "start": 26.0,
+    "title": "Separate code snapshots from external state"
+  },
+  {
+    "start": 54.733333333333334,
+    "title": "Establish work that predates the Agent request"
+  },
+  {
+    "start": 81.06666666666666,
+    "title": "Record the commit and current working-tree diff"
+  },
+  {
+    "start": 110.53333333333333,
+    "title": "Bound the reversible experiment"
+  },
+  {
+    "start": 141.73333333333332,
+    "title": "Observe code changes and command execution"
+  },
+  {
+    "start": 170.86666666666667,
+    "title": "Read the proposal before undoing it"
+  },
+  {
+    "start": 200.4,
+    "title": "Check the assumptions that changed with the code"
+  },
+  {
+    "start": 232.16666666666666,
+    "title": "Read the installed checkpoint control"
+  },
+  {
+    "start": 259.93333333333334,
+    "title": "Compare files instead of trusting the previous report"
+  },
+  {
+    "start": 288.1,
+    "title": "Verify the preserved note and unchanged Git history"
+  },
+  {
+    "start": 316.3666666666667,
+    "title": "Check the terminal effect independently"
+  },
+  {
+    "start": 347.73333333333335,
+    "title": "Test the recovered implementation and expectations"
+  },
+  {
+    "start": 377.03333333333336,
+    "title": "Prepare a manual change with an observable failure"
+  },
+  {
+    "start": 406.4,
+    "title": "Inspect and preserve the path to be recovered"
+  },
+  {
+    "start": 433.53333333333336,
+    "title": "Establish the failure before recovery"
+  },
+  {
+    "start": 466.5,
+    "title": "Restore one working file from the committed tree"
+  },
+  {
+    "start": 497.46666666666664,
+    "title": "Verify behavior after the targeted Git recovery"
+  },
+  {
+    "start": 529.4666666666667,
+    "title": "Predict source and destination in a Git model"
+  },
+  {
+    "start": 560.4333333333333,
+    "title": "Explain why the restore source matters"
+  },
+  {
+    "start": 591.9,
+    "title": "Keep a record of the observed recovery"
+  },
+  {
+    "start": 621.6,
+    "title": "Practice recovering one path without losing another"
+  },
+  {
+    "start": 652.5666666666667,
+    "title": "Recover deliberately and verify the resulting state"
+  }
+]

@@ -1,0 +1,94 @@
+[
+  {
+    "start": 0.0,
+    "title": "Fix the behavior without expanding the change"
+  },
+  {
+    "start": 24.166666666666668,
+    "title": "Define the repair contract"
+  },
+  {
+    "start": 48.43333333333333,
+    "title": "Reproduce the visible mismatch"
+  },
+  {
+    "start": 77.23333333333333,
+    "title": "Compare the screen with the actual input"
+  },
+  {
+    "start": 105.1,
+    "title": "Trace the label to its implementation"
+  },
+  {
+    "start": 131.5,
+    "title": "Read the input contract and the display decision"
+  },
+  {
+    "start": 160.06666666666666,
+    "title": "Inspect the existing verification gap"
+  },
+  {
+    "start": 184.4,
+    "title": "Add a test for the reported behavior"
+  },
+  {
+    "start": 213.06666666666666,
+    "title": "Observe the regression test fail before fixing code"
+  },
+  {
+    "start": 239.16666666666666,
+    "title": "Select the decision that causes the mismatch"
+  },
+  {
+    "start": 265.1666666666667,
+    "title": "Describe the behavior and preservation constraints"
+  },
+  {
+    "start": 295.3333333333333,
+    "title": "Inspect the proposed conditional and its surroundings"
+  },
+  {
+    "start": 322.3,
+    "title": "Accept the reviewed candidate"
+  },
+  {
+    "start": 348.0,
+    "title": "Inspect the actual repository patch"
+  },
+  {
+    "start": 377.8666666666667,
+    "title": "Run the relevant behavioral and type checks"
+  },
+  {
+    "start": 409.6333333333333,
+    "title": "Refresh the same user-visible preview"
+  },
+  {
+    "start": 435.6333333333333,
+    "title": "Check the queue link and preserved input"
+  },
+  {
+    "start": 464.2,
+    "title": "Challenge a tempting fix with neighboring cases"
+  },
+  {
+    "start": 492.6,
+    "title": "Check the complete display contract"
+  },
+  {
+    "start": 518.6,
+    "title": "Review the preserved behavior"
+  },
+  {
+    "start": 546.1333333333333,
+    "title": "Save a reviewable repair record"
+  },
+  {
+    "start": 574.4666666666667,
+    "title": "Repeat the method from the starter"
+  },
+  {
+    "start": 602.3333333333334,
+    "title": "Carry a verified repair into the next module"
+  }
+]

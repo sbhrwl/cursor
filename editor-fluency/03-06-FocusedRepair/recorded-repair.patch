@@ -1,0 +1,25 @@
+diff --git a/src/queue-summary.ts b/src/queue-summary.ts
+index 2e27fbe..1138feb 100644
+--- a/src/queue-summary.ts
++++ b/src/queue-summary.ts
+@@ -18,7 +18,7 @@ export type QueueSummary = Readonly<{
+ // The data boundary supplies a nonnegative integer, or null when not loaded.
+ // Zero is a real count. Missing data uses the exact text Not loaded.
+ export function summarizeQueue(queue: QueueSnapshot): QueueSummary {
+-  const pendingText = queue.pendingCount ? String(queue.pendingCount) : 'Not loaded';
++  const pendingText = queue.pendingCount === null ? 'Not loaded' : String(queue.pendingCount);
+ 
+   return {
+     id: queue.id,
+diff --git a/test/queue-summary.test.ts b/test/queue-summary.test.ts
+index 97e49ed..d81253d 100644
+--- a/test/queue-summary.test.ts
++++ b/test/queue-summary.test.ts
+@@ -31,3 +31,7 @@ test('does not mutate a frozen snapshot', () => {
+   summarizeQueue(frozen);
+   assert.deepEqual(frozen, example);
+ });
++
++test('displays zero as a real count', () => {
++  assert.equal(summarizeQueue({...example, pendingCount: 0}).pendingText, '0');
++});

@@ -1,0 +1,11 @@
+diff --git a/docs/recovery-note.md b/docs/recovery-note.md
+index e4e464a..65e059d 100644
+--- a/docs/recovery-note.md
++++ b/docs/recovery-note.md
+@@ -1,3 +1,5 @@
+ # Recovery exercise
+ 
+ Baseline: display labels and permissions are separate.
++
++Manual note: preserve this sentence during the Agent experiment.
+\ No newline at end of file

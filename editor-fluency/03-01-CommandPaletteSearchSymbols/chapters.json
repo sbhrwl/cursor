@@ -1,0 +1,74 @@
+[
+  {
+    "start": 0.0,
+    "title": "Find the code that answers the question"
+  },
+  {
+    "start": 24.333333333333332,
+    "title": "Choose navigation by the question"
+  },
+  {
+    "start": 53.86666666666667,
+    "title": "Discover commands by name"
+  },
+  {
+    "start": 82.36666666666666,
+    "title": "Inspect the active binding and its context"
+  },
+  {
+    "start": 107.43333333333334,
+    "title": "Open a known file"
+  },
+  {
+    "start": 132.0,
+    "title": "Find text in the active file"
+  },
+  {
+    "start": 157.06666666666666,
+    "title": "Search across the workspace"
+  },
+  {
+    "start": 184.93333333333334,
+    "title": "Make the search scope explicit"
+  },
+  {
+    "start": 213.26666666666668,
+    "title": "Navigate the current file by symbol"
+  },
+  {
+    "start": 239.43333333333334,
+    "title": "Follow a use to its definition"
+  },
+  {
+    "start": 267.53333333333336,
+    "title": "Inspect references without losing the definition"
+  },
+  {
+    "start": 296.2,
+    "title": "Read the assertion and the case around it"
+  },
+  {
+    "start": 321.3333333333333,
+    "title": "Use command names across platforms"
+  },
+  {
+    "start": 348.7,
+    "title": "Preserve the checkout while investigating"
+  },
+  {
+    "start": 377.43333333333334,
+    "title": "Retain an evidence map"
+  },
+  {
+    "start": 405.43333333333334,
+    "title": "Diagnose a missing result"
+  },
+  {
+    "start": 434.8333333333333,
+    "title": "Trace a second behavior independently"
+  },
+  {
+    "start": 462.43333333333334,
+    "title": "Navigate toward evidence"
+  }
+]

@@ -1,0 +1,18 @@
+diff --git a/src/request-status.ts b/src/request-status.ts
+index b93a8a8..93a4761 100644
+--- a/src/request-status.ts
++++ b/src/request-status.ts
+@@ -1,10 +1,12 @@
+-// Display contract: open -> Awaiting review; approved -> Approved.
++// Display contract: open -> Awaiting review; approved -> Approved; rejected -> Rejected.
+ // Any other value -> Unknown status. Match exact strings; do not normalize.
+ export function requestStatusLabel(status: string): string {
+   if (status === "open") {
+     return "Awaiting review";
+   } else if (status === "approved") {
+     return "Approved";
++  } else if (status === "rejected") {
++    return "Rejected";
+   } else {
+     return "Unknown status";
+   }

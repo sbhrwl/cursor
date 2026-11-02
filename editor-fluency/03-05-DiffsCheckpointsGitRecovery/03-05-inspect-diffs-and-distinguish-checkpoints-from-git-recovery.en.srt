@@ -1,0 +1,991 @@
+1
+00:00:00,750 --> 00:00:02,890
+Restore is a comforting word.
+
+2
+00:00:03,450 --> 00:00:05,590
+It doesn't tell you which state you're getting
+back.
+
+3
+00:00:06,390 --> 00:00:08,770
+In this lesson, we'll inspect a real Agent
+
+4
+00:00:08,770 --> 00:00:12,230
+experiment, restore its checkpoint, and
+compare the result
+
+5
+00:00:12,230 --> 00:00:13,930
+with a targeted Git recovery.
+
+6
+00:00:14,610 --> 00:00:17,190
+We'll track the code, a manual note, and
+
+7
+00:00:17,190 --> 00:00:19,570
+a tiny file created by a terminal command.
+
+8
+00:00:20,150 --> 00:00:22,770
+The useful skill is explaining what changed,
+what
+
+9
+00:00:22,770 --> 00:00:24,550
+survived, and how you checked it.
+
+10
+00:00:26,750 --> 00:00:30,230
+Start by naming the state. Cursor checkpoints
+support
+
+11
+00:00:30,230 --> 00:00:31,750
+local Agent exploration.
+
+12
+00:00:32,670 --> 00:00:35,950
+Git gives us committed snapshots we can
+identify and compare.
+
+13
+00:00:37,030 --> 00:00:39,730
+Commands can also affect files and services
+beyond the
+
+14
+00:00:39,730 --> 00:00:40,610
+edit we're reviewing.
+
+15
+00:00:41,130 --> 00:00:42,510
+Those are separate things to check.
+
+16
+00:00:43,210 --> 00:00:46,610
+Before recovering anything, inspect the
+current diff and
+
+17
+00:00:46,610 --> 00:00:48,250
+preserve work you may want later.
+
+18
+00:00:48,890 --> 00:00:51,310
+Then choose the operation that matches the
+state
+
+19
+00:00:51,310 --> 00:00:52,990
+you actually intend to restore.
+
+20
+00:00:55,483 --> 00:00:57,763
+Here's our dedicated recovery checkout.
+
+21
+00:00:58,543 --> 00:01:01,003
+I'm adding a manual note before asking Agent
+
+22
+00:01:01,003 --> 00:01:01,963
+to change the code.
+
+23
+00:01:02,523 --> 00:01:04,823
+The sentence gives us something concrete to
+track.
+
+24
+00:01:05,383 --> 00:01:07,383
+Preserve this sentence during the experiment.
+
+25
+00:01:08,003 --> 00:01:09,843
+It lives in a different file from the
+
+26
+00:01:09,843 --> 00:01:11,043
+implementation and tests.
+
+27
+00:01:11,723 --> 00:01:14,243
+That distinction matters because we want to
+observe
+
+28
+00:01:14,243 --> 00:01:17,003
+the recovery boundary instead of assuming that
+every
+
+29
+00:01:17,003 --> 00:01:19,343
+file in the workspace will behave the same
+way.
+
+30
+00:01:21,817 --> 00:01:24,737
+The terminal shows our baseline commit and the
+
+31
+00:01:24,737 --> 00:01:26,157
+current working tree status.
+
+32
+00:01:26,677 --> 00:01:27,997
+Only the note is modified.
+
+33
+00:01:28,617 --> 00:01:30,897
+Its diff contains the sentence we just wrote.
+
+34
+00:01:31,477 --> 00:01:34,297
+The implementation and tests still match the
+committed
+
+35
+00:01:34,297 --> 00:01:36,777
+starting point and the targeted checks pass.
+
+36
+00:01:37,437 --> 00:01:38,697
+Save that starting evidence.
+
+37
+00:01:39,397 --> 00:01:42,197
+After the experiment, three modified files
+will have
+
+38
+00:01:42,197 --> 00:01:42,997
+different origins.
+
+39
+00:01:43,677 --> 00:01:46,077
+One edit was already ours, while two files
+
+40
+00:01:46,077 --> 00:01:47,497
+will contain the Agent's changes.
+
+41
+00:01:51,283 --> 00:01:54,143
+Ask Agent to explore one display change.
+
+42
+00:01:54,823 --> 00:01:57,883
+Open requests should say Needs review instead
+of
+
+43
+00:01:57,883 --> 00:01:58,823
+Awaiting review.
+
+44
+00:01:59,623 --> 00:02:02,723
+Update the contract comment and matching test
+expectations,
+
+45
+00:02:03,083 --> 00:02:05,603
+preserving all nine tests and the other
+behavior.
+
+46
+00:02:06,303 --> 00:02:07,983
+Keep the manual note untouched.
+
+47
+00:02:08,743 --> 00:02:10,703
+We also ask for a tiny marker file
+
+48
+00:02:10,703 --> 00:02:12,823
+through the terminal outside the repository.
+
+49
+00:02:13,463 --> 00:02:15,763
+That marker will help us check whether a
+
+50
+00:02:15,763 --> 00:02:20,003
+file recovery operation also reverses this
+particular command's effect.
+
+51
+00:02:22,483 --> 00:02:25,583
+The real Agent reads the current work, edits
+
+52
+00:02:25,583 --> 00:02:28,503
+the label and its expectations, then runs the
+
+53
+00:02:28,503 --> 00:02:30,023
+focused tests and type check.
+
+54
+00:02:30,563 --> 00:02:33,083
+It also creates the marker through a terminal
+command.
+
+55
+00:02:33,723 --> 00:02:35,523
+Watch those as distinct actions.
+
+56
+00:02:36,163 --> 00:02:38,343
+Changing source code and running a command can
+
+57
+00:02:38,343 --> 00:02:41,023
+both happen in one conversation, but they
+don't
+
+58
+00:02:41,023 --> 00:02:43,223
+automatically share one recovery mechanism.
+
+59
+00:02:43,643 --> 00:02:46,423
+The task stays inside our isolated course
+environment
+
+60
+00:02:46,423 --> 00:02:49,263
+with no database or remote changes requested.
+
+61
+00:02:51,617 --> 00:02:55,477
+The implementation diff changes the contract
+comment and
+
+62
+00:02:55,477 --> 00:02:57,177
+the exact open label branch.
+
+63
+00:02:57,897 --> 00:03:01,257
+The unknown value fallback, batch mapping, and
+permission
+
+64
+00:03:01,257 --> 00:03:02,737
+helper remain unchanged.
+
+65
+00:03:03,657 --> 00:03:05,957
+The Agent reports nine passing tests.
+
+66
+00:03:06,577 --> 00:03:09,537
+That's useful evidence for this experiment,
+but green
+
+67
+00:03:09,537 --> 00:03:12,397
+tests don't decide whether we want to keep the
+experiment.
+
+68
+00:03:13,037 --> 00:03:15,957
+The expected label now matches the experiment.
+
+69
+00:03:16,497 --> 00:03:18,597
+The test suite agrees with the new wording.
+
+70
+00:03:21,150 --> 00:03:24,170
+Look at the expected values in the batch
+tests.
+
+71
+00:03:24,970 --> 00:03:28,290
+Mixed inputs, duplicates, and the frozen array
+result
+
+72
+00:03:28,290 --> 00:03:31,930
+now use Needs review where an open status
+appears.
+
+73
+00:03:32,770 --> 00:03:35,690
+Unknown values and rejected labels still have
+their
+
+74
+00:03:35,690 --> 00:03:39,130
+existing expectations and empty input stays
+empty.
+
+75
+00:03:39,850 --> 00:03:41,890
+Both files describe the same experiment.
+
+76
+00:03:42,650 --> 00:03:46,390
+Before recovery, we've preserved the actual
+diff, so
+
+77
+00:03:46,390 --> 00:03:50,470
+the experiment remains inspectable even after
+its files change again.
+
+78
+00:03:52,917 --> 00:03:55,977
+The curved arrow attached to our request opens
+
+79
+00:03:55,977 --> 00:03:57,237
+the checkpoint confirmation.
+
+80
+00:03:58,097 --> 00:04:00,637
+In this version, the dialog asks whether to
+
+81
+00:04:00,637 --> 00:04:02,777
+discard changes up to that checkpoint.
+
+82
+00:04:03,497 --> 00:04:05,977
+Read the control you're actually using and
+keep
+
+83
+00:04:05,977 --> 00:04:08,137
+the current diff somewhere you can inspect
+later.
+
+84
+00:04:08,937 --> 00:04:11,617
+We leave the confirmation enabled and continue
+with
+
+85
+00:04:11,617 --> 00:04:12,897
+this isolated experiment.
+
+86
+00:04:13,417 --> 00:04:15,437
+A familiar icon is a starting point for
+
+87
+00:04:15,437 --> 00:04:18,417
+inspection, not a substitute for understanding
+the scope.
+
+88
+00:04:20,683 --> 00:04:23,823
+The open label is back to Awaiting review
+
+89
+00:04:23,823 --> 00:04:26,323
+and the experimental highlights disappear.
+
+90
+00:04:27,323 --> 00:04:30,483
+Notice that the conversation still contains
+the earlier report.
+
+91
+00:04:31,103 --> 00:04:34,343
+That report describes the experiment before we
+restored it.
+
+92
+00:04:34,703 --> 00:04:36,723
+It is not a live statement of the
+
+93
+00:04:36,723 --> 00:04:37,723
+current working tree.
+
+94
+00:04:38,443 --> 00:04:39,743
+This is an easy trap.
+
+95
+00:04:40,303 --> 00:04:43,103
+The files changed while the written
+explanation stayed.
+
+96
+00:04:43,843 --> 00:04:46,383
+After recovery, read the actual state again.
+
+97
+00:04:48,850 --> 00:04:52,410
+Run Git status and inspect the note. Only
+
+98
+00:04:52,410 --> 00:04:55,350
+the manual note remains modified and its
+sentence
+
+99
+00:04:55,350 --> 00:04:58,450
+is still there. The implementation and test
+files
+
+100
+00:04:58,450 --> 00:05:01,670
+match their contents before the Agent request.
+The
+
+101
+00:05:01,670 --> 00:05:05,110
+baseline commit is unchanged, too. In this
+experiment,
+
+102
+00:05:05,110 --> 00:05:08,250
+the checkpoint recovered the Agent's file
+edits while
+
+103
+00:05:08,250 --> 00:05:11,110
+preserving the note that already existed. Keep
+that
+
+104
+00:05:11,110 --> 00:05:13,550
+claim specific to the state we established and
+
+105
+00:05:13,550 --> 00:05:14,650
+the result we verified.
+
+106
+00:05:17,117 --> 00:05:19,897
+Now read the marker from the temporary
+directory.
+
+107
+00:05:20,537 --> 00:05:21,217
+It's still there.
+
+108
+00:05:21,857 --> 00:05:24,817
+The terminal command created that file outside
+our
+
+109
+00:05:24,817 --> 00:05:28,417
+repository and restoring this checkpoint did
+not remove it.
+
+110
+00:05:28,817 --> 00:05:30,777
+That's a concrete boundary we can observe.
+
+111
+00:05:31,437 --> 00:05:34,297
+We haven't tested every possible command or
+service.
+
+112
+00:05:34,857 --> 00:05:37,717
+The lesson is to check external effects
+independently.
+
+113
+00:05:38,577 --> 00:05:41,237
+A source file returning to an earlier version
+
+114
+00:05:41,237 --> 00:05:44,277
+does not prove that a process, database, or
+
+115
+00:05:44,277 --> 00:05:45,917
+remote operation was reversed.
+
+116
+00:05:48,483 --> 00:05:51,803
+Run the status tests again, followed by the
+type check.
+
+117
+00:05:52,563 --> 00:05:55,123
+All nine tests pass on the recovered files.
+
+118
+00:05:55,863 --> 00:05:58,483
+We also compared the actual contents with the
+
+119
+00:05:58,483 --> 00:06:00,223
+saved state from before the request.
+
+120
+00:06:01,103 --> 00:06:03,023
+Those checks answer different questions.
+
+121
+00:06:03,463 --> 00:06:06,363
+The comparison tells us which files returned,
+while
+
+122
+00:06:06,363 --> 00:06:08,423
+the tests check their expected behavior.
+
+123
+00:06:09,203 --> 00:06:12,023
+The preserved manual note and the remaining
+marker
+
+124
+00:06:12,023 --> 00:06:14,383
+are part of the outcome, not clutter to
+
+125
+00:06:14,383 --> 00:06:15,343
+hide from the result.
+
+126
+00:06:17,783 --> 00:06:21,343
+For the Git comparison, make a deliberate
+manual edit.
+
+127
+00:06:21,863 --> 00:06:24,583
+Change the unknown value fallback to No label,
+
+128
+00:06:24,883 --> 00:06:27,163
+leaving the comment and tests unchanged.
+
+129
+00:06:27,863 --> 00:06:30,623
+This is a prepared mistake in our disposable
+checkout.
+
+130
+00:06:31,463 --> 00:06:34,763
+The earlier checkpoint experiment is already
+undone.
+
+131
+00:06:35,323 --> 00:06:37,463
+Now the source has a new manual change,
+
+132
+00:06:37,883 --> 00:06:40,203
+and the note still has its earlier sentence.
+
+133
+00:06:40,823 --> 00:06:43,543
+We want to recover this one implementation
+file
+
+134
+00:06:43,543 --> 00:06:44,723
+from the committed baseline.
+
+135
+00:06:47,150 --> 00:06:50,870
+The focused diff shows exactly the fallback
+replacement.
+
+136
+00:06:51,570 --> 00:06:55,490
+Our tests still expect Unknown status for
+unrecognized values.
+
+137
+00:06:56,250 --> 00:06:59,270
+Before restoring the file, preserve the
+current changes
+
+138
+00:06:59,270 --> 00:07:01,090
+in a patch outside the checkout.
+
+139
+00:07:01,970 --> 00:07:04,830
+Git restore will replace contents in the path
+we select.
+
+140
+00:07:05,630 --> 00:07:07,510
+Naming a source and a path makes the
+
+141
+00:07:07,510 --> 00:07:10,050
+operation easier to review, but it doesn't
+make
+
+142
+00:07:10,050 --> 00:07:11,770
+the current contents worth forgetting.
+
+143
+00:07:14,283 --> 00:07:17,743
+Run the full status test file before
+recovering anything.
+
+144
+00:07:18,623 --> 00:07:20,423
+Six tests pass and three fail.
+
+145
+00:07:21,143 --> 00:07:24,463
+The summary identifies the affected
+expectations and the
+
+146
+00:07:24,463 --> 00:07:26,703
+first failure shows the mismatch directly.
+
+147
+00:07:27,663 --> 00:07:28,503
+Actual: No label.
+
+148
+00:07:28,983 --> 00:07:30,543
+Expected: Unknown status.
+
+149
+00:07:31,223 --> 00:07:33,903
+We have a specific observed failure caused by
+
+150
+00:07:33,903 --> 00:07:34,903
+our manual change.
+
+151
+00:07:35,663 --> 00:07:37,523
+Keep the expectations intact.
+
+152
+00:07:38,183 --> 00:07:41,323
+We're recovering the implementation to the
+committed contract,
+
+153
+00:07:41,323 --> 00:07:44,803
+so rewriting the tests would answer a
+different question.
+
+154
+00:07:47,250 --> 00:07:49,450
+Read the command before running it.
+
+155
+00:07:49,970 --> 00:07:51,990
+The source is HEAD, our current commit.
+
+156
+00:07:52,570 --> 00:07:55,130
+The destination is the working tree, and the
+
+157
+00:07:55,130 --> 00:07:57,310
+path is only the status implementation.
+
+158
+00:07:57,950 --> 00:07:59,590
+The staging area is left alone.
+
+159
+00:08:00,230 --> 00:08:02,830
+Now run the restore and inspect Git status.
+
+160
+00:08:03,570 --> 00:08:06,030
+Only the separate manual note remains
+modified.
+
+161
+00:08:06,710 --> 00:08:08,730
+The focused source diff is empty.
+
+162
+00:08:09,310 --> 00:08:11,790
+We also compare the saved file contents and
+
+163
+00:08:11,790 --> 00:08:14,610
+revision independently so we can explain the
+state
+
+164
+00:08:14,610 --> 00:08:15,730
+we actually recovered.
+
+165
+00:08:18,217 --> 00:08:19,557
+Read the note again.
+
+166
+00:08:20,137 --> 00:08:21,557
+The earlier sentence remains.
+
+167
+00:08:22,377 --> 00:08:24,997
+Now rerun the status suite and the type check.
+
+168
+00:08:25,657 --> 00:08:28,217
+All nine tests pass, and the type check
+
+169
+00:08:28,217 --> 00:08:29,237
+completes successfully.
+
+170
+00:08:29,957 --> 00:08:31,837
+The source matches our committed baseline.
+
+171
+00:08:32,397 --> 00:08:34,917
+The tests were never rewritten for this manual
+mistake.
+
+172
+00:08:35,717 --> 00:08:37,337
+That gives us a useful sequence.
+
+173
+00:08:38,157 --> 00:08:40,917
+Inspect the change, observe the failure,
+preserve the
+
+174
+00:08:40,917 --> 00:08:44,557
+patch, recover one path, and verify the
+resulting behavior.
+
+175
+00:08:44,557 --> 00:08:47,657
+The command is only one step in that sequence.
+
+176
+00:08:50,217 --> 00:08:54,117
+This original model separates the committed
+tree, staged
+
+177
+00:08:54,117 --> 00:08:55,897
+contents, and working files.
+
+178
+00:08:56,597 --> 00:08:59,997
+The example gives the implementation a
+different value in each.
+
+179
+00:09:00,777 --> 00:09:03,197
+Choose the committed tree as the source, the
+
+180
+00:09:03,197 --> 00:09:06,057
+working tree as the destination, and only the
+
+181
+00:09:06,057 --> 00:09:07,157
+implementation path.
+
+182
+00:09:07,777 --> 00:09:08,777
+Apply it to the model.
+
+183
+00:09:09,517 --> 00:09:12,077
+The working value returns to Awaiting review.
+
+184
+00:09:12,737 --> 00:09:15,677
+The staged value and the manual note stay as
+they were.
+
+185
+00:09:16,217 --> 00:09:18,757
+No command executes in your repository here.
+
+186
+00:09:21,183 --> 00:09:24,563
+Reset the example and choose the index as the
+source.
+
+187
+00:09:25,383 --> 00:09:28,143
+Restoring only the working file now copies the
+
+188
+00:09:28,143 --> 00:09:31,923
+staged value, Needs review, instead of the
+committed value.
+
+189
+00:09:32,463 --> 00:09:34,523
+That's why the source matters when the index
+
+190
+00:09:34,523 --> 00:09:35,543
+differs from the commit.
+
+191
+00:09:36,143 --> 00:09:39,203
+You can also explore explicit staging
+destinations with
+
+192
+00:09:39,203 --> 00:09:40,023
+the committed source.
+
+193
+00:09:41,023 --> 00:09:44,483
+Predict the affected cells first, then compare
+the result.
+
+194
+00:09:45,083 --> 00:09:48,503
+This simplified model covers tracked files not
+every
+
+195
+00:09:48,503 --> 00:09:50,083
+situation Git can represent.
+
+196
+00:09:52,650 --> 00:09:54,650
+Save a short recovery record.
+
+197
+00:09:55,250 --> 00:09:58,410
+Identify the starting revision, the operation,
+its intended
+
+198
+00:09:58,410 --> 00:10:00,550
+scope, and what you actually observed.
+
+199
+00:10:01,230 --> 00:10:03,890
+For our checkpoint experiment, the code and
+tests
+
+200
+00:10:03,890 --> 00:10:06,950
+returned, the manual note remained, and the
+terminal
+
+201
+00:10:06,950 --> 00:10:08,090
+marker still existed.
+
+202
+00:10:08,650 --> 00:10:11,850
+We checked the files, Git state, and tests
+separately.
+
+203
+00:10:12,470 --> 00:10:15,530
+A useful record connects the recovery action
+to
+
+204
+00:10:15,530 --> 00:10:18,930
+evidence, including state that didn't change
+and limits
+
+205
+00:10:18,930 --> 00:10:19,790
+we haven't tested.
+
+206
+00:10:22,350 --> 00:10:26,090
+Clone the supplied practice snapshot and
+record its baseline.
+
+207
+00:10:26,610 --> 00:10:28,010
+Make two separate edits.
+
+208
+00:10:28,350 --> 00:10:30,430
+Change a display label and add a note.
+
+209
+00:10:31,070 --> 00:10:34,290
+Inspect the diff and preserve a patch outside
+the checkout.
+
+210
+00:10:34,890 --> 00:10:38,170
+Then restore only the implementation from the
+committed tree.
+
+211
+00:10:38,810 --> 00:10:41,530
+Verify that your note remains and rerun the
+checks.
+
+212
+00:10:42,370 --> 00:10:46,510
+Explain the source, destination, and path
+before pressing Enter.
+
+213
+00:10:47,070 --> 00:10:49,670
+The exercise is complete when the resulting
+state
+
+214
+00:10:49,670 --> 00:10:50,710
+matches your prediction.
+
+215
+00:10:53,317 --> 00:10:56,157
+You now have two recovery routes you can
+explain.
+
+216
+00:10:56,717 --> 00:10:59,437
+A checkpoint can help with local Agent
+exploration.
+
+217
+00:11:00,437 --> 00:11:03,157
+Git can restore named paths from a committed
+state.
+
+218
+00:11:03,937 --> 00:11:06,737
+Neither a familiar button nor an old
+conversation
+
+219
+00:11:06,737 --> 00:11:08,537
+report proves the current result.
+
+220
+00:11:09,277 --> 00:11:10,777
+Inspect before and after.
+
+221
+00:11:11,217 --> 00:11:13,057
+Keep the work you may need, and check
+
+222
+00:11:13,057 --> 00:11:14,437
+external effects separately.
+
+223
+00:11:14,957 --> 00:11:16,857
+Before the next lesson, name one piece of
+
+224
+00:11:16,857 --> 00:11:20,017
+state you'd verify independently after
+restoring an Agent experiment.
