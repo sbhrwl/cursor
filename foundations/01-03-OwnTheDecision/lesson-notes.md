@@ -1,5 +1,9 @@
 # 01.03 — Who owns the decision?
-- [interactive-ownership](https://sbhrwl.github.io/cursor/foundations/01-03-OwnTheDecision/interactive-ownership.html)
+- [Overview](#overview)
+  - [interactive-ownership](https://sbhrwl.github.io/cursor/foundations/01-03-OwnTheDecision/interactive-ownership.html)
+  - [Cursor Plan Mode](https://cursor.com/docs/agent/plan-mode)
+  - [Reviewing and testing](https://cursor.com/learn/reviewing-testing)
+  - [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
 - [Start with the actual baseline](#start-with-the-actual-baseline)
 - [Responsibility and contribution](#responsibility-and-contribution)
 - [The course example](#the-course-example)
@@ -7,7 +11,8 @@
 - [Acceptance evidence](#acceptance-evidence)
 - [Exercise](#exercise)
 - [Files](#files)
-- By the end of this lesson, you should be able to turn an ambiguous feature request into a bounded engineering brief with explicit decisions, delegated work, and acceptance evidence.
+## Overview
+- We shall be able to turn an ambiguous feature request into a `bounded engineering brief` with `explicit decisions`, `delegated work`, and `acceptance evidence`.
 ## Start with the actual baseline
 - The recorded Operations Hub has a health endpoint and a synthetic request-list endpoint. 
 - It has no approval mutation, authenticated identity, or enforced tenant authorization. 
@@ -27,12 +32,13 @@
 | Implementation | How should the bounded change be built? | Edit, inspect, execute meaningful checks, and report results |
 | Acceptance | Does the evidence justify accepting the change? | Assemble results; help identify gaps and challenge conclusions |
 
-- These are roles, not necessarily four people. Delegation should make authority and constraints explicit. 
+- These are roles, not necessarily four people.
+  - Delegation should make authority and constraints explicit. 
   - Routine choices can stay delegated. 
   - A material policy or operational tradeoff needs the designated decision owner.
 - Cursor supports preparing a plan that can be reviewed and edited before implementation. 
   - Our decision brief is useful input to that process. 
-- [Cursor Plan Mode](https://cursor.com/docs/agent/plan-mode).
+
 ## The course example
 - Open [`approval-decision-contract.md`](approval-decision-contract.md). 
   - Its policy is a proposed behavior for future implementation. 
@@ -45,7 +51,7 @@
   - If the audit write fails after the first independent write commits, a partial outcome can remain. 
   - A failed transaction can roll back both database changes. 
   - This illustrates atomicity, while authorization, retry behavior, and concurrency still need their own design. 
-  - [PostgreSQL transactions](https://www.postgresql.org/docs/current/tutorial-transactions.html).
+    - [PostgreSQL transactions](https://www.postgresql.org/docs/current/tutorial-transactions.html).
 - The interactive example is conceptual. 
   - It does not execute SQL or modify the running application.
 ## Acceptance evidence
@@ -56,9 +62,7 @@
 - Review test expectations against requirements. 
   - Passing a happy-path test is insufficient evidence for every permission case. 
   - Cursor's review guidance also emphasizes that passing tests can miss incorrect expectations or edge cases. 
-    - [Reviewing and testing](https://cursor.com/learn/reviewing-testing). 
-  - Authorization needs correctly placed enforcement and relevant verification. 
-    - [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html).
+  - Authorization needs correctly placed enforcement and relevant verification.
 ## Exercise
 - Use `interactive-ownership.html` to assign responsibility for approval policy, write consistency, helper naming, and acceptance.
   - For each decision, write the agent's contribution and the information the responsible person needs. 
