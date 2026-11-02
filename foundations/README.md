@@ -9,18 +9,18 @@
 - [Running the app](#running-the-app)
 ## Takeaways
 - Distinguish `a claim`, `an observation`, and `a justified conclusion`
-- Connect a running behavior to `code`, `a check`, and `a specific revision`.
+  - Connect a running behavior to `code`, `a check`, and `a specific revision`.
+- We shall be able to choose an `evidence-producing investigation` when an `agent task fails`.
+  - Carry forward
+    - Before retrying a failed task, write: 
+      - `observed result` → `working hypothesis` → `next check`. 
+- We shall be able to turn an ambiguous feature request into a `bounded engineering brief` with `explicit decisions`, `delegated work`, and `acceptance evidence`.
 - Recurring workflow
   - `Understand → plan → build → verify → integrate`.
   - Return to the step that needs better information when a check fails.
   - A useful loop needs `a signal` and `a stopping condition`.
-- Carry forward
-  - Before retrying a failed task, write: 
-    - `observed result` → `working hypothesis` → `next check`. 
-- We shall be able to turn an ambiguous feature request into a `bounded engineering brief` with `explicit decisions`, `delegated work`, and `acceptance evidence`.
-- Turn an ambiguous feature request into a `bounded engineering brief` with `explicit decisions`, `delegated work`, and `acceptance evidence`.
-- Use Cursor to take a bounded HTTP behavior change through `understand`, `plan`, `build`, `verify`, and `integrate`. 
-  - Explain the evidence produced at each stage and why a failed observation may send you back.
+- We shall be able to `express a small requirement` as a `response assertion`, `read a meaningful failure`, `guide a bounded Cursor edit`, and `explain the limits of the resulting evidence`.
+- Produce a short, `reproducible evidence trail`, then `choose one concrete practice goal`.
 - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
 - [interactive-ownership](https://sbhrwl.github.io/cursor/foundations/01-03-OwnTheDecision/interactive-ownership.html)
