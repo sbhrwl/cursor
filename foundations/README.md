@@ -17,6 +17,7 @@
 - Carry forward
   - Before retrying a failed task, write: 
     - `observed result` → `working hypothesis` → `next check`. 
+- We shall be able to turn an ambiguous feature request into a `bounded engineering brief` with `explicit decisions`, `delegated work`, and `acceptance evidence`.
 - Turn an ambiguous feature request into a `bounded engineering brief` with `explicit decisions`, `delegated work`, and `acceptance evidence`.
 - Use Cursor to take a bounded HTTP behavior change through `understand`, `plan`, `build`, `verify`, and `integrate`. 
   - Explain the evidence produced at each stage and why a failed observation may send you back.
