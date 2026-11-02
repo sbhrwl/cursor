@@ -16,10 +16,14 @@
   - Before retrying a failed task, write: 
     - `observed result` → `working hypothesis` → `next check`. 
 - Turn an ambiguous feature request into a `bounded engineering brief` with `explicit decisions`, `delegated work`, and `acceptance evidence`.
+- Use Cursor to take a bounded HTTP behavior change through `understand`, `plan`, `build`, `verify`, and `integrate`. 
+  - Explain the evidence produced at each stage and why a failed observation may send you back.
 - [interactive-checkpoint](https://sbhrwl.github.io/cursor/foundations/01-01-StartWithEvidence/interactive-checkpoint.html)
 - [interactive-diagnostic-map](https://sbhrwl.github.io/cursor/foundations/01-02-ModelContextToolsRuntime/interactive-diagnostic-map.html)
 - [interactive-ownership](https://sbhrwl.github.io/cursor/foundations/01-03-OwnTheDecision/interactive-ownership.html)
-
+- [interactive-workflow](https://sbhrwl.github.io/cursor/foundations/01-04-WorkflowLoop/interactive-workflow.html)
+- [interactive-health-contract](https://sbhrwl.github.io/cursor/foundations/01-05-ChangeWithObservableBehaviour/interactive-health-contract.html)
+- [interactive-assessment](https://sbhrwl.github.io/cursor/foundations/01-06-EntryAssessment/interactive-assessment.html)
 ---
 - [Cursor Agent overview](https://cursor.com/docs/agent/overview)
 - [Cursor prompting](https://cursor.com/docs/agent/prompting)
